@@ -1,6 +1,9 @@
 [package]
 name = "jd"
+description = "A command line interface for interacting with Johnny Decimal systems."
 version = "0.1.0"
+authors = ["Copyright (C) 2023 Donovan Glover <https://donovan.is/>"]
+repository = "https://github.com/donovanglover/jd"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
