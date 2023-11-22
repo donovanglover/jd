@@ -1,6 +1,6 @@
 # jd
 
-A command line interface for interacting with Johnny Decimal systems.
+A command line interface for interacting with [Johnny Decimal](https://johnnydecimal.com/) systems.
 
 ## Features
 
