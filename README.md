@@ -41,6 +41,18 @@ cargo install --git https://github.com/donovanglover/jd --tag 0.1.0
 ## Usage
 
 ```man
+Usage: jd [OPTIONS] [COMMAND]
+
+Commands:
+  add     Add a new area, category, or id
+  remove  Remove an existing area, category, or id
+  ls      List the contents of an area, category, or id
+  help    Print this message or the help of the given subcommand(s)
+
+Options:
+  -v, --verbose  Print debugging information
+  -h, --help     Print help (see more with '--help')
+  -V, --version  Print version
 ```
 
 ## Contributing
