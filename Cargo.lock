@@ -222,6 +222,7 @@ dependencies = [
  "clap",
  "clap_complete",
  "clap_mangen",
+ "regex",
  "rustympkglib",
  "serde",
  "toml",
