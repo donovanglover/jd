@@ -5,7 +5,7 @@ pkgrel=1
 pkgdesc="A command line interface for interacting with Johnny Decimal systems"
 arch=('x86_64')
 url="https://github.com/donovanglover/jd"
-# license=('')
+license=('AGPL3')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/donovanglover/$pkgname/archive/$pkgver.tar.gz")
@@ -28,5 +28,5 @@ package() {
   install -Dm644 "target/man/jd.1" "$pkgdir/usr/share/man/man1/jd.1"
 
   install -Dm644 "README.md" "$pkgdir/usr/share/doc/$pkgname/README.md"
-  # install -Dm644 "LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 "LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }

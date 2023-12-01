@@ -4,6 +4,7 @@ description = "A command line interface for interacting with Johnny Decimal syst
 version = "0.1.0"
 authors = ["Copyright (C) 2023 Donovan Glover <https://donovan.is/>"]
 repository = "https://github.com/donovanglover/jd"
+license = "AGPL-3.0-or-later"
 edition = "2021"
 
 [dependencies]
