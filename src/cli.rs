@@ -15,6 +15,10 @@ fn styles() -> Styles {
 #[derive(Parser)]
 #[command(author, version, about, long_about = LONG_ABOUT, styles = styles())]
 pub struct Cli {
+    /// Directory where areas are stored.
+    #[arg(short, long, default_value = "$HOME")]
+    pub dir: PathBuf,
+
     /// Print debugging information
     #[arg(short, long, default_value_t = false)]
     pub verbose: bool,
