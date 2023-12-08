@@ -8,16 +8,21 @@ fn main() {
 
     match &cli.command {
         Some(Commands::Add { name }) => {
-            println!("{:?}", name)
+            println!("{:?}", name);
         },
+
         Some(Commands::Remove { name }) => {
             println!("{:?}", name)
         },
+
         Some(Commands::Ls { name }) => {
-            println!("{:?}", name)
+            jd::list_areas();
         },
+
         None => {
-            println!("none")
-        }
+            jd::list_areas();
+        },
+
+        _ => todo!()
     }
 }
