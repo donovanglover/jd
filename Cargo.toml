@@ -1,27 +1,15 @@
-[package]
-name = "jd"
+[workspace.package]
 description = "A command line interface for interacting with Johnny Decimal systems."
 version = "0.1.0"
 authors = ["Copyright (C) 2023 Donovan Glover <https://donovan.is/>"]
 repository = "https://github.com/donovanglover/jd"
 license = "AGPL-3.0-or-later"
 edition = "2021"
+publish = false
 
-[dependencies]
-clap = { version = "4.4.8", features = ["derive"] }
-colored = "2.0.4"
-regex = "1.10.2"
-
-# server
-rocket = "0.5.0"
-
-[build-dependencies]
-clap = { version = "4.4.8", features = ["derive"] }
-clap_complete = "4.4.4"
-clap_mangen = "0.2.15"
-
-[dev-dependencies]
-assert_cmd = "2.0.12"
-rustympkglib = "0.1.1"
-serde = "1.0.193"
-toml = "0.8.8"
+[workspace]
+resolver = "2"
+members = [
+  "cli",
+  "jd",
+]
