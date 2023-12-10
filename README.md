@@ -1,6 +1,6 @@
 # jd
 
-A command line interface for interacting with [Johnny Decimal](https://johnnydecimal.com/) systems.
+A CLI and web server for interacting with [Johnny Decimal](https://johnnydecimal.com/) systems.
 
 ## Features
 
