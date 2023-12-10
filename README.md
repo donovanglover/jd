@@ -57,7 +57,7 @@ Options:
 
 ## Contributing
 
-This software should be bug free, however contributions are welcome. Remember to write tests for any new functionality and ensure that all existing tests pass.
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Todo
 
