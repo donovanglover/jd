@@ -1,0 +1,12 @@
+[package]
+name = "cli"
+version.workspace = true
+authors.workspace = true
+repository.workspace = true
+license.workspace = true
+edition.workspace = true
+publish.workspace = true
+
+[dependencies]
+jd = { path = "../jd" }
+clap = { version = "4.4.8", features = ["derive"] }

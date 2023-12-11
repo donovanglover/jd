@@ -2,18 +2,17 @@ use clap::Parser;
 use cli::{Cli, Commands};
 
 mod cli;
-mod server;
 
 fn main() {
     let cli = Cli::parse();
 
     match &cli.command {
         Some(Commands::Add { name }) => {
-            println!("{:?}", name);
+            commands::add::with_name(name);
         },
 
         Some(Commands::Remove { name }) => {
-            println!("{:?}", name)
+            // commands::remove::exec();
         },
 
         Some(Commands::Ls { name }) => {
