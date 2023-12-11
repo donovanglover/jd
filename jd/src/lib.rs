@@ -78,16 +78,24 @@ pub fn get_area(str: &str) -> Result<Area, &'static str> {
         return Err("Given area is too short to follow a0-a9")
     }
 
-    if !chars[0].is_ascii_digit() || chars[1] != '0' {
-        return Err("Given area does not have valid starting digits a0")
+    if !chars[0].is_ascii_digit() {
+        return Err("Given area does not have valid starting digit a in a0")
+    }
+
+    if chars[1] != '0' {
+        return Err("Given area does not have a starting digit that ends in 0 in a0-a9")
     }
 
     if chars[2] != '-' {
         return Err("Given area does not have dash separator in a0-a9")
     }
 
-    if chars[3] != chars[0] || !chars[4].is_ascii_digit() {
-        return Err("Given area does not have valid ending digits a9")
+    if chars[3] != chars[0] {
+        return Err("Given area does not have an ending digit equal to a in a0-a9")
+    }
+
+    if chars[4] != '9' {
+        return Err("Given area does not end with 9 in a0-a9")
     }
 
     if chars.len() < 6 {
