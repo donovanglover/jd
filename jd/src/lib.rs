@@ -6,26 +6,24 @@ pub enum Acid {
 
 #[derive(Debug, Default)]
 pub struct Area {
-    area: String,
-    name: String,
+    pub area: String,
+    pub name: String,
 }
 
 #[derive(Debug, Default)]
 pub struct Category {
-    area: String,
-    category: String,
-    name: String,
+    pub area: String,
+    pub category: String,
+    pub name: String,
 }
 
 /// An `id`, also known as a `JohnnyDecimal` number or an `ACID` (Area Category ID) number
 #[derive(Debug, Default)]
 pub struct Id {
-    area: String,
-    category: String,
-    id: String,
-    name: String,
-    // acid: &'static str,
-    // name: &'static str,
+    pub area: String,
+    pub category: String,
+    pub id: String,
+    pub name: String,
 }
 
 impl Area {
