@@ -77,6 +77,12 @@ impl Area {
     }
 }
 
+impl PartialEq for Area {
+    fn eq(&self, other: &Area) -> bool {
+        self.area == other.area
+    }
+}
+
 impl Category {
     pub fn from_str(str: &str) -> Result<Self, &'static str> {
         let chars: Vec<char> = str.chars().collect();
@@ -102,6 +108,12 @@ impl Category {
             area: [chars[0], '0', '-', chars[0], '9'].into_iter().collect(),
             name: chars[3..chars.len()].into_iter().collect(),
         })
+    }
+}
+
+impl PartialEq for Category {
+    fn eq(&self, other: &Category) -> bool {
+        self.category == other.category
     }
 }
 
@@ -146,24 +158,42 @@ impl Id {
     }
 }
 
+impl PartialEq for Id {
+    fn eq(&self, other: &Id) -> bool {
+        self.id == other.id
+    }
+}
+
 impl Index {
     pub fn from_str(str: &str) -> Result<Index, &str> {
-        let mut areas = vec![];
-        let mut categories = vec![];
-        let mut ids = vec![];
+        let mut areas: Vec<Area> = vec![];
+        let mut categories: Vec<Category> = vec![];
+        let mut ids: Vec<Id> = vec![];
 
         for line in str.lines() {
             let line = line.trim_start_matches(' ');
 
             if let Ok(id) = Id::from_str(line) {
+                if ids.contains(&id) {
+                    return Err("Duplicate ids are not allowed");
+                }
+
                 ids.push(id);
             }
 
             if let Ok(category) = Category::from_str(line) {
+                if categories.contains(&category) {
+                    return Err("Duplicate categories are not allowed");
+                }
+
                 categories.push(category);
             }
 
             if let Ok(area) = Area::from_str(line) {
+                if areas.contains(&area) {
+                    return Err("Duplicate areas are not allowed");
+                }
+
                 areas.push(area);
             }
         }
