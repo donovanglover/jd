@@ -2,21 +2,28 @@ use jd::Category;
 
 #[test]
 fn test_category() {
-    assert!(Category::from_str("11 Category").is_ok());
-    assert!(Category::from_str("120 Category").is_err());
-    assert!(Category::from_str("20-29 Category").is_err());
-    assert!(Category::from_str("9 Category").is_err());
-    assert!(Category::from_str("54").is_err());
-    assert!(Category::from_str("82 ").is_err());
+    assert!(Category::from_str("").is_err(), "should fail if empty");
+    assert!(Category::from_str("5").is_err(), "should fail if too short");
+    assert!(Category::from_str("x3 Test").is_err(), "should fail if first character is not a digit");
+    assert!(Category::from_str("4x Test").is_err(), "should fail if second character is not a digit");
+    assert!(Category::from_str("24.Test Category").is_err(), "should fail if no space between category and name");
+    assert!(Category::from_str("7 Test").is_err(), "should fail if 1 digit");
+    assert!(Category::from_str("381 Test Category").is_err(), "should fail if 3 digits");
+    assert!(Category::from_str("32").is_err(), "should fail if no name");
+    assert!(Category::from_str("18 ").is_err(), "should fail if only space at end");
+    assert!(Category::from_str("20-29 Invalid Category").is_err(), "should fail if an area was given");
+    assert!(Category::from_str("31.09 Invalid Category").is_err(), "should fail if ac.id was given");
+    assert!(Category::from_str("Just a regular folder").is_err(), "should fail if no identifier");
+    assert!(Category::from_str("14 Test Category").is_ok(), "should pass if [00-99] name");
 }
 
 #[test]
 fn get_category() {
-    if let Ok(area) = Category::from_str("32 Sales") {
-        assert_eq!(area.category, "32");
-        assert_eq!(area.area, "30-39");
-        assert_eq!(area.name, "Sales");
+    if let Ok(category) = Category::from_str("32 Sales Test") {
+        assert_eq!(category.category, "32", "`32 Sales Test` should have category equal to `32`");
+        assert_eq!(category.area, "30-39", "`32 Sales Test` should have area equal to `30-39`");
+        assert_eq!(category.name, "Sales Test", "`32 Sales Test` should have name equal to `Sales Test`");
     } else {
-        panic!("Valid category 32 Sales was not returned as valid.")
+        panic!("Valid category `32 Sales Test` was not returned as valid.")
     }
 }
