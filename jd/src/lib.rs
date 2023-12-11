@@ -74,7 +74,7 @@ pub struct Id {
 pub fn get_area(str: &str) -> Result<Area, &'static str> {
     let chars: Vec<char> = str.chars().collect();
 
-    if chars.len() < 4 {
+    if chars.len() < 5 {
         return Err("Given area is too short to follow a0-a9")
     }
 
@@ -107,7 +107,7 @@ pub fn get_area(str: &str) -> Result<Area, &'static str> {
     }
 
     Ok(Area {
-        area: chars[0..4].into_iter().collect(),
+        area: chars[0..5].into_iter().collect(),
         name: chars[6..chars.len()].into_iter().collect(),
     })
 }
