@@ -70,6 +70,7 @@ pub struct Id {
 //     }
 // }
 
+/// TODO: Allow for alternatives to the dash separator and space separator?
 pub fn get_area(str: &str) -> Result<Area, &'static str> {
     let chars: Vec<char> = str.chars().collect();
 
@@ -89,8 +90,12 @@ pub fn get_area(str: &str) -> Result<Area, &'static str> {
         return Err("Given area does not have valid ending digits a9")
     }
 
-    if chars.len() < 6 || chars[5] != ' ' {
+    if chars.len() < 6 {
         return Err("Given area is too short to have a name")
+    }
+
+    if chars[5] != ' ' {
+        return Err("Given area does not have a space separator")
     }
 
     Ok(Area {
