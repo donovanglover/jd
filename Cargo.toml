@@ -12,5 +12,4 @@ resolver = "2"
 members = [
   "cli",
   "jd",
-  "wasm",
 ]
