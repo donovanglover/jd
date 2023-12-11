@@ -66,3 +66,5 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 - [ ] jd mv/move: Move an area/category and rename all child IDs
 - [ ] jd ls: list area/category
 - [ ] Fish completions for jd directories
+- [ ] server for index notes / browse johnny decimal system remotely
+- [ ] validate johnny decimal systems to ensure that regular files aren't stored outside of ids
