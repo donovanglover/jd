@@ -178,12 +178,20 @@ impl Index {
                     return Err("Duplicate ids are not allowed");
                 }
 
+                if categories.iter().any(|c| c.category == id.category) {
+                    return Err("A given id has no associated category");
+                }
+
                 ids.push(id);
             }
 
             if let Ok(category) = Category::from_str(line) {
                 if categories.contains(&category) {
                     return Err("Duplicate categories are not allowed");
+                }
+
+                if areas.iter().any(|a| a.area == category.area) {
+                    return Err("A given category has no associated area");
                 }
 
                 categories.push(category);
