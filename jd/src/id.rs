@@ -1,16 +1,87 @@
+use crate::area::Area;
+use crate::category::Category;
+
 /// An `id`, also known as a `JohnnyDecimal` number or an `ACID` (Area Category ID) number
 pub struct Id {
     area: u8,
     category: u8,
     id: u8,
+    // acid: &'static str,
+    // name: &'static str,
 }
 
 impl Id {
-    pub fn new(id: u8) -> Option<Id> {
+    pub fn from_array(arr: [u8; 2]) -> Option<Id> {
         Some(Id {
             area: 0,
             category: 0,
-            id,
+            id: 3,
         })
     }
+
+    pub fn from_string(str: &str) -> Result<Id, &str> {
+        let chars: Vec<char> = str.chars().collect();
+
+        is_valid_acid(chars)?;
+
+        Ok(Id {
+            area: 0,
+            category: 0,
+            id: 0,
+        })
+        // Ok(Id {
+        //     area: Area::from_acid_a(chars[0].to_digit(10).unwrap()),
+        //     category: Category::from_acid_ac(chars[0].to_digit(10).unwrap(), chars[1].to_digit(10).unwrap()),
+        //     id: chars[3] as u8,
+        // })
+    }
+}
+
+fn is_valid_acid(chars: Vec<char>) -> Result<bool, &'static str> {
+    if chars.len() < 4 {
+        return Err("Given string is too short to follow AC.ID")
+    }
+
+    if !chars[0].is_ascii_digit() || !chars[1].is_ascii_digit() {
+        return Err("Given string does not have digits for Area/Category in AC.ID")
+    }
+
+    if chars[2] != '.' {
+        return Err("Given string does not have period separator in AC.ID")
+    }
+
+    if !chars[3].is_ascii_digit() || !chars[4].is_ascii_digit() {
+        return Err("Given string does not have digits for ID in AC.ID")
+    }
+
+    Ok(true)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn from_string() {
+        assert!(Id::from_string("Just a regular folder").is_err());
+        assert!(Id::from_string("12.03 Johnny Decimal ID").is_ok());
+        assert!(Id::from_string("1.03 Johnny Decimal ID").is_err());
+    }
+
+    // #[test]
+    // fn test_is_area() {
+    //     assert_eq!(is_area("10-19 Area"), true);
+    //     assert_eq!(is_area("10-30 Area"), false);
+    // }
+    //
+    // #[test]
+    // fn test_is_category() {
+    //     assert_eq!(is_category("11 Category"), true);
+    //     assert_eq!(is_category("120 Category"), false);
+    // }
+    //
+    // #[test]
+    // fn test_is_id() {
+    //     assert_eq!(is_id("12.04 Name"), true);
+    // }
 }
