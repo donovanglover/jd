@@ -1,5 +1,3 @@
-use std::path::PathBuf;
-
 pub enum Acid {
     Area,
     Category,
@@ -31,17 +29,10 @@ pub struct Id {
 }
 
 // Strict mode?
-impl Area {
-    pub fn from_path(path: &PathBuf) -> Result<Area, &str> {
-        if let Some(filename) = path.file_name() {
-            if let Some(str) = filename.to_str() {
-                if let Ok(area) = get_area(str) {
-                    return Ok(area);
-                } else { Err("Not a valid area" ) }
-            } else { Err("Couldn't convert path to string") }
-        } else { Err("Couldn't get filename from path") }
-    }
-}
+// impl Area {
+//     pub fn from_str(str: &str) -> Result<Area, &str> {
+//     }
+// }
 
 // impl Category {
 //     pub fn new() -> Option<Category> {
