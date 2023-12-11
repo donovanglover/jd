@@ -98,7 +98,7 @@ pub fn get_area(str: &str) -> Result<Area, &'static str> {
         return Err("Given area does not end with 9 in a0-a9")
     }
 
-    if chars.len() < 6 {
+    if chars.len() < 7 {
         return Err("Given area is too short to have a name")
     }
 
@@ -108,7 +108,7 @@ pub fn get_area(str: &str) -> Result<Area, &'static str> {
 
     Ok(Area {
         area: chars[0..4].into_iter().collect(),
-        name: chars[5..chars.len()].into_iter().collect(),
+        name: chars[6..chars.len()].into_iter().collect(),
     })
 }
 
