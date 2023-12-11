@@ -112,6 +112,32 @@ pub fn get_area(str: &str) -> Result<Area, &'static str> {
     })
 }
 
+pub fn get_category(str: &str) -> Result<Category, &'static str> {
+    let chars: Vec<char> = str.chars().collect();
+
+    if chars.len() < 2 {
+        return Err("Given category is too short to follow [00-99]")
+    }
+
+    if !chars[0].is_ascii_digit() || !chars[1].is_ascii_digit() {
+        return Err("Given category does not have valid starting digits [00-99]")
+    }
+
+    if chars.len() < 4 {
+        return Err("Given category is too short to have a name")
+    }
+
+    if chars[2] != ' ' {
+        return Err("Given category does not have a space separator")
+    }
+
+    Ok(Category {
+        category: chars[0..2].into_iter().collect(),
+        area: [chars[0], '0', '-', chars[0], '9'].into_iter().collect(),
+        name: chars[3..chars.len()].into_iter().collect(),
+    })
+}
+
 // fn is_valid_acid(chars: Vec<char>) -> Result<bool, &'static str> {
 //     if chars.len() < 4 {
 //         return Err("Given string is too short to follow AC.ID")
