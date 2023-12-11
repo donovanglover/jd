@@ -138,22 +138,41 @@ pub fn get_category(str: &str) -> Result<Category, &'static str> {
     })
 }
 
-// fn is_valid_acid(chars: Vec<char>) -> Result<bool, &'static str> {
-//     if chars.len() < 4 {
-//         return Err("Given string is too short to follow AC.ID")
-//     }
-//
-//     if !chars[0].is_ascii_digit() || !chars[1].is_ascii_digit() {
-//         return Err("Given string does not have digits for Area/Category in AC.ID")
-//     }
-//
-//     if chars[2] != '.' {
-//         return Err("Given string does not have period separator in AC.ID")
-//     }
-//
-//     if !chars[3].is_ascii_digit() || !chars[4].is_ascii_digit() {
-//         return Err("Given string does not have digits for ID in AC.ID")
-//     }
-//
-//     Ok(true)
-// }
+pub fn get_id(str: &str) -> Result<Id, &'static str> {
+    let chars: Vec<char> = str.chars().collect();
+
+    if chars.len() < 5 {
+        return Err("Given id is too short to follow ac.id")
+    }
+
+    if !chars[0].is_ascii_digit() {
+        return Err("Given id does not have a valid starting area digit a in ac.id")
+    }
+
+    if !chars[1].is_ascii_digit() {
+        return Err("Given id does not have a valid category ac in ac.id")
+    }
+
+    if chars[2] != '.' {
+        return Err("Given id does not have a decimal separator in ac.id")
+    }
+
+    if !chars[3].is_ascii_digit() || !chars[4].is_ascii_digit() {
+        return Err("Given id does not have valid digits id to follow ac.id")
+    }
+
+    if chars.len() < 7 {
+        return Err("Given id is too short to have a name")
+    }
+
+    if chars[5] != ' ' {
+        return Err("Given id does not have a space separator")
+    }
+
+    Ok(Id {
+        id: chars[0..5].into_iter().collect(),
+        category: chars[0..2].into_iter().collect(),
+        area: [chars[0], '0', '-', chars[0], '9'].into_iter().collect(),
+        name: chars[6..chars.len()].into_iter().collect(),
+    })
+}
