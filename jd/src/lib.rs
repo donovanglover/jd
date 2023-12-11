@@ -8,6 +8,8 @@ pub enum Acid {
 pub struct Area {
     pub area: String,
     pub name: String,
+
+    pub categories: Vec<Category>,
 }
 
 #[derive(Debug, Default)]
@@ -15,6 +17,8 @@ pub struct Category {
     pub area: String,
     pub category: String,
     pub name: String,
+
+    pub ids: Vec<Id>,
 }
 
 /// An `id`, also known as a `JohnnyDecimal` number or an `ACID` (Area Category ID) number
@@ -24,6 +28,11 @@ pub struct Id {
     pub category: String,
     pub id: String,
     pub name: String,
+}
+
+#[derive(Debug)]
+pub struct Index {
+    pub areas: Vec<Area>,
 }
 
 impl Area {
@@ -66,10 +75,11 @@ impl Area {
         Ok(Area {
             area: chars[0..5].into_iter().collect(),
             name: chars[6..chars.len()].into_iter().collect(),
+
+            categories: vec![],
         })
     }
 }
-
 
 impl Category {
     pub fn from_str(str: &str) -> Result<Self, &'static str> {
@@ -95,6 +105,8 @@ impl Category {
             category: chars[0..2].into_iter().collect(),
             area: [chars[0], '0', '-', chars[0], '9'].into_iter().collect(),
             name: chars[3..chars.len()].into_iter().collect(),
+
+            ids: vec![],
         })
     }
 }
@@ -137,5 +149,33 @@ impl Id {
             area: [chars[0], '0', '-', chars[0], '9'].into_iter().collect(),
             name: chars[6..chars.len()].into_iter().collect(),
         })
+    }
+}
+
+impl Index {
+    pub fn from_str(str: &str) {
+        let mut areas: Vec<Area> = vec![];
+
+        for line in str.lines() {
+            let line = line.trim_start_matches(' ');
+
+            if let Ok(id) = Id::from_str(line) {
+                if let Some(area) = areas.last() {
+                    if let Some(category) = area.categories.last() {
+                        category.ids.push(id);
+                    }
+                }
+            }
+
+            if let Ok(category) = Category::from_str(line) {
+                if let Some(area) = areas.last() {
+                    area.categories.push(category);
+                }
+            }
+
+            if let Ok(area) = Area::from_str(line) {
+                areas.push(area);
+            }
+        }
     }
 }
