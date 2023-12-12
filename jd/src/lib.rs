@@ -11,11 +11,11 @@
 //! ```
 //! use jd::{Area, Category, Id};
 //!
-//! if let Ok(area) = Area::from_str("10-19 Area") {
+//! if let Ok(area) = Area::new("10-19 Area") {
 //!     assert!(area.name == "Area");
 //! }
 //!
-//! assert!(Category::from_str("11 Area").is_ok());
+//! assert!(Category::new("11 Area").is_ok());
 //! ```
 //!
 //! # Methodology
@@ -59,7 +59,7 @@ use std::cmp::Ordering;
 /// ```
 /// use jd::Area;
 ///
-/// if let Ok(area) = Area::from_str("20-29 My Area") {
+/// if let Ok(area) = Area::new("20-29 My Area") {
 ///     assert_eq!(area.area, "20-29");
 ///     assert_eq!(area.name, "My Area");
 /// } else {
@@ -76,7 +76,7 @@ pub struct Area {
     /// ```
     /// use jd::Area;
     ///
-    /// let area = Area::from_str("30-39 My Area").expect("Invalid area");
+    /// let area = Area::new("30-39 My Area").expect("Invalid area");
     ///
     /// assert!(area.area == "30-39");
     /// ```
@@ -89,7 +89,7 @@ pub struct Area {
     /// ```
     /// use jd::Area;
     ///
-    /// let area = Area::from_str("30-39 My Area").expect("Invalid area");
+    /// let area = Area::new("30-39 My Area").expect("Invalid area");
     ///
     /// assert!(area.name == "My Area");
     /// ```
@@ -109,7 +109,7 @@ pub struct Area {
 /// ```
 /// use jd::Category;
 ///
-/// if let Ok(category) = Category::from_str("42 My Category") {
+/// if let Ok(category) = Category::new("42 My Category") {
 ///     assert_eq!(category.area, "40-49");
 ///     assert_eq!(category.category, "42");
 ///     assert_eq!(category.name, "My Category");
@@ -127,7 +127,7 @@ pub struct Category {
     /// ```
     /// use jd::Category;
     ///
-    /// let category = Category::from_str("53 My Category").expect("Invalid category");
+    /// let category = Category::new("53 My Category").expect("Invalid category");
     ///
     /// assert!(category.area == "50-59");
     /// ```
@@ -140,7 +140,7 @@ pub struct Category {
     /// ```
     /// use jd::Category;
     ///
-    /// let category = Category::from_str("53 My Category").expect("Invalid category");
+    /// let category = Category::new("53 My Category").expect("Invalid category");
     ///
     /// assert!(category.category == "53");
     /// ```
@@ -153,7 +153,7 @@ pub struct Category {
     /// ```
     /// use jd::Category;
     ///
-    /// let category = Category::from_str("53 My Category").expect("Invalid category");
+    /// let category = Category::new("53 My Category").expect("Invalid category");
     ///
     /// assert!(category.name == "My Category");
     /// ```
@@ -173,7 +173,7 @@ pub struct Category {
 /// ```
 /// use jd::Id;
 ///
-/// if let Ok(id) = Id::from_str("35.04 My Id") {
+/// if let Ok(id) = Id::new("35.04 My Id") {
 ///     assert_eq!(id.area, "30-39");
 ///     assert_eq!(id.category, "35");
 ///     assert_eq!(id.id, "35.04");
@@ -192,7 +192,7 @@ pub struct Id {
     /// ```
     /// use jd::Id;
     ///
-    /// let id = Id::from_str("39.12 My Id").expect("Invalid id");
+    /// let id = Id::new("39.12 My Id").expect("Invalid id");
     ///
     /// assert!(id.area == "30-39");
     /// ```
@@ -205,7 +205,7 @@ pub struct Id {
     /// ```
     /// use jd::Id;
     ///
-    /// let id = Id::from_str("39.12 My Id").expect("Invalid id");
+    /// let id = Id::new("39.12 My Id").expect("Invalid id");
     ///
     /// assert!(id.category == "39");
     /// ```
@@ -218,7 +218,7 @@ pub struct Id {
     /// ```
     /// use jd::Id;
     ///
-    /// let id = Id::from_str("39.12 My Id").expect("Invalid id");
+    /// let id = Id::new("39.12 My Id").expect("Invalid id");
     ///
     /// assert!(id.id == "39.12");
     /// ```
@@ -231,7 +231,7 @@ pub struct Id {
     /// ```
     /// use jd::Id;
     ///
-    /// let id = Id::from_str("39.12 My Id").expect("Invalid id");
+    /// let id = Id::new("39.12 My Id").expect("Invalid id");
     ///
     /// assert!(id.name == "My Id");
     /// ```
@@ -256,7 +256,7 @@ pub struct Id {
 /// ```
 /// use jd::Index;
 ///
-/// if let Ok(index) = Index::from_str("10-19 Area\n13 Category\n13.05 Id") {
+/// if let Ok(index) = Index::new("10-19 Area\n13 Category\n13.05 Id") {
 ///     assert!(index.areas.iter().count() == 1);
 ///     assert!(index.categories.iter().count() == 1);
 ///     assert!(index.ids.iter().count() == 1);
@@ -287,14 +287,14 @@ impl Area {
     /// ```
     /// use jd::Area;
     ///
-    /// if let Ok(area) = Area::from_str("10-19 Example") {
+    /// if let Ok(area) = Area::new("10-19 Example") {
     ///     assert!(area.area == "10-19");
     ///     assert!(area.name == "Example");
     /// } else {
     ///     panic!("Invalid area");
     /// }
     /// ```
-    pub fn from_str(str: &str) -> Result<Self, &'static str> {
+    pub fn new(str: &str) -> Result<Self, &'static str> {
         let chars: Vec<char> = str.chars().collect();
 
         if chars.len() < 5 {
@@ -365,7 +365,7 @@ impl Category {
     /// ```
     /// use jd::Category;
     ///
-    /// if let Ok(category) = Category::from_str("25 Example") {
+    /// if let Ok(category) = Category::new("25 Example") {
     ///     assert!(category.area == "20-29");
     ///     assert!(category.category == "25");
     ///     assert!(category.name == "Example");
@@ -373,7 +373,7 @@ impl Category {
     ///     panic!("Invalid category");
     /// }
     /// ```
-    pub fn from_str(str: &str) -> Result<Self, &'static str> {
+    pub fn new(str: &str) -> Result<Self, &'static str> {
         let chars: Vec<char> = str.chars().collect();
 
         if chars.len() < 2 {
@@ -429,7 +429,7 @@ impl Id {
     /// ```
     /// use jd::Id;
     ///
-    /// if let Ok(id) = Id::from_str("43.21 Example") {
+    /// if let Ok(id) = Id::new("43.21 Example") {
     ///     assert!(id.area == "40-49");
     ///     assert!(id.category == "43");
     ///     assert!(id.id == "43.21");
@@ -438,7 +438,7 @@ impl Id {
     ///     panic!("Invalid id");
     /// }
     /// ```
-    pub fn from_str(str: &str) -> Result<Self, &'static str> {
+    pub fn new(str: &str) -> Result<Self, &'static str> {
         let chars: Vec<char> = str.chars().collect();
 
         if chars.len() < 5 {
@@ -507,7 +507,7 @@ impl Index {
     /// ```
     /// use jd::Index;
     ///
-    /// if let Ok(index) = Index::from_str("10-19 Area\n11 Category\n11.01 Id") {
+    /// if let Ok(index) = Index::new("10-19 Area\n11 Category\n11.01 Id") {
     ///     assert!(index.areas.iter().count() == 1);
     ///     assert!(index.categories.iter().count() == 1);
     ///     assert!(index.ids.iter().count() == 1);
@@ -515,7 +515,7 @@ impl Index {
     ///     panic!("Invalid index");
     /// }
     /// ```
-    pub fn from_str(str: &str) -> Result<Index, &str> {
+    pub fn new(str: &str) -> Result<Index, &str> {
         let mut areas: Vec<Area> = vec![];
         let mut categories: Vec<Category> = vec![];
         let mut ids: Vec<Id> = vec![];
@@ -527,7 +527,7 @@ impl Index {
                 continue;
             }
 
-            if let Ok(id) = Id::from_str(line) {
+            if let Ok(id) = Id::new(line) {
                 if ids.contains(&id) {
                     return Err("Duplicate ids are not allowed");
                 }
@@ -540,7 +540,7 @@ impl Index {
                 continue;
             }
 
-            if let Ok(category) = Category::from_str(line) {
+            if let Ok(category) = Category::new(line) {
                 if categories.contains(&category) {
                     return Err("Duplicate categories are not allowed");
                 }
@@ -553,7 +553,7 @@ impl Index {
                 continue;
             }
 
-            if let Ok(area) = Area::from_str(line) {
+            if let Ok(area) = Area::new(line) {
                 if areas.contains(&area) {
                     return Err("Duplicate areas are not allowed");
                 }
