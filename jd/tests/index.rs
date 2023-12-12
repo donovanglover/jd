@@ -60,3 +60,47 @@ fn test_index() {
     assert!(Index::from_str("20-29 Area\n21 Category A\n21.01 Id\n21.01 Another Id").is_err(), "should fail if duplicate id");
     assert!(Index::from_str("20-29 Area\nTest").is_err(), "should fail if input contains a non-valid type");
 }
+
+#[test]
+fn sort_index() {
+    if let Ok(index_str_reverse) = Index::from_str("20-29 1 Test\n10-19 2 Another") {
+        assert!(index_str_reverse.areas[0].area == "10-19", "should sort 10-19 before 20-29");
+        assert!(index_str_reverse.areas[1].area == "20-29", "should sort 20-29 after 10-19");
+        assert!(index_str_reverse.areas[0].name == "2 Another", "should not sort by name");
+        assert!(index_str_reverse.areas[1].name == "1 Test", "should not sort by name");
+    } else {
+        panic!("index_str_reverse should pass");
+    }
+
+    let lines = [
+        "30-39 Area A",
+        "34 Category A",
+        "37 Category B",
+        "34.05 Id A",
+        "37.01 Id B",
+        "40-49 Area C",
+        "20-29 Area B",
+        "25 Category C",
+        "10-19 Area D",
+        "25.09 Id C",
+        "22 Category D",
+        "25.05 Id D",
+    ];
+
+    if let Ok(index_str_mix) = Index::from_str(&lines.join("\n")) {
+        assert!(index_str_mix.areas[0].area == "10-19", "should have 10-19 first");
+        assert!(index_str_mix.areas[1].name == "Area B", "should have Area B second");
+        assert!(index_str_mix.areas[2].area == "30-39", "should have 30-39 third");
+        assert!(index_str_mix.areas[3].name == "Area C", "should have Area C fourth");
+        assert!(index_str_mix.categories[0].area == "20-29", "should have a category with area 20-29 first");
+        assert!(index_str_mix.categories[1].category == "25", "should have category 25 second");
+        assert!(index_str_mix.categories[2].name == "Category A", "should have Category A third");
+        assert!(index_str_mix.categories[3].category == "37", "should have category 37 fourth");
+        assert!(index_str_mix.ids[0].area == "20-29", "should have an id with area 20-29 first");
+        assert!(index_str_mix.ids[1].category == "25", "should have an id with category 25 second");
+        assert!(index_str_mix.ids[2].id == "34.05", "should have id 34.05 third");
+        assert!(index_str_mix.ids[3].name == "Id B", "should have Id B fourth");
+    } else {
+        panic!("index_str_mix should pass");
+    }
+}
