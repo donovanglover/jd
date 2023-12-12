@@ -1,3 +1,5 @@
+#![warn(missing_docs)]
+
 //! This library implements the [Johnny.Decimal Index Specification].
 //!
 //! There are 3 main structs: `Area`, `Category`, and `Id`.
@@ -234,10 +236,41 @@ pub struct Id {
     pub name: String,
 }
 
+/// `00.00 Index.txt`
+///
+/// An `Index` is a flat file database for Johnny.Decimal systems.
+///
+/// - Must be in order
+/// - Parents may be childless
+/// - Orphans are forbidden
+/// - White space is ignored
+/// - JavaScript comments are allowed
+/// - Key/value metadata pairs are allowed
+///
+/// <https://github.com/johnnydecimal/jdcm.al__index-spec#order>
+///
+/// # Example
+///
+/// ```
+/// use jd::Index;
+///
+/// if let Ok(index) = Index::from_str("10-19 Area\n13 Category\n13.05 Id") {
+///     assert!(index.areas.iter().count() == 1);
+///     assert!(index.categories.iter().count() == 1);
+///     assert!(index.ids.iter().count() == 1);
+/// } else {
+///     panic!("Invalid index");
+/// }
+/// ```
 #[derive(Debug)]
 pub struct Index {
+    /// A `Vec` of `Area`s.
     pub areas: Vec<Area>,
+
+    /// A `Vec` of type `Category`
     pub categories: Vec<Category>,
+
+    /// A `Vec` of `Id`s
     pub ids: Vec<Id>,
 }
 
