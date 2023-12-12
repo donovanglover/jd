@@ -71,8 +71,8 @@ impl Area {
         }
 
         Ok(Area {
-            area: chars[0..5].into_iter().collect(),
-            name: chars[6..chars.len()].into_iter().collect(),
+            area: chars[0..5].iter().collect(),
+            name: chars[6..chars.len()].iter().collect(),
         })
     }
 }
@@ -104,9 +104,9 @@ impl Category {
         }
 
         Ok(Category {
-            category: chars[0..2].into_iter().collect(),
-            area: [chars[0], '0', '-', chars[0], '9'].into_iter().collect(),
-            name: chars[3..chars.len()].into_iter().collect(),
+            category: chars[0..2].iter().collect(),
+            area: [chars[0], '0', '-', chars[0], '9'].iter().collect(),
+            name: chars[3..chars.len()].iter().collect(),
         })
     }
 }
@@ -150,10 +150,10 @@ impl Id {
         }
 
         Ok(Id {
-            id: chars[0..5].into_iter().collect(),
-            category: chars[0..2].into_iter().collect(),
-            area: [chars[0], '0', '-', chars[0], '9'].into_iter().collect(),
-            name: chars[6..chars.len()].into_iter().collect(),
+            id: chars[0..5].iter().collect(),
+            category: chars[0..2].iter().collect(),
+            area: [chars[0], '0', '-', chars[0], '9'].iter().collect(),
+            name: chars[6..chars.len()].iter().collect(),
         })
     }
 }
