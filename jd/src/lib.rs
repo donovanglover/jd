@@ -67,7 +67,7 @@ use std::cmp::Ordering;
 /// }
 ///
 /// ```
-#[derive(Debug, Default, Eq, Ord)]
+#[derive(Debug, Default, Eq)]
 pub struct Area {
     /// Area `10-19`: The string `a0-a9` derived from `a0-a9 <title>`.
     ///
@@ -118,7 +118,7 @@ pub struct Area {
 /// }
 ///
 /// ```
-#[derive(Debug, Default, Eq, Ord)]
+#[derive(Debug, Default, Eq)]
 pub struct Category {
     /// Area `10-19`: The string `a0-a9` derived from `ac <title>`.
     ///
@@ -183,7 +183,7 @@ pub struct Category {
 /// }
 ///
 /// ```
-#[derive(Debug, Default, Eq, Ord)]
+#[derive(Debug, Default, Eq)]
 pub struct Id {
     /// Area `10-19`: The string `a0-a9` derived from `ac.id <title>`.
     ///
@@ -342,9 +342,15 @@ impl PartialEq for Area {
     }
 }
 
+impl Ord for Area {
+    fn cmp(&self, other: &Self) -> Ordering {
+        self.area.cmp(&other.area)
+    }
+}
+
 impl PartialOrd for Area {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        self.area.partial_cmp(&other.area)
+        Some(self.cmp(other))
     }
 }
 
@@ -400,9 +406,15 @@ impl PartialEq for Category {
     }
 }
 
+impl Ord for Category {
+    fn cmp(&self, other: &Self) -> Ordering {
+        self.category.cmp(&other.category)
+    }
+}
+
 impl PartialOrd for Category {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        self.category.partial_cmp(&other.category)
+        Some(self.cmp(other))
     }
 }
 
@@ -472,9 +484,15 @@ impl PartialEq for Id {
     }
 }
 
+impl Ord for Id {
+    fn cmp(&self, other: &Self) -> Ordering {
+        self.id.cmp(&other.id)
+    }
+}
+
 impl PartialOrd for Id {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        self.id.partial_cmp(&other.id)
+        Some(self.cmp(other))
     }
 }
 
