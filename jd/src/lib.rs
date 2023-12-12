@@ -34,7 +34,21 @@ pub struct Index {
 }
 
 impl Area {
-    /// TODO: Allow for alternatives to the dash separator and space separator?
+    /// Creates a new `Area` from a given `&str`, returning a `Result`.
+    ///
+    /// If `Ok`, returns the `Area`.
+    /// If `Err`, returns a `&str` of the error message.
+    ///
+    /// ```
+    /// use jd::Area;
+    ///
+    /// if let Ok(area) = Area::from_str("10-19 Example") {
+    ///     assert!(area.area == "10-19");
+    ///     assert!(area.name == "Example");
+    /// } else {
+    ///     panic!("Invalid area");
+    /// }
+    /// ```
     pub fn from_str(str: &str) -> Result<Self, &'static str> {
         let chars: Vec<char> = str.chars().collect();
 
@@ -84,6 +98,22 @@ impl PartialEq for Area {
 }
 
 impl Category {
+    /// Creates a new `Category` from a given `&str`, returning a `Result`.
+    ///
+    /// If `Ok`, returns the `Category`.
+    /// If `Err`, returns a `&str` of the error message.
+    ///
+    /// ```
+    /// use jd::Category;
+    ///
+    /// if let Ok(category) = Category::from_str("25 Example") {
+    ///     assert!(category.area == "20-29");
+    ///     assert!(category.category == "25");
+    ///     assert!(category.name == "Example");
+    /// } else {
+    ///     panic!("Invalid category");
+    /// }
+    /// ```
     pub fn from_str(str: &str) -> Result<Self, &'static str> {
         let chars: Vec<char> = str.chars().collect();
 
@@ -118,6 +148,23 @@ impl PartialEq for Category {
 }
 
 impl Id {
+    /// Creates a new `Id` from a given `&str`, returning a `Result`.
+    ///
+    /// If `Ok`, returns the `Id`.
+    /// If `Err`, returns a `&str` of the error message.
+    ///
+    /// ```
+    /// use jd::Id;
+    ///
+    /// if let Ok(id) = Id::from_str("43.21 Example") {
+    ///     assert!(id.area == "40-49");
+    ///     assert!(id.category == "43");
+    ///     assert!(id.id == "43.21");
+    ///     assert!(id.name == "Example");
+    /// } else {
+    ///     panic!("Invalid id");
+    /// }
+    /// ```
     pub fn from_str(str: &str) -> Result<Self, &'static str> {
         let chars: Vec<char> = str.chars().collect();
 
@@ -165,6 +212,22 @@ impl PartialEq for Id {
 }
 
 impl Index {
+    /// Creates a new `Index` from a given `&str`, returning a `Result`.
+    ///
+    /// If `Ok`, returns the `Index`.
+    /// If `Err`, returns a `&str` of the error message.
+    ///
+    /// ```
+    /// use jd::Index;
+    ///
+    /// if let Ok(index) = Index::from_str("10-19 Area\n11 Category\n11.01 Id") {
+    ///     assert!(index.areas.iter().count() == 1);
+    ///     assert!(index.categories.iter().count() == 1);
+    ///     assert!(index.ids.iter().count() == 1);
+    /// } else {
+    ///     panic!("Invalid index");
+    /// }
+    /// ```
     pub fn from_str(str: &str) -> Result<Index, &str> {
         let mut areas: Vec<Area> = vec![];
         let mut categories: Vec<Category> = vec![];
