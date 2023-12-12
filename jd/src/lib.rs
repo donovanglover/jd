@@ -39,6 +39,8 @@ impl Area {
     /// If `Ok`, returns the `Area`.
     /// If `Err`, returns a `&str` of the error message.
     ///
+    /// # Example
+    ///
     /// ```
     /// use jd::Area;
     ///
@@ -103,6 +105,8 @@ impl Category {
     /// If `Ok`, returns the `Category`.
     /// If `Err`, returns a `&str` of the error message.
     ///
+    /// # Example
+    ///
     /// ```
     /// use jd::Category;
     ///
@@ -152,6 +156,8 @@ impl Id {
     ///
     /// If `Ok`, returns the `Id`.
     /// If `Err`, returns a `&str` of the error message.
+    ///
+    /// # Example
     ///
     /// ```
     /// use jd::Id;
@@ -216,6 +222,8 @@ impl Index {
     ///
     /// If `Ok`, returns the `Index`.
     /// If `Err`, returns a `&str` of the error message.
+    ///
+    /// # Example
     ///
     /// ```
     /// use jd::Index;
