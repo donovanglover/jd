@@ -183,7 +183,7 @@ pub struct Category {
 /// }
 ///
 /// ```
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Eq, Ord)]
 pub struct Id {
     /// Area `10-19`: The string `a0-a9` derived from `ac.id <title>`.
     ///
@@ -472,6 +472,12 @@ impl PartialEq for Id {
     }
 }
 
+impl PartialOrd for Id {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        self.id.partial_cmp(&other.id)
+    }
+}
+
 impl Index {
     /// Creates a new `Index` from a given `&str`, returning a `Result`.
     ///
@@ -543,6 +549,7 @@ impl Index {
 
         areas.sort();
         categories.sort();
+        ids.sort();
 
         Ok(Index {
             areas,

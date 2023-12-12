@@ -41,3 +41,23 @@ fn compare_id() {
     assert!(id_1 == id_2, "`11.01 First` should equal the same id as `11.01 Second`");
     assert!(id_1 != id_3, "`11.01 First` should NOT equal the same id as `11.02 First`");
 }
+
+#[test]
+fn sort_id() {
+    let id_1 = Id::from_str("11.01 Example 1").expect("`11.01 Example 1` should be a valid id");
+    let id_2 = Id::from_str("11.02 Example 2").expect("`11.02 Example 2` should be a valid id");
+    let id_3 = Id::from_str("11.03 Example 3").expect("`11.03 Example 3` should be a valid id");
+    let id_4 = Id::from_str("11.02 Example 4").expect("`11.02 Example 4` should be a valid id");
+    let id_5 = Id::from_str("01.02 Example 5").expect("`01.02 Example 5` should be a valid id");
+    let id_6 = Id::from_str("14.02 Example 6").expect("`14.02 Example 6` should be a valid id");
+    let id_7 = Id::from_str("21.02 Example 7").expect("`21.02 Example 7` should be a valid id");
+
+    assert!(id_2 > id_1, "`11.02 Example 2` should be greater than `11.01 Example 1`");
+    assert!(id_4 < id_3, "`11.02 Example 4` should be less than `11.03 Example 3`");
+    assert!(id_5 < id_1, "`01.02 Example 5` should be less than `11.01 Example 1`");
+    assert!(id_5 < id_3, "`01.02 Example 5` should be less than `11.03 Example 3`");
+    assert!(id_6 > id_1, "`14.02 Example 6` should be greater than `11.01 Example 1`");
+    assert!(id_6 > id_3, "`14.02 Example 6` should be greater than `11.03 Example 3`");
+    assert!(id_7 > id_1, "`21.02 Example 7` should be greater than `11.01 Example 1`");
+    assert!(id_7 > id_3, "`21.02 Example 7` should be greater than `11.03 Example 3`");
+}
