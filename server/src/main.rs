@@ -1,6 +1,8 @@
+#[macro_use] extern crate rocket;
+
 #[rocket::main]
 pub async fn init() {
-    let result = rocket::build()
+    let _ = rocket::build()
         .mount("/", routes![index])
         .launch()
         .await;
