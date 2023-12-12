@@ -11,7 +11,7 @@ pub fn list_areas() {
         if path.is_dir() {
             let path = path.file_name().unwrap().to_str().unwrap().to_string();
 
-            if Area::from_str(&path).is_ok() {
+            if Area::new(&path).is_ok() {
                 areas.push(path);
             }
         }
