@@ -10,6 +10,14 @@ fn test_index() {
         panic!("empty index should pass")
     }
 
+    if let Ok(empty_lines) = Index::from_str("\n\n\n") {
+        assert!(empty_lines.areas.is_empty(), "empty_lines index should have no areas");
+        assert!(empty_lines.categories.is_empty(), "empty_lines index should have no categories");
+        assert!(empty_lines.ids.is_empty(), "empty_lines index should have no ids");
+    } else {
+        panic!("empty_lines should pass")
+    }
+
     if let Ok(area_only) = Index::from_str("20-29 Test\n30-39 Another") {
         assert_eq!(area_only.areas.iter().count(), 2, "area_only index should have 2 areas");
         assert!(area_only.categories.is_empty(), "area_only index should have no categories");
@@ -32,6 +40,14 @@ fn test_index() {
         assert_eq!(area_with_category_and_id.ids.iter().count(), 2, "area_with_category_and_id index should have 2 ids");
     } else {
         panic!("area_with_category_and_id index should pass");
+    }
+
+    if let Ok(valid_with_empty_lines) = Index::from_str("\n10-19 Testing\n\n20-29 Another\n\n\n23 Category\n\n23.05 Id\n\n\n") {
+        assert_eq!(valid_with_empty_lines.areas.iter().count(), 2, "valid_with_empty_lines index should have 2 areas");
+        assert_eq!(valid_with_empty_lines.categories.iter().count(), 1, "valid_with_empty_lines index should have 1 category");
+        assert_eq!(valid_with_empty_lines.ids.iter().count(), 1, "valid_with_empty_lines index should have 1 id");
+    } else {
+        panic!("valid_with_empty_lines index should pass");
     }
 
     assert!(Index::from_str("20 Test\n21 Another").is_err(), "should fail if category_only index");

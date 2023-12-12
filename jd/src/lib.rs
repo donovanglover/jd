@@ -173,6 +173,10 @@ impl Index {
         for line in str.lines() {
             let line = line.trim_start_matches(' ');
 
+            if line.is_empty() {
+                continue;
+            }
+
             if let Ok(id) = Id::from_str(line) {
                 if ids.contains(&id) {
                     return Err("Duplicate ids are not allowed");
