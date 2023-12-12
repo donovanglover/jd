@@ -183,6 +183,7 @@ impl Index {
                 }
 
                 ids.push(id);
+                continue;
             }
 
             if let Ok(category) = Category::from_str(line) {
@@ -195,6 +196,7 @@ impl Index {
                 }
 
                 categories.push(category);
+                continue;
             }
 
             if let Ok(area) = Area::from_str(line) {
@@ -203,7 +205,10 @@ impl Index {
                 }
 
                 areas.push(area);
+                continue;
             }
+
+            return Err("Given value was neither an Area, Category, or Id")
         }
 
         Ok(Index {
