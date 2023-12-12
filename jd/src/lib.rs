@@ -34,12 +34,6 @@
 //!
 //! [Johnny.Decimal Index Specification]: https://github.com/johnnydecimal/jdcm.al__index-spec
 
-pub enum Acid {
-    Area,
-    Category,
-    Id,
-}
-
 /// `10-19 Area`
 ///
 /// An `Area` is derived from a `&str` in the format `a0-a9 <title>` where `a` = `[0..9]`.
