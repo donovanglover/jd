@@ -178,7 +178,7 @@ impl Index {
                     return Err("Duplicate ids are not allowed");
                 }
 
-                if categories.iter().any(|c| c.category == id.category) {
+                if !categories.iter().any(|c| c.category == id.category) {
                     return Err("A given id has no associated category");
                 }
 
@@ -190,7 +190,7 @@ impl Index {
                     return Err("Duplicate categories are not allowed");
                 }
 
-                if areas.iter().any(|a| a.area == category.area) {
+                if !areas.iter().any(|a| a.area == category.area) {
                     return Err("A given category has no associated area");
                 }
 
