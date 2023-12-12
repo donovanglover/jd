@@ -1,4 +1,5 @@
 use clap::Parser;
+use ::cli::list_areas;
 use cli::{Cli, Commands};
 
 mod cli;
@@ -7,24 +8,22 @@ fn main() {
     let cli = Cli::parse();
 
     match &cli.command {
-        Some(Commands::Add { name }) => {
-            commands::add::with_name(name);
+        Some(Commands::Add { name: _ }) => {
         },
 
-        Some(Commands::Remove { name }) => {
-            // commands::remove::exec();
+        Some(Commands::Remove { name: _ }) => {
         },
 
-        Some(Commands::Ls { name }) => {
-            jd::list_areas();
+        Some(Commands::Ls { name: _ }) => {
+            list_areas();
         },
 
         Some(Commands::Serve {}) => {
-            server::init();
+            // server::init();
         },
 
         None => {
-            jd::list_areas();
+            list_areas()
         },
 
         _ => todo!()
