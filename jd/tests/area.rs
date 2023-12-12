@@ -29,3 +29,13 @@ fn get_area() {
         panic!("Valid area `20-29 Finance Test` was not returned as valid.")
     }
 }
+
+#[test]
+fn compare_area() {
+    let area_1 = Area::from_str("10-19 First").expect("`10-19 First` should be a valid area");
+    let area_2 = Area::from_str("10-19 Second").expect("`10-19 Second` should be a valid area");
+    let area_3 = Area::from_str("20-29 First").expect("20-29 First` should be a valid area");
+
+    assert!(area_1 == area_2, "`10-19 First` should equal the same area as `10-19 Second`");
+    assert!(area_1 != area_3, "`10-19 First` should NOT equal the same area as `20-29 First`");
+}

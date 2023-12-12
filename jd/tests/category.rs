@@ -27,3 +27,13 @@ fn get_category() {
         panic!("Valid category `32 Sales Test` was not returned as valid.")
     }
 }
+
+#[test]
+fn compare_category() {
+    let category_1 = Category::from_str("11 First").expect("`11 First` should be a valid category");
+    let category_2 = Category::from_str("11 Second").expect("`11 Second` should be a valid category");
+    let category_3 = Category::from_str("12 First").expect("12 First` should be a valid category");
+
+    assert!(category_1 == category_2, "`11 First` should equal the same category as `11 Second`");
+    assert!(category_1 != category_3, "`11 First` should NOT equal the same category as `12 First`");
+}

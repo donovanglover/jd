@@ -33,3 +33,13 @@ fn get_id() {
         panic!("Valid id `48.32 Important Trip` was not returned as valid.");
     }
 }
+
+#[test]
+fn compare_id() {
+    let id_1 = Id::from_str("11.01 First").expect("`11.01 First` should be a valid id");
+    let id_2 = Id::from_str("11.01 Second").expect("`11.01 Second` should be a valid id");
+    let id_3 = Id::from_str("11.02 First").expect("11.02 First` should be a valid id");
+
+    assert!(id_1 == id_2, "`11.01 First` should equal the same id as `11.01 Second`");
+    assert!(id_1 != id_3, "`11.01 First` should NOT equal the same id as `11.02 First`");
+}
