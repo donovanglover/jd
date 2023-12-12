@@ -1,6 +1,5 @@
 use std::fs;
-
-mod linter;
+use jd::Area;
 
 /// List areas
 pub fn list_areas() {
@@ -12,7 +11,7 @@ pub fn list_areas() {
         if path.is_dir() {
             let path = path.file_name().unwrap().to_str().unwrap().to_string();
 
-            if linter::is_area(&path) {
+            if Area::from_str(&path).is_ok() {
                 areas.push(path);
             }
         }
