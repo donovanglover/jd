@@ -19,13 +19,11 @@ fn test_category() {
 
 #[test]
 fn get_category() {
-    if let Ok(category) = Category::from_str("32 Sales Test") {
-        assert_eq!(category.category, "32", "`32 Sales Test` should have category equal to `32`");
-        assert_eq!(category.area, "30-39", "`32 Sales Test` should have area equal to `30-39`");
-        assert_eq!(category.name, "Sales Test", "`32 Sales Test` should have name equal to `Sales Test`");
-    } else {
-        panic!("Valid category `32 Sales Test` was not returned as valid.")
-    }
+    let category = Category::from_str("32 Sales Test").expect("`32 Sales Test` should be a valid category");
+
+    assert_eq!(category.category, "32", "`32 Sales Test` should have category equal to `32`");
+    assert_eq!(category.area, "30-39", "`32 Sales Test` should have area equal to `30-39`");
+    assert_eq!(category.name, "Sales Test", "`32 Sales Test` should have name equal to `Sales Test`");
 }
 
 #[test]

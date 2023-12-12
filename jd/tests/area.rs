@@ -22,12 +22,10 @@ fn test_area() {
 
 #[test]
 fn get_area() {
-    if let Ok(area) = Area::from_str("20-29 Finance Test") {
-        assert_eq!(area.area, "20-29", "`20-29 Finance Test` should have area equal to `20-29`");
-        assert_eq!(area.name, "Finance Test", "`20-29 Finance Test` should have name equal to `Finance Test`");
-    } else {
-        panic!("Valid area `20-29 Finance Test` was not returned as valid.")
-    }
+    let area = Area::from_str("20-29 Finance Test").expect("`20-29 Finance Test` should be a valid area");
+
+    assert_eq!(area.area, "20-29", "`20-29 Finance Test` should have area equal to `20-29`");
+    assert_eq!(area.name, "Finance Test", "`20-29 Finance Test` should have name equal to `Finance Test`");
 }
 
 #[test]
