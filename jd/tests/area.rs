@@ -37,3 +37,14 @@ fn compare_area() {
     assert!(area_1 == area_2, "`10-19 First` should equal the same area as `10-19 Second`");
     assert!(area_1 != area_3, "`10-19 First` should NOT equal the same area as `20-29 First`");
 }
+
+#[test]
+fn sort_area() {
+    let area_1 = Area::from_str("10-19 Example 1").expect("`10-19 Example 1` should be a valid area");
+    let area_2 = Area::from_str("20-29 Example 2").expect("`20-29 Example 2` should be a valid area");
+    let area_3 = Area::from_str("30-39 Example 3").expect("`30-39 Example 3` should be a valid area");
+    let area_4 = Area::from_str("20-29 Example 4").expect("`20-29 Example 4` should be a valid area");
+
+    assert!(area_2 > area_1, "`20-29 Example 2` should be greater than `10-19 Example 1`");
+    assert!(area_4 < area_3, "`20-29 Example 4` should be less than `30-39 Example 3`");
+}

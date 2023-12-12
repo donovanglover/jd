@@ -46,6 +46,8 @@
 //!
 //! [Johnny.Decimal Index Specification]: https://github.com/johnnydecimal/jdcm.al__index-spec
 
+use std::cmp::Ordering;
+
 /// `10-19 Area`
 ///
 /// An `Area` is derived from a `&str` in the format `a0-a9 <title>` where `a` = `[0..9]`.
@@ -65,7 +67,7 @@
 /// }
 ///
 /// ```
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Eq, Ord)]
 pub struct Area {
     /// Area `10-19`: The string `a0-a9` derived from `a0-a9 <title>`.
     ///
@@ -340,6 +342,12 @@ impl PartialEq for Area {
     }
 }
 
+impl PartialOrd for Area {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        self.area.partial_cmp(&other.area)
+    }
+}
+
 impl Category {
     /// Creates a new `Category` from a given `&str`, returning a `Result`.
     ///
@@ -526,6 +534,8 @@ impl Index {
 
             return Err("Given value was neither an Area, Category, or Id")
         }
+
+        areas.sort();
 
         Ok(Index {
             areas,
