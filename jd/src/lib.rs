@@ -1,15 +1,92 @@
+//! This library implements the [Johnny.Decimal Index Specification].
+//!
+//! There are 3 main structs: `Area`, `Category`, and `Id`.
+//!
+//! For simplicity, these struct fields are stored and compared as `String`s.
+//!
+//! # Example
+//!
+//! ```
+//! use jd::{Area, Category, Id};
+//!
+//! if let Ok(area) = Area::from_str("10-19 Area") {
+//!     assert!(area.name == "Area");
+//! }
+//!
+//! assert!(Category::from_str("11 Area").is_ok());
+//! ```
+//!
+//! # Methodology
+//!
+//! The `struct` implementations perform validation of given `&str`s.
+//!
+//! If validation is successful, an `Ok` is returned with the fields of that struct.
+//!
+//! Otherwise, a friendly error message you can show to your users is returned in `Err`.
+//!
+//! The use of `String` makes it easy to use this library in both Rust and JavaScript (through
+//! WebAssembly/Wasm) without having to worry about custom types.
+//!
+//! # Performance
+//!
+//! This crate uses no external dependencies. All functionality is achieved with Rust's standard
+//! library, making it extremely fast to compile and use in other projects.
+//!
+//! [Johnny.Decimal Index Specification]: https://github.com/johnnydecimal/jdcm.al__index-spec
+
 pub enum Acid {
     Area,
     Category,
     Id,
 }
 
+/// `10-19 Area`
+///
+/// An `Area` is derived from a `&str` in the format `a0-a9 <title>` where `a` = `[0..9]`.
+///
+/// <https://github.com/johnnydecimal/jdcm.al__index-spec#areas>
+///
+/// # Example
+///
+/// ```
+/// use jd::Area;
+///
+/// if let Ok(area) = Area::from_str("20-29 My Area") {
+///     assert_eq!(area.area, "20-29");
+///     assert_eq!(area.name, "My Area");
+/// } else {
+///     panic!("Invalid area");
+/// }
+///
+/// ```
 #[derive(Debug, Default)]
 pub struct Area {
     pub area: String,
     pub name: String,
 }
 
+/// `11 Category`
+///
+/// A `Category` is derived from a `&str` in the format `ac <title>` where `ac` = `[00..99]`.
+///
+/// For example, a category `25` has an area `20-29`.
+///
+/// <https://github.com/johnnydecimal/jdcm.al__index-spec#categories>
+///
+/// # Example
+///
+/// ```
+/// use jd::Category;
+///
+/// if let Ok(category) = Category::from_str("42 My Category") {
+///     assert_eq!(category.area, "40-49");
+///     assert_eq!(category.category, "42");
+///     assert_eq!(category.name, "My Category");
+/// } else {
+///     panic!("Invalid category");
+/// }
+///
+/// ```
 #[derive(Debug, Default)]
 pub struct Category {
     pub area: String,
@@ -17,7 +94,29 @@ pub struct Category {
     pub name: String,
 }
 
-/// An `id`, also known as a `JohnnyDecimal` number or an `ACID` (Area Category ID) number
+/// `11.01 Id`
+///
+/// An `Id` is derived from a `&str` in the format `ac.id <title>` where id = `[00..99]`.
+///
+/// For example, an id `23.05` has a category `23` and an area `20-29`.
+///
+/// <https://github.com/johnnydecimal/jdcm.al__index-spec#ids>
+///
+/// # Example
+///
+/// ```
+/// use jd::Id;
+///
+/// if let Ok(id) = Id::from_str("35.04 My Id") {
+///     assert_eq!(id.area, "30-39");
+///     assert_eq!(id.category, "35");
+///     assert_eq!(id.id, "35.04");
+///     assert_eq!(id.name, "My Id");
+/// } else {
+///     panic!("Invalid id");
+/// }
+///
+/// ```
 #[derive(Debug, Default)]
 pub struct Id {
     pub area: String,
