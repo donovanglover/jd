@@ -35,3 +35,14 @@ fn compare_category() {
     assert!(category_1 == category_2, "`11 First` should equal the same category as `11 Second`");
     assert!(category_1 != category_3, "`11 First` should NOT equal the same category as `12 First`");
 }
+
+#[test]
+fn sort_category() {
+    let category_1 = Category::from_str("11 Example 1").expect("`11 Example 1` should be a valid category");
+    let category_2 = Category::from_str("12 Example 2").expect("`12 Example 2` should be a valid category");
+    let category_3 = Category::from_str("13 Example 3").expect("`13 Example 3` should be a valid category");
+    let category_4 = Category::from_str("12 Example 4").expect("`12 Example 4` should be a valid category");
+
+    assert!(category_2 > category_1, "`12 Example 2` should be greater than `11 Example 1`");
+    assert!(category_4 < category_3, "`12 Example 4` should be less than `13 Example 3`");
+}
