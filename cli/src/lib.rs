@@ -1,5 +1,5 @@
-use std::fs;
 use jd::Area;
+use std::fs;
 
 /// List areas
 pub fn list_areas() {

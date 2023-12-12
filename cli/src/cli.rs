@@ -30,40 +30,26 @@ pub struct Cli {
 #[derive(Subcommand)]
 pub enum Commands {
     /// Add a new area, category, or id.
-    Add {
-        name: String,
-    },
+    Add { name: String },
 
     /// Remove an existing area, category, or id.
-    Remove {
-        name: String,
-    },
+    Remove { name: String },
 
     /// List the contents of an area, category, or id.
-    Ls {
-        name: PathBuf,
-    },
+    Ls { name: PathBuf },
 
     /// Insert a new area, category, or id, moving existing ones.
-    Insert {
-        name: String,
-    },
+    Insert { name: String },
 
     /// Prepend a new area, category, or id, moving existing ones.
-    Prepend {
-        name: String,
-    },
+    Prepend { name: String },
 
     /// Decrease number of ids.
     Reduce {},
 
     /// Start a new web server.
-    Serve {
-
-    },
+    Serve {},
 
     /// Print tree of Johnny Decimal system.
-    Tree {
-
-    },
+    Tree {},
 }

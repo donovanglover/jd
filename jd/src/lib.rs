@@ -298,35 +298,35 @@ impl Area {
         let chars: Vec<char> = str.chars().collect();
 
         if chars.len() < 5 {
-            return Err("Given area is too short to follow a0-a9")
+            return Err("Given area is too short to follow a0-a9");
         }
 
         if !chars[0].is_ascii_digit() {
-            return Err("Given area does not have valid starting digit a in a0")
+            return Err("Given area does not have valid starting digit a in a0");
         }
 
         if chars[1] != '0' {
-            return Err("Given area does not have a starting digit that ends in 0 in a0-a9")
+            return Err("Given area does not have a starting digit that ends in 0 in a0-a9");
         }
 
         if chars[2] != '-' {
-            return Err("Given area does not have dash separator in a0-a9")
+            return Err("Given area does not have dash separator in a0-a9");
         }
 
         if chars[3] != chars[0] {
-            return Err("Given area does not have an ending digit equal to a in a0-a9")
+            return Err("Given area does not have an ending digit equal to a in a0-a9");
         }
 
         if chars[4] != '9' {
-            return Err("Given area does not end with 9 in a0-a9")
+            return Err("Given area does not end with 9 in a0-a9");
         }
 
         if chars.len() < 7 {
-            return Err("Given area is too short to have a name")
+            return Err("Given area is too short to have a name");
         }
 
         if chars[5] != ' ' {
-            return Err("Given area does not have a space separator")
+            return Err("Given area does not have a space separator");
         }
 
         Ok(Area {
@@ -377,19 +377,19 @@ impl Category {
         let chars: Vec<char> = str.chars().collect();
 
         if chars.len() < 2 {
-            return Err("Given category is too short to follow [00-99]")
+            return Err("Given category is too short to follow [00-99]");
         }
 
         if !chars[0].is_ascii_digit() || !chars[1].is_ascii_digit() {
-            return Err("Given category does not have valid starting digits [00-99]")
+            return Err("Given category does not have valid starting digits [00-99]");
         }
 
         if chars.len() < 4 {
-            return Err("Given category is too short to have a name")
+            return Err("Given category is too short to have a name");
         }
 
         if chars[2] != ' ' {
-            return Err("Given category does not have a space separator")
+            return Err("Given category does not have a space separator");
         }
 
         Ok(Category {
@@ -442,31 +442,31 @@ impl Id {
         let chars: Vec<char> = str.chars().collect();
 
         if chars.len() < 5 {
-            return Err("Given id is too short to follow ac.id")
+            return Err("Given id is too short to follow ac.id");
         }
 
         if !chars[0].is_ascii_digit() {
-            return Err("Given id does not have a valid starting area digit a in ac.id")
+            return Err("Given id does not have a valid starting area digit a in ac.id");
         }
 
         if !chars[1].is_ascii_digit() {
-            return Err("Given id does not have a valid category ac in ac.id")
+            return Err("Given id does not have a valid category ac in ac.id");
         }
 
         if chars[2] != '.' {
-            return Err("Given id does not have a decimal separator in ac.id")
+            return Err("Given id does not have a decimal separator in ac.id");
         }
 
         if !chars[3].is_ascii_digit() || !chars[4].is_ascii_digit() {
-            return Err("Given id does not have valid digits id to follow ac.id")
+            return Err("Given id does not have valid digits id to follow ac.id");
         }
 
         if chars.len() < 7 {
-            return Err("Given id is too short to have a name")
+            return Err("Given id is too short to have a name");
         }
 
         if chars[5] != ' ' {
-            return Err("Given id does not have a space separator")
+            return Err("Given id does not have a space separator");
         }
 
         Ok(Id {
@@ -562,17 +562,13 @@ impl Index {
                 continue;
             }
 
-            return Err("Given value was neither an Area, Category, or Id")
+            return Err("Given value was neither an Area, Category, or Id");
         }
 
         areas.sort();
         categories.sort();
         ids.sort();
 
-        Ok(Index {
-            areas,
-            categories,
-            ids,
-        })
+        Ok(Index { areas, categories, ids })
     }
 }

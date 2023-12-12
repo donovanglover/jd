@@ -1,11 +1,9 @@
-#[macro_use] extern crate rocket;
+#[macro_use]
+extern crate rocket;
 
 #[rocket::main]
 pub async fn init() {
-    let _ = rocket::build()
-        .mount("/", routes![index])
-        .launch()
-        .await;
+    let _ = rocket::build().mount("/", routes![index]).launch().await;
 }
 
 #[get("/")]
