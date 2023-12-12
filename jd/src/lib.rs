@@ -55,7 +55,30 @@
 /// ```
 #[derive(Debug, Default)]
 pub struct Area {
+    /// Area `10-19`: The string `a0-a9` derived from `a0-a9 <title>`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use jd::Area;
+    ///
+    /// let area = Area::from_str("30-39 My Area").expect("Invalid area");
+    ///
+    /// assert!(area.area == "30-39");
+    /// ```
     pub area: String,
+
+    /// Title `My Title`: The string `<title>` derived from `a0-a9 <title>`
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use jd::Area;
+    ///
+    /// let area = Area::from_str("30-39 My Area").expect("Invalid area");
+    ///
+    /// assert!(area.name == "My Area");
+    /// ```
     pub name: String,
 }
 
@@ -83,8 +106,43 @@ pub struct Area {
 /// ```
 #[derive(Debug, Default)]
 pub struct Category {
+    /// Area `10-19`: The string `a0-a9` derived from `ac <title>`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use jd::Category;
+    ///
+    /// let category = Category::from_str("53 My Category").expect("Invalid category");
+    ///
+    /// assert!(category.area == "50-59");
+    /// ```
     pub area: String,
+
+    /// Category `11`: The string `ac` derived from `ac <title>`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use jd::Category;
+    ///
+    /// let category = Category::from_str("53 My Category").expect("Invalid category");
+    ///
+    /// assert!(category.category == "53");
+    /// ```
     pub category: String,
+
+    /// Title `My Title`: The string `<title>` derived from `ac <title>`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use jd::Category;
+    ///
+    /// let category = Category::from_str("53 My Category").expect("Invalid category");
+    ///
+    /// assert!(category.name == "My Category");
+    /// ```
     pub name: String,
 }
 
@@ -113,9 +171,56 @@ pub struct Category {
 /// ```
 #[derive(Debug, Default)]
 pub struct Id {
+    /// Area `10-19`: The string `a0-a9` derived from `ac.id <title>`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use jd::Id;
+    ///
+    /// let id = Id::from_str("39.12 My Id").expect("Invalid id");
+    ///
+    /// assert!(id.area == "30-39");
+    /// ```
     pub area: String,
+
+    /// Category `11`: The string `ac` derived from `ac.id <title>`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use jd::Id;
+    ///
+    /// let id = Id::from_str("39.12 My Id").expect("Invalid id");
+    ///
+    /// assert!(id.category == "39");
+    /// ```
     pub category: String,
+
+    /// Id `11.01`: The string `ac.id` derived from `ac.id <title>`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use jd::Id;
+    ///
+    /// let id = Id::from_str("39.12 My Id").expect("Invalid id");
+    ///
+    /// assert!(id.id == "39.12");
+    /// ```
     pub id: String,
+
+    /// Title `My Title`: The string `<title>` derived from `ac.id <title>`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use jd::Id;
+    ///
+    /// let id = Id::from_str("39.12 My Id").expect("Invalid id");
+    ///
+    /// assert!(id.name == "My Id");
+    /// ```
     pub name: String,
 }
 
