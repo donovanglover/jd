@@ -1,6 +1,6 @@
 # jd
 
-CLI, web server, and library for interacting with [Johnny Decimal](https://johnnydecimal.com/) systems.
+CLI, web server, and library for interacting with [Johnny.Decimal](https://johnnydecimal.com/) systems.
 
 ## Features
 
@@ -8,7 +8,33 @@ CLI, web server, and library for interacting with [Johnny Decimal](https://johnn
 
 ## Installation
 
-See [INSTALLING.md](docs/INSTALLING.md)
+`jd` has official support for NixOS.
+
+### [NixOS](https://nixos.wiki/wiki/Overview_of_the_NixOS_Linux_distribution) (Recommended)
+
+> TODO: `jd` has not reached 0.1.0 yet.
+
+Add [`jd`](https://search.nixos.org/packages?channel=unstable&query=jd) to your `systemPackages` and rebuild.
+
+```nix
+{ pkgs, ... }:
+
+{
+  environment.systemPackages = with pkgs; [
+    jd
+  ];
+}
+```
+
+Alternatively, use `nix run nixpkgs#jd` to try jd without installing it.
+
+### Other distributions
+
+Follow the [install guide](https://www.rust-lang.org/tools/install) for Rust. Then, use cargo to install jd.
+
+```fish
+git clone https://github.com/donovanglover/jd && cd jd && cargo install --path jd
+```
 
 ## Usage
 
@@ -29,7 +55,7 @@ Options:
 
 ## Contributing
 
-See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
+Contributions from experienced Rustaceans are welcome.
 
 ## Todo
 
