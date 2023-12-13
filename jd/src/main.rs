@@ -1,6 +1,6 @@
-use jd::list_areas;
 use clap::Parser;
 use cli::{Cli, Commands};
+use jd::list_areas;
 
 mod cli;
 
