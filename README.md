@@ -8,35 +8,7 @@ CLI, web server, and library for interacting with [Johnny Decimal](https://johnn
 
 ## Installation
 
-### [NixOS](https://nixos.wiki/wiki/Overview_of_the_NixOS_Linux_distribution) (Recommended)
-
-Add [`jd`](https://search.nixos.org/packages?channel=unstable&query=jd) to your `systemPackages` and rebuild.
-
-```nix
-{ pkgs, ... }:
-
-{
-  environment.systemPackages = with pkgs; [
-    jd
-  ];
-}
-```
-
-Alternatively, use `nix run nixpkgs#jd` to try jd without installing it.
-
-### [Arch Linux](https://archlinux.org/)
-
-```fish
-git clone https://github.com/donovanglover/jd -b 0.1.0 && cd jd && makepkg -si
-```
-
-### Other distributions
-
-Follow the [install guide](https://www.rust-lang.org/tools/install) for Rust. Then, use cargo to install jd.
-
-```fish
-cargo install --git https://github.com/donovanglover/jd --tag 0.1.0
-```
+See [INSTALLING.md](docs/INSTALLING.md)
 
 ## Usage
 
@@ -57,7 +29,7 @@ Options:
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 
 ## Todo
 
