@@ -1,4 +1,4 @@
-use jd::Area;
+use johnnydecimal::Area;
 use std::fs;
 
 /// List areas

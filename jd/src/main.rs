@@ -1,4 +1,4 @@
-use ::cli::list_areas;
+use jd::list_areas;
 use clap::Parser;
 use cli::{Cli, Commands};
 
