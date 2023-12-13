@@ -36,7 +36,7 @@ pub enum Commands {
     Remove { name: String },
 
     /// List the contents of an area, category, or id.
-    Ls { name: PathBuf },
+    Index { name: String },
 
     /// Insert a new area, category, or id, moving existing ones.
     Insert { name: String },
@@ -46,7 +46,4 @@ pub enum Commands {
 
     /// Start a new web server.
     Serve {},
-
-    /// Print tree of Johnny Decimal system.
-    Tree {},
 }
