@@ -10,7 +10,7 @@ publish = false
 [workspace]
 resolver = "2"
 members = [
-  "cli",
   "jd",
+  "johnnydecimal",
   "server",
 ]
