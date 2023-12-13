@@ -41,9 +41,6 @@ pub enum Commands {
     /// Insert a new area, category, or id, moving existing ones.
     Insert { name: String },
 
-    /// Prepend a new area, category, or id, moving existing ones.
-    Prepend { name: String },
-
     /// Decrease number of ids.
     Reduce {},
 
