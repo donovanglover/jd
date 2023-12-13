@@ -1,4 +1,4 @@
-use jd::Id;
+use johnnydecimal::Id;
 
 #[test]
 fn test_id() {

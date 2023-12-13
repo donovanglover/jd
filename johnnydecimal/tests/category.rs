@@ -1,4 +1,4 @@
-use jd::Category;
+use johnnydecimal::Category;
 
 #[test]
 fn test_category() {

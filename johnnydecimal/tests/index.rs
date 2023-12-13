@@ -1,4 +1,4 @@
-use jd::Index;
+use johnnydecimal::Index;
 
 #[test]
 fn test_index() {

@@ -9,7 +9,7 @@
 //! # Example
 //!
 //! ```
-//! use jd::{Area, Category, Id};
+//! use johnnydecimal::{Area, Category, Id};
 //!
 //! if let Ok(area) = Area::new("10-19 Area") {
 //!     assert!(area.name == "Area");
@@ -57,7 +57,7 @@ use std::cmp::Ordering;
 /// # Example
 ///
 /// ```
-/// use jd::Area;
+/// use johnnydecimal::Area;
 ///
 /// if let Ok(area) = Area::new("20-29 My Area") {
 ///     assert_eq!(area.area, "20-29");
@@ -74,7 +74,7 @@ pub struct Area {
     /// # Example
     ///
     /// ```
-    /// use jd::Area;
+    /// use johnnydecimal::Area;
     ///
     /// let area = Area::new("30-39 My Area").expect("Invalid area");
     ///
@@ -87,7 +87,7 @@ pub struct Area {
     /// # Example
     ///
     /// ```
-    /// use jd::Area;
+    /// use johnnydecimal::Area;
     ///
     /// let area = Area::new("30-39 My Area").expect("Invalid area");
     ///
@@ -107,7 +107,7 @@ pub struct Area {
 /// # Example
 ///
 /// ```
-/// use jd::Category;
+/// use johnnydecimal::Category;
 ///
 /// if let Ok(category) = Category::new("42 My Category") {
 ///     assert_eq!(category.area, "40-49");
@@ -125,7 +125,7 @@ pub struct Category {
     /// # Example
     ///
     /// ```
-    /// use jd::Category;
+    /// use johnnydecimal::Category;
     ///
     /// let category = Category::new("53 My Category").expect("Invalid category");
     ///
@@ -138,7 +138,7 @@ pub struct Category {
     /// # Example
     ///
     /// ```
-    /// use jd::Category;
+    /// use johnnydecimal::Category;
     ///
     /// let category = Category::new("53 My Category").expect("Invalid category");
     ///
@@ -151,7 +151,7 @@ pub struct Category {
     /// # Example
     ///
     /// ```
-    /// use jd::Category;
+    /// use johnnydecimal::Category;
     ///
     /// let category = Category::new("53 My Category").expect("Invalid category");
     ///
@@ -171,7 +171,7 @@ pub struct Category {
 /// # Example
 ///
 /// ```
-/// use jd::Id;
+/// use johnnydecimal::Id;
 ///
 /// if let Ok(id) = Id::new("35.04 My Id") {
 ///     assert_eq!(id.area, "30-39");
@@ -190,7 +190,7 @@ pub struct Id {
     /// # Example
     ///
     /// ```
-    /// use jd::Id;
+    /// use johnnydecimal::Id;
     ///
     /// let id = Id::new("39.12 My Id").expect("Invalid id");
     ///
@@ -203,7 +203,7 @@ pub struct Id {
     /// # Example
     ///
     /// ```
-    /// use jd::Id;
+    /// use johnnydecimal::Id;
     ///
     /// let id = Id::new("39.12 My Id").expect("Invalid id");
     ///
@@ -216,7 +216,7 @@ pub struct Id {
     /// # Example
     ///
     /// ```
-    /// use jd::Id;
+    /// use johnnydecimal::Id;
     ///
     /// let id = Id::new("39.12 My Id").expect("Invalid id");
     ///
@@ -229,7 +229,7 @@ pub struct Id {
     /// # Example
     ///
     /// ```
-    /// use jd::Id;
+    /// use johnnydecimal::Id;
     ///
     /// let id = Id::new("39.12 My Id").expect("Invalid id");
     ///
@@ -254,7 +254,7 @@ pub struct Id {
 /// # Example
 ///
 /// ```
-/// use jd::Index;
+/// use johnnydecimal::Index;
 ///
 /// if let Ok(index) = Index::new("10-19 Area\n13 Category\n13.05 Id") {
 ///     assert!(index.areas.iter().count() == 1);
@@ -285,7 +285,7 @@ impl Area {
     /// # Example
     ///
     /// ```
-    /// use jd::Area;
+    /// use johnnydecimal::Area;
     ///
     /// if let Ok(area) = Area::new("10-19 Example") {
     ///     assert!(area.area == "10-19");
@@ -363,7 +363,7 @@ impl Category {
     /// # Example
     ///
     /// ```
-    /// use jd::Category;
+    /// use johnnydecimal::Category;
     ///
     /// if let Ok(category) = Category::new("25 Example") {
     ///     assert!(category.area == "20-29");
@@ -427,7 +427,7 @@ impl Id {
     /// # Example
     ///
     /// ```
-    /// use jd::Id;
+    /// use johnnydecimal::Id;
     ///
     /// if let Ok(id) = Id::new("43.21 Example") {
     ///     assert!(id.area == "40-49");
@@ -505,7 +505,7 @@ impl Index {
     /// # Example
     ///
     /// ```
-    /// use jd::Index;
+    /// use johnnydecimal::Index;
     ///
     /// if let Ok(index) = Index::new("10-19 Area\n11 Category\n11.01 Id") {
     ///     assert!(index.areas.iter().count() == 1);

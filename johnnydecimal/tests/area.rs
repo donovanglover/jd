@@ -1,4 +1,4 @@
-use jd::Area;
+use johnnydecimal::Area;
 
 #[test]
 fn test_area() {

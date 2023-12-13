@@ -1,5 +1,5 @@
 [package]
-name = "jd"
+name = "johnnydecimal"
 version.workspace = true
 authors.workspace = true
 repository.workspace = true
