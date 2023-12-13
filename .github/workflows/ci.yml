@@ -35,9 +35,3 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: cargo clippy
-  pkgbuild:
-    name: makepkg -si
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - uses: edlanglois/pkgbuild-action@v1
