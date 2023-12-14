@@ -515,6 +515,10 @@ impl Index {
     ///     panic!("Invalid index");
     /// }
     /// ```
+    ///
+    /// # Panics
+    ///
+    /// Key/value pairs and comments have not been implemented.
     pub fn new(str: &str) -> Result<Index, &str> {
         let mut areas: Vec<Area> = vec![];
         let mut categories: Vec<Category> = vec![];
@@ -525,6 +529,18 @@ impl Index {
 
             if line.is_empty() {
                 continue;
+            }
+
+            if line.starts_with('-') {
+                todo!("Add support for key/value pairs");
+            }
+
+            if line.contains("//") {
+                todo!("Add support for comments");
+            }
+
+            if line.contains("/*") {
+                todo!("Add support for multi-line comments");
             }
 
             if let Ok(id) = Id::new(line) {
