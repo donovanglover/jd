@@ -93,36 +93,26 @@ fn get_stuff(root: &str) -> Result<(Vec<Area>, Vec<Category>, Vec<Id>), std::io:
 
     for path in directory {
         let path = path?;
-        let dir_name = path.file_name();
-        let dir_name = dir_name.to_str().ok_or(std::io::ErrorKind::Other)?;
+        let subdirs = fs::read_dir(path.path())?;
 
-        if let Ok(area) = Area::new(dir_name) {
+        if let Ok(area) = Area::new(path.file_name().to_str().ok_or(std::io::ErrorKind::Other)?) {
             areas.push(area);
         } else {
             todo!("Warn if non-Johnny.Decimal stuff in directory?")
         }
 
-        let subdirs = fs::read_dir(path.path())?;
-
         for dir in subdirs {
             let dir = dir?;
-            let dir_name = dir.file_name();
-            let dir_name = dir_name.to_str().ok_or(std::io::ErrorKind::Other)?;
+            let sub_dirs = fs::read_dir(dir.path())?;
 
-            if let Ok(category) = Category::new(dir_name) {
+            if let Ok(category) = Category::new(dir.file_name().to_str().ok_or(std::io::ErrorKind::Other)?) {
                 categories.push(category);
             } else {
                 todo!("Warn if non-Johnny.Decimal stuff in directory?")
             }
 
-            let sub_dirs = fs::read_dir(dir.path())?;
-
             for sub_dir in sub_dirs {
-                let sub_dir = sub_dir?;
-                let sub_dir_name = sub_dir.file_name();
-                let sub_dir_name = sub_dir_name.to_str().ok_or(std::io::ErrorKind::Other)?;
-
-                if let Ok(id) = Id::new(sub_dir_name) {
+                if let Ok(id) = Id::new(sub_dir?.file_name().to_str().ok_or(std::io::ErrorKind::Other)?) {
                     ids.push(id)
                 } else {
                     todo!("Warn if non-Johnny.Decimal stuff in directory?")
