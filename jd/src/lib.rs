@@ -102,7 +102,7 @@ fn get_dirs_from_path(path: &str) -> Vec<String> {
     directories
 }
 
-fn get_categories_from_areas(areas: &Vec<String>, root: &str) -> (Vec<String>, Vec<String>) {
+fn get_categories_from_areas(areas: &Vec<String>, root: &str) -> (Vec<Category>, Vec<Id>) {
     let mut categories = vec![];
     let mut ids = vec![];
 
@@ -112,16 +112,23 @@ fn get_categories_from_areas(areas: &Vec<String>, root: &str) -> (Vec<String>, V
         if let Ok(dirs) = fs::read_dir(path) {
             for dir in dirs {
                 if let Ok(dir) = dir {
-                    // categories.push(Category::new(dir.file_name().to_str().unwrap()).unwrap());
-                    if let Ok(dir_name) = dir.file_name().into_string() {
-                        categories.push(dir_name);
+                    if let Some(dir_name) = dir.file_name().to_str() {
+                        if let Ok(category) = Category::new(dir_name) {
+                            categories.push(category);
+                        } else {
+                            todo!("Warn if non-Johnny.Decimal stuff in directory?")
+                        }
                     }
 
                     if let Ok(sub_dirs) = fs::read_dir(dir.path()) {
                         for sub_dir in sub_dirs {
                             if let Ok(sub_dir) = sub_dir {
-                                if let Ok(sub_dir_name) = sub_dir.file_name().into_string() {
-                                    ids.push(sub_dir_name)
+                                if let Some(sub_dir_name) = sub_dir.file_name().to_str() {
+                                    if let Ok(id) = Id::new(sub_dir_name) {
+                                        ids.push(id)
+                                    } else {
+                                        todo!("Warn if non-Johnny.Decimal stuff in directory?")
+                                    }
                                 }
                             }
                         }
