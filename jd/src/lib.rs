@@ -37,11 +37,10 @@ pub struct System {
 
 impl System {
     pub fn new(root: &str) -> Result<Self, &'static str> {
-        let areas = get_dirs_from_path(root);
-        if let Ok(stuff) = get_categories_from_areas(&areas, root) {
-            dbg!(areas);
+        if let Ok(stuff) = get_stuff(root) {
             dbg!(stuff.0);
             dbg!(stuff.1);
+            dbg!(stuff.2);
         }
 
         Ok(Self {
@@ -86,58 +85,52 @@ impl System {
     // }
 }
 
-fn get_dirs_from_path(path: &str) -> Vec<String> {
-    let mut directories = vec![];
-
-    if let Ok(directory) = fs::read_dir(path) {
-        for path in directory {
-            if let Ok(path) = path {
-                if let Ok(dir_name) = path.file_name().into_string() {
-                    directories.push(dir_name);
-                }
-            }
-        }
-    }
-
-    directories
-}
-
-fn get_categories_from_areas(areas: &Vec<String>, root: &str) -> Result<(Vec<Category>, Vec<Id>), std::io::Error> {
+fn get_stuff(root: &str) -> Result<(Vec<Area>, Vec<Category>, Vec<Id>), std::io::Error> {
+    let mut areas = vec![];
     let mut categories = vec![];
     let mut ids = vec![];
 
-    for area in areas {
-        let path = root.to_owned() + "/" + area;
-        let dirs = fs::read_dir(path)?;
+    if let Ok(directory) = fs::read_dir(root) {
+        for path in directory {
+            let path = path?;
 
-        for dir in dirs {
-            let dir = dir?;
-
-            if let Some(dir_name) = dir.file_name().to_str() {
-                if let Ok(category) = Category::new(dir_name) {
-                    categories.push(category);
+            if let Some(dir_name) = path.file_name().to_str() {
+                if let Ok(area) = Area::new(dir_name) {
+                    areas.push(area);
                 } else {
                     todo!("Warn if non-Johnny.Decimal stuff in directory?")
                 }
             }
 
-            if let Ok(sub_dirs) = fs::read_dir(dir.path()) {
-                for sub_dir in sub_dirs {
-                    let sub_dir = sub_dir?;
+            if let Ok(subdirs) = fs::read_dir(path.path()) {
+                for dir in subdirs {
+                    let dir = dir?;
 
-                    if let Some(sub_dir_name) = sub_dir.file_name().to_str() {
-                        if let Ok(id) = Id::new(sub_dir_name) {
-                            ids.push(id)
+                    if let Some(dir_name) = dir.file_name().to_str() {
+                        if let Ok(category) = Category::new(dir_name) {
+                            categories.push(category);
                         } else {
                             todo!("Warn if non-Johnny.Decimal stuff in directory?")
                         }
                     }
+
+                    if let Ok(sub_dirs) = fs::read_dir(dir.path()) {
+                        for sub_dir in sub_dirs {
+                            let sub_dir = sub_dir?;
+
+                            if let Some(sub_dir_name) = sub_dir.file_name().to_str() {
+                                if let Ok(id) = Id::new(sub_dir_name) {
+                                    ids.push(id)
+                                } else {
+                                    todo!("Warn if non-Johnny.Decimal stuff in directory?")
+                                }
+                            }
+                        }
+                    }
                 }
             }
-
         }
-
     }
 
-    Ok((categories, ids))
+    Ok((areas, categories, ids))
 }
