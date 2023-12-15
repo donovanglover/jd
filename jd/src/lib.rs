@@ -38,11 +38,11 @@ pub struct System {
 impl System {
     pub fn new(root: &str) -> Result<Self, &'static str> {
         let areas = get_dirs_from_path(root);
-        let (categories, ids) = get_categories_from_areas(&areas, root);
-
-        dbg!(areas);
-        dbg!(categories);
-        dbg!(ids);
+        if let Ok(stuff) = get_categories_from_areas(&areas, root) {
+            dbg!(areas);
+            dbg!(stuff.0);
+            dbg!(stuff.1);
+        }
 
         Ok(Self {
             root: root.to_string(),
@@ -102,41 +102,42 @@ fn get_dirs_from_path(path: &str) -> Vec<String> {
     directories
 }
 
-fn get_categories_from_areas(areas: &Vec<String>, root: &str) -> (Vec<Category>, Vec<Id>) {
+fn get_categories_from_areas(areas: &Vec<String>, root: &str) -> Result<(Vec<Category>, Vec<Id>), std::io::Error> {
     let mut categories = vec![];
     let mut ids = vec![];
 
     for area in areas {
         let path = root.to_owned() + "/" + area;
+        let dirs = fs::read_dir(path)?;
 
-        if let Ok(dirs) = fs::read_dir(path) {
-            for dir in dirs {
-                if let Ok(dir) = dir {
-                    if let Some(dir_name) = dir.file_name().to_str() {
-                        if let Ok(category) = Category::new(dir_name) {
-                            categories.push(category);
+        for dir in dirs {
+            let dir = dir?;
+
+            if let Some(dir_name) = dir.file_name().to_str() {
+                if let Ok(category) = Category::new(dir_name) {
+                    categories.push(category);
+                } else {
+                    todo!("Warn if non-Johnny.Decimal stuff in directory?")
+                }
+            }
+
+            if let Ok(sub_dirs) = fs::read_dir(dir.path()) {
+                for sub_dir in sub_dirs {
+                    let sub_dir = sub_dir?;
+
+                    if let Some(sub_dir_name) = sub_dir.file_name().to_str() {
+                        if let Ok(id) = Id::new(sub_dir_name) {
+                            ids.push(id)
                         } else {
                             todo!("Warn if non-Johnny.Decimal stuff in directory?")
                         }
                     }
-
-                    if let Ok(sub_dirs) = fs::read_dir(dir.path()) {
-                        for sub_dir in sub_dirs {
-                            if let Ok(sub_dir) = sub_dir {
-                                if let Some(sub_dir_name) = sub_dir.file_name().to_str() {
-                                    if let Ok(id) = Id::new(sub_dir_name) {
-                                        ids.push(id)
-                                    } else {
-                                        todo!("Warn if non-Johnny.Decimal stuff in directory?")
-                                    }
-                                }
-                            }
-                        }
-                    }
                 }
             }
+
         }
+
     }
 
-    (categories, ids)
+    Ok((categories, ids))
 }
