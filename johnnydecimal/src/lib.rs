@@ -344,6 +344,15 @@ impl Area {
     pub fn get_name(&self) -> &str {
         &self.name
     }
+
+    /// Change the `Title` of an existing `a0-a9 <title>`.
+    pub fn set_name(mut self, name: &str) -> Result<Self, &'static str> {
+        // TODO: Check if name contains comment
+
+        self.name = name.to_string();
+
+        Ok(self)
+    }
 }
 
 impl PartialEq for Area {
@@ -422,6 +431,15 @@ impl Category {
     /// Title `My Title`: The string `<title>` derived from `ac <title>`.
     pub fn get_name(&self) -> &str {
         &self.name
+    }
+
+    /// Change the `Title` of an existing `ac <title>`.
+    pub fn set_name(mut self, name: &str) -> Result<Self, &'static str> {
+        // TODO: Check if name contains comment
+
+        self.name = name.to_string();
+
+        Ok(self)
     }
 }
 
@@ -520,6 +538,15 @@ impl Id {
     /// Title `My Title`: The string `<title>` derived from `ac.id <title>`.
     pub fn get_name(&self) -> &str {
         &self.name
+    }
+
+    /// Change the `Title` of an existing `ac.id <title>`.
+    pub fn set_name(mut self, name: &str) -> Result<Self, &'static str> {
+        // TODO: Check if name contains comment
+
+        self.name = name.to_string();
+
+        Ok(self)
     }
 }
 
