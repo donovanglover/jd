@@ -37,10 +37,16 @@ pub struct System {
 
 impl System {
     pub fn new(root: &str) -> Result<Self, &'static str> {
-        if let Ok(stuff) = get_stuff(root) {
-            dbg!(stuff.0);
-            dbg!(stuff.1);
-            dbg!(stuff.2);
+        // todo: read index file if it exists
+        match get_stuff(root) {
+            Ok(stuff) => {
+                dbg!(stuff.0);
+                dbg!(stuff.1);
+                dbg!(stuff.2);
+            },
+            Err(e) => {
+                dbg!(e);
+            }
         }
 
         Ok(Self {
@@ -54,7 +60,7 @@ impl System {
             return Err("Area already exists in index.");
         }
 
-        if fs::create_dir(format!("{}/{} {}", self.root, area.area, area.name)).is_ok() {
+        if fs::create_dir(format!("{}/{} {}", self.root, area.get_area(), area.get_name())).is_ok() {
             self.index.areas.push(area);
             self.index.areas.sort_unstable();
         } else {
