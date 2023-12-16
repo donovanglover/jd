@@ -27,6 +27,7 @@ pub struct Cli {
     pub command: Option<Commands>,
 }
 
+/// CRUD commands...
 #[derive(Subcommand)]
 pub enum Commands {
     /// Add a new area, category, or id.
@@ -41,8 +42,8 @@ pub enum Commands {
     /// Insert a new area, category, or id, moving existing ones.
     Insert { name: String },
 
-    /// Decrease number of ids.
-    Reduce {},
+    /// Checks for empty folders and missing areas/categories/ids (Prune/Clean)
+    Clean {},
 
     /// Start a new web server.
     Serve {},
