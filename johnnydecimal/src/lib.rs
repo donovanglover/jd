@@ -12,7 +12,7 @@
 //! use johnnydecimal::{Area, Category, Id};
 //!
 //! if let Ok(area) = Area::new("10-19 Area") {
-//!     assert!(area.name == "Area");
+//!     assert!(area.get_name() == "Area");
 //! }
 //!
 //! assert!(Category::new("11 Area").is_ok());
@@ -60,8 +60,8 @@ use std::cmp::Ordering;
 /// use johnnydecimal::Area;
 ///
 /// if let Ok(area) = Area::new("20-29 My Area") {
-///     assert_eq!(area.area, "20-29");
-///     assert_eq!(area.name, "My Area");
+///     assert_eq!(area.get_area(), "20-29");
+///     assert_eq!(area.get_name(), "My Area");
 /// } else {
 ///     panic!("Invalid area");
 /// }
@@ -78,7 +78,7 @@ pub struct Area {
     ///
     /// let area = Area::new("30-39 My Area").expect("Invalid area");
     ///
-    /// assert!(area.area == "30-39");
+    /// assert!(area.get_area() == "30-39");
     /// ```
     area: String,
 
@@ -91,7 +91,7 @@ pub struct Area {
     ///
     /// let area = Area::new("30-39 My Area").expect("Invalid area");
     ///
-    /// assert!(area.name == "My Area");
+    /// assert!(area.get_name() == "My Area");
     /// ```
     name: String,
 }
@@ -110,9 +110,9 @@ pub struct Area {
 /// use johnnydecimal::Category;
 ///
 /// if let Ok(category) = Category::new("42 My Category") {
-///     assert_eq!(category.area, "40-49");
-///     assert_eq!(category.category, "42");
-///     assert_eq!(category.name, "My Category");
+///     assert_eq!(category.get_area(), "40-49");
+///     assert_eq!(category.get_category(), "42");
+///     assert_eq!(category.get_name(), "My Category");
 /// } else {
 ///     panic!("Invalid category");
 /// }
@@ -129,7 +129,7 @@ pub struct Category {
     ///
     /// let category = Category::new("53 My Category").expect("Invalid category");
     ///
-    /// assert!(category.area == "50-59");
+    /// assert!(category.get_area() == "50-59");
     /// ```
     area: String,
 
@@ -142,7 +142,7 @@ pub struct Category {
     ///
     /// let category = Category::new("53 My Category").expect("Invalid category");
     ///
-    /// assert!(category.category == "53");
+    /// assert!(category.get_category() == "53");
     /// ```
     category: String,
 
@@ -155,7 +155,7 @@ pub struct Category {
     ///
     /// let category = Category::new("53 My Category").expect("Invalid category");
     ///
-    /// assert!(category.name == "My Category");
+    /// assert!(category.get_name() == "My Category");
     /// ```
     name: String,
 }
@@ -174,10 +174,10 @@ pub struct Category {
 /// use johnnydecimal::Id;
 ///
 /// if let Ok(id) = Id::new("35.04 My Id") {
-///     assert_eq!(id.area, "30-39");
-///     assert_eq!(id.category, "35");
-///     assert_eq!(id.id, "35.04");
-///     assert_eq!(id.name, "My Id");
+///     assert_eq!(id.get_area(), "30-39");
+///     assert_eq!(id.get_category(), "35");
+///     assert_eq!(id.get_id(), "35.04");
+///     assert_eq!(id.get_name(), "My Id");
 /// } else {
 ///     panic!("Invalid id");
 /// }
@@ -194,7 +194,7 @@ pub struct Id {
     ///
     /// let id = Id::new("39.12 My Id").expect("Invalid id");
     ///
-    /// assert!(id.area == "30-39");
+    /// assert!(id.get_area() == "30-39");
     /// ```
     area: String,
 
@@ -207,7 +207,7 @@ pub struct Id {
     ///
     /// let id = Id::new("39.12 My Id").expect("Invalid id");
     ///
-    /// assert!(id.category == "39");
+    /// assert!(id.get_category() == "39");
     /// ```
     category: String,
 
@@ -220,7 +220,7 @@ pub struct Id {
     ///
     /// let id = Id::new("39.12 My Id").expect("Invalid id");
     ///
-    /// assert!(id.id == "39.12");
+    /// assert!(id.get_id() == "39.12");
     /// ```
     id: String,
 
@@ -233,7 +233,7 @@ pub struct Id {
     ///
     /// let id = Id::new("39.12 My Id").expect("Invalid id");
     ///
-    /// assert!(id.name == "My Id");
+    /// assert!(id.get_name() == "My Id");
     /// ```
     name: String,
 }
@@ -288,8 +288,8 @@ impl Area {
     /// use johnnydecimal::Area;
     ///
     /// if let Ok(area) = Area::new("10-19 Example") {
-    ///     assert!(area.area == "10-19");
-    ///     assert!(area.name == "Example");
+    ///     assert!(area.get_area() == "10-19");
+    ///     assert!(area.get_name() == "Example");
     /// } else {
     ///     panic!("Invalid area");
     /// }
@@ -385,9 +385,9 @@ impl Category {
     /// use johnnydecimal::Category;
     ///
     /// if let Ok(category) = Category::new("25 Example") {
-    ///     assert!(category.area == "20-29");
-    ///     assert!(category.category == "25");
-    ///     assert!(category.name == "Example");
+    ///     assert!(category.get_area() == "20-29");
+    ///     assert!(category.get_category() == "25");
+    ///     assert!(category.get_name() == "Example");
     /// } else {
     ///     panic!("Invalid category");
     /// }
@@ -473,10 +473,10 @@ impl Id {
     /// use johnnydecimal::Id;
     ///
     /// if let Ok(id) = Id::new("43.21 Example") {
-    ///     assert!(id.area == "40-49");
-    ///     assert!(id.category == "43");
-    ///     assert!(id.id == "43.21");
-    ///     assert!(id.name == "Example");
+    ///     assert!(id.get_area() == "40-49");
+    ///     assert!(id.get_category() == "43");
+    ///     assert!(id.get_id() == "43.21");
+    ///     assert!(id.get_name() == "Example");
     /// } else {
     ///     panic!("Invalid id");
     /// }
