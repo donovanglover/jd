@@ -653,9 +653,9 @@ impl Index {
             return Err("Given value was neither an Area, Category, or Id");
         }
 
-        areas.sort();
-        categories.sort();
-        ids.sort();
+        areas.sort_unstable();
+        categories.sort_unstable();
+        ids.sort_unstable();
 
         Ok(Index { areas, categories, ids })
     }
