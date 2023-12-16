@@ -80,7 +80,7 @@ pub struct Area {
     ///
     /// assert!(area.area == "30-39");
     /// ```
-    pub area: String,
+    area: String,
 
     /// Title `My Title`: The string `<title>` derived from `a0-a9 <title>`
     ///
@@ -93,7 +93,7 @@ pub struct Area {
     ///
     /// assert!(area.name == "My Area");
     /// ```
-    pub name: String,
+    name: String,
 }
 
 /// `11 Category`
@@ -131,7 +131,7 @@ pub struct Category {
     ///
     /// assert!(category.area == "50-59");
     /// ```
-    pub area: String,
+    area: String,
 
     /// Category `11`: The string `ac` derived from `ac <title>`.
     ///
@@ -144,7 +144,7 @@ pub struct Category {
     ///
     /// assert!(category.category == "53");
     /// ```
-    pub category: String,
+    category: String,
 
     /// Title `My Title`: The string `<title>` derived from `ac <title>`.
     ///
@@ -157,7 +157,7 @@ pub struct Category {
     ///
     /// assert!(category.name == "My Category");
     /// ```
-    pub name: String,
+    name: String,
 }
 
 /// `11.01 Id`
@@ -196,7 +196,7 @@ pub struct Id {
     ///
     /// assert!(id.area == "30-39");
     /// ```
-    pub area: String,
+    area: String,
 
     /// Category `11`: The string `ac` derived from `ac.id <title>`.
     ///
@@ -209,7 +209,7 @@ pub struct Id {
     ///
     /// assert!(id.category == "39");
     /// ```
-    pub category: String,
+    category: String,
 
     /// Id `11.01`: The string `ac.id` derived from `ac.id <title>`.
     ///
@@ -222,7 +222,7 @@ pub struct Id {
     ///
     /// assert!(id.id == "39.12");
     /// ```
-    pub id: String,
+    id: String,
 
     /// Title `My Title`: The string `<title>` derived from `ac.id <title>`.
     ///
@@ -235,7 +235,7 @@ pub struct Id {
     ///
     /// assert!(id.name == "My Id");
     /// ```
-    pub name: String,
+    name: String,
 }
 
 /// `00.00 Index.txt`
@@ -334,6 +334,16 @@ impl Area {
             name: chars[6..chars.len()].iter().collect(),
         })
     }
+
+    /// Area `10-19`: The string `a0-a9` derived from `a0-a9 <title>`.
+    pub fn get_area(&self) -> &str {
+        &self.area
+    }
+
+    /// Title `My Title`: The string `<title>` derived from `a0-a9 <title>`
+    pub fn get_name(&self) -> &str {
+        &self.name
+    }
 }
 
 impl PartialEq for Area {
@@ -397,6 +407,21 @@ impl Category {
             area: [chars[0], '0', '-', chars[0], '9'].iter().collect(),
             name: chars[3..chars.len()].iter().collect(),
         })
+    }
+
+    /// Area `10-19`: The string `a0-a9` derived from `ac <title>`.
+    pub fn get_area(&self) -> &str {
+        &self.area
+    }
+
+    /// Category `11`: The string `ac` derived from `ac <title>`.
+    pub fn get_category(&self) -> &str {
+        &self.category
+    }
+
+    /// Title `My Title`: The string `<title>` derived from `ac <title>`.
+    pub fn get_name(&self) -> &str {
+        &self.name
     }
 }
 
@@ -475,6 +500,26 @@ impl Id {
             area: [chars[0], '0', '-', chars[0], '9'].iter().collect(),
             name: chars[6..chars.len()].iter().collect(),
         })
+    }
+
+    /// Area `10-19`: The string `a0-a9` derived from `ac.id <title>`.
+    pub fn get_area(&self) -> &str {
+        &self.area
+    }
+
+    /// Category `11`: The string `ac` derived from `ac.id <title>`.
+    pub fn get_category(&self) -> &str {
+        &self.category
+    }
+
+    /// Id `11.01`: The string `ac.id` derived from `ac.id <title>`.
+    pub fn get_id(&self) -> &str {
+        &self.id
+    }
+
+    /// Title `My Title`: The string `<title>` derived from `ac.id <title>`.
+    pub fn get_name(&self) -> &str {
+        &self.name
     }
 }
 

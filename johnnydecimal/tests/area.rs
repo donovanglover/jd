@@ -24,8 +24,8 @@ fn test_area() {
 fn get_area() {
     let area = Area::new("20-29 Finance Test").expect("`20-29 Finance Test` should be a valid area");
 
-    assert_eq!(area.area, "20-29", "`20-29 Finance Test` should have area equal to `20-29`");
-    assert_eq!(area.name, "Finance Test", "`20-29 Finance Test` should have name equal to `Finance Test`");
+    assert_eq!(area.get_area(), "20-29", "`20-29 Finance Test` should have area equal to `20-29`");
+    assert_eq!(area.get_name(), "Finance Test", "`20-29 Finance Test` should have name equal to `Finance Test`");
 }
 
 #[test]

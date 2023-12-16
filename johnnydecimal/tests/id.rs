@@ -26,10 +26,10 @@ fn test_id() {
 fn get_id() {
     let id = Id::new("48.32 Important Trip").expect("`48.32 Important Trip` should be a valid id");
 
-    assert_eq!(id.id, "48.32", "`48.32 Important Trip` should have id equal to `48.32`");
-    assert_eq!(id.category, "48", "`48.32 Important Trip` should have category equal to `48`");
-    assert_eq!(id.area, "40-49", "`48.32 Important Trip` should have area equal to `40-49`");
-    assert_eq!(id.name, "Important Trip", "`48.32 Important Trip` should have name equal to `Important Trip`");
+    assert_eq!(id.get_id(), "48.32", "`48.32 Important Trip` should have id equal to `48.32`");
+    assert_eq!(id.get_category(), "48", "`48.32 Important Trip` should have category equal to `48`");
+    assert_eq!(id.get_area(), "40-49", "`48.32 Important Trip` should have area equal to `40-49`");
+    assert_eq!(id.get_name(), "Important Trip", "`48.32 Important Trip` should have name equal to `Important Trip`");
 }
 
 #[test]
