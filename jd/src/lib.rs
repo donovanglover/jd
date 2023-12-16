@@ -55,13 +55,13 @@ impl System {
     }
 
     pub fn add_area(&mut self, area: Area) -> Result<(), &'static str> {
-        if self.index.areas.contains(&area) {
+        if self.index.get_areas().contains(&area) {
             return Err("Area already exists in index.");
         }
 
         if fs::create_dir(format!("{}/{} {}", self.root, area.get_area(), area.get_name())).is_ok() {
-            self.index.areas.push(area);
-            self.index.areas.sort_unstable();
+            // self.index.get_areas().push(area);
+            // self.index.get_areas().sort_unstable();
         } else {
             return Err("Directory for Area already exists.");
         }

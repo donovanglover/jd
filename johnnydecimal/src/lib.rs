@@ -257,9 +257,9 @@ pub struct Id {
 /// use johnnydecimal::Index;
 ///
 /// if let Ok(index) = Index::new("10-19 Area\n13 Category\n13.05 Id") {
-///     assert!(index.areas.iter().count() == 1);
-///     assert!(index.categories.iter().count() == 1);
-///     assert!(index.ids.iter().count() == 1);
+///     assert!(index.get_areas().iter().count() == 1);
+///     assert!(index.get_categories().iter().count() == 1);
+///     assert!(index.get_ids().iter().count() == 1);
 /// } else {
 ///     panic!("Invalid index");
 /// }
@@ -267,13 +267,13 @@ pub struct Id {
 #[derive(Debug)]
 pub struct Index {
     /// A `Vec` of `Area`s.
-    pub areas: Vec<Area>,
+    areas: Vec<Area>,
 
     /// A `Vec` of type `Category`
-    pub categories: Vec<Category>,
+    categories: Vec<Category>,
 
     /// A `Vec` of `Id`s
-    pub ids: Vec<Id>,
+    ids: Vec<Id>,
 }
 
 impl Area {
@@ -580,9 +580,9 @@ impl Index {
     /// use johnnydecimal::Index;
     ///
     /// if let Ok(index) = Index::new("10-19 Area\n11 Category\n11.01 Id") {
-    ///     assert!(index.areas.iter().count() == 1);
-    ///     assert!(index.categories.iter().count() == 1);
-    ///     assert!(index.ids.iter().count() == 1);
+    ///     assert!(index.get_areas().iter().count() == 1);
+    ///     assert!(index.get_categories().iter().count() == 1);
+    ///     assert!(index.get_ids().iter().count() == 1);
     /// } else {
     ///     panic!("Invalid index");
     /// }
@@ -658,5 +658,20 @@ impl Index {
         ids.sort();
 
         Ok(Index { areas, categories, ids })
+    }
+
+    /// Area `10-19`: The string `a0-a9` derived from `ac.id <title>`.
+    pub fn get_areas(&self) -> &Vec<Area> {
+        &self.areas
+    }
+
+    /// Category `11`: The string `ac` derived from `ac.id <title>`.
+    pub fn get_categories(&self) -> &Vec<Category> {
+        &self.categories
+    }
+
+    /// Id `11.01`: The string `ac.id` derived from `ac.id <title>`.
+    pub fn get_ids(&self) -> &Vec<Id> {
+        &self.ids
     }
 }
