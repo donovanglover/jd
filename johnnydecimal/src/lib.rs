@@ -605,6 +605,7 @@ impl Index {
                 }
 
                 ids.push(id);
+
                 continue;
             }
 
@@ -618,6 +619,7 @@ impl Index {
                 }
 
                 categories.push(category);
+
                 continue;
             }
 
@@ -627,6 +629,7 @@ impl Index {
                 }
 
                 areas.push(area);
+
                 continue;
             }
 
