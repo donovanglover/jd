@@ -148,7 +148,7 @@ fn test_with_vecs() {
 
     assert!(Index::with_vecs(&areas, &categories, &duplicate_ids).is_err(), "duplicate ids should fail");
 
-    // assert!(Index::with_vecs(&vec![], &categories, &vec![]).is_err(), "should fail if category_only index");
-    // assert!(Index::with_vecs(&vec![], &vec![], &ids).is_err(), "should fail if id_only index");
-    // assert!(Index::with_vecs(&areas, &vec![], &ids).is_err(), "should fail if area and id only");
+    assert!(Index::with_vecs(&vec![], &categories, &vec![]).is_err(), "should fail if category_only index");
+    assert!(Index::with_vecs(&vec![], &vec![], &ids).is_err(), "should fail if id_only index");
+    assert!(Index::with_vecs(&areas, &vec![], &ids).is_err(), "should fail if area and id only");
 }

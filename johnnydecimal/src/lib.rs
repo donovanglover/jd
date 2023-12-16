@@ -680,6 +680,18 @@ impl Index {
         categories.sort_unstable();
         ids.sort_unstable();
 
+        for id in &ids {
+            if !categories.iter().any(|c| c.category == id.category) {
+                return Err("A given id has no associated category");
+            }
+        }
+
+        for category in &categories {
+            if !areas.iter().any(|a| a.area == category.area) {
+                return Err("A given category has no associated area");
+            }
+        }
+
         Ok(Index { areas, categories, ids })
     }
 
