@@ -43,7 +43,7 @@ impl System {
                 dbg!(stuff.0);
                 dbg!(stuff.1);
                 dbg!(stuff.2);
-            },
+            }
             Err(e) => {
                 dbg!(e);
             }
@@ -100,7 +100,9 @@ fn get_stuff(root: &str) -> Result<(Vec<Area>, Vec<Category>, Vec<Id>), std::io:
     for path in directory {
         let path = path?;
 
-        if !path.path().is_dir() { continue }
+        if !path.path().is_dir() {
+            continue;
+        }
 
         if let Ok(area) = Area::new(path.file_name().to_str().ok_or(std::io::ErrorKind::Other)?) {
             areas.push(area);
@@ -111,7 +113,9 @@ fn get_stuff(root: &str) -> Result<(Vec<Area>, Vec<Category>, Vec<Id>), std::io:
         for dir in subdirs {
             let dir = dir?;
 
-            if !dir.path().is_dir() { continue }
+            if !dir.path().is_dir() {
+                continue;
+            }
 
             if let Ok(category) = Category::new(dir.file_name().to_str().ok_or(std::io::ErrorKind::Other)?) {
                 categories.push(category);
@@ -122,7 +126,9 @@ fn get_stuff(root: &str) -> Result<(Vec<Area>, Vec<Category>, Vec<Id>), std::io:
             for sub_dir in sub_dirs {
                 let sub_dir = sub_dir?;
 
-                if !sub_dir.path().is_dir() { continue }
+                if !sub_dir.path().is_dir() {
+                    continue;
+                }
 
                 if let Ok(id) = Id::new(sub_dir.file_name().to_str().ok_or(std::io::ErrorKind::Other)?) {
                     ids.push(id)
