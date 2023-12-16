@@ -169,3 +169,24 @@ fn test_add_area() {
         panic!("area_with_category_and_id index should pass");
     }
 }
+
+#[test]
+fn test_add_category() {
+    use johnnydecimal::Category;
+
+    if let Ok(mut index) = Index::new("20-29 Area\n22 Category\n22.03 Id\n22.05 Another") {
+        let result = index.add_category(Category::new("24 Test").expect("`24 Test` should be a valid category"));
+
+        assert!(result.is_ok(), "should pass when adding unique category");
+
+        let result = index.add_category(Category::new("24 Another").expect("`24 Another` should be a valid category"));
+
+        assert!(result.is_err(), "should fail when adding duplicate category");
+
+        let result = index.add_category(Category::new("53 Orphan").expect("`53 Orphan` should be a valid category"));
+
+        assert!(result.is_err(), "should fail when adding category without associated area");
+    } else {
+        panic!("area_with_category_and_id index should pass");
+    }
+}

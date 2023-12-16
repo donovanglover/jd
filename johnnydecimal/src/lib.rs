@@ -723,6 +723,24 @@ impl Index {
 
         Ok(&self.areas)
     }
+
+    /// Adds a valid `Category` to the vector of ids if there are no duplicates.
+    ///
+    /// If successful, the category list is returned as `Ok`. Otherwise `Err`.
+    pub fn add_category(&mut self, category: Category) -> Result<&Vec<Category>, &'static str> {
+        if self.categories.contains(&category) {
+            return Err("Category already exists.")
+        }
+
+        if !self.areas.iter().any(|a| a.area == category.area) {
+            return Err("A given category has no associated area");
+        }
+
+        self.categories.push(category);
+        self.categories.sort_unstable();
+
+        Ok(&self.categories)
+    }
 }
 
 /// Based on https://stackoverflow.com/a/46767732
