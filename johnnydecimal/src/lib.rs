@@ -47,6 +47,7 @@
 //! [Johnny.Decimal Index Specification]: https://github.com/johnnydecimal/jdcm.al__index-spec
 
 use std::cmp::Ordering;
+use std::collections::BTreeSet;
 
 /// `10-19 Area`
 ///
@@ -67,7 +68,7 @@ use std::cmp::Ordering;
 /// }
 ///
 /// ```
-#[derive(Debug, Default, Eq)]
+#[derive(Debug, Default, Eq, Clone)]
 pub struct Area {
     area: String,
     name: String,
@@ -95,7 +96,7 @@ pub struct Area {
 /// }
 ///
 /// ```
-#[derive(Debug, Default, Eq)]
+#[derive(Debug, Default, Eq, Clone)]
 pub struct Category {
     area: String,
     category: String,
@@ -125,7 +126,7 @@ pub struct Category {
 /// }
 ///
 /// ```
-#[derive(Debug, Default, Eq)]
+#[derive(Debug, Default, Eq, Clone)]
 pub struct Id {
     area: String,
     category: String,
@@ -643,6 +644,26 @@ impl Index {
         Ok(Index { areas, categories, ids })
     }
 
+    /// Create an Index from vectors
+    ///
+    /// Note that checking for duplicates and sorting the vectors (although possibly redundant)
+    /// removes the risk of such vectors being unverified and producing an undefined state.
+    pub fn with_vecs(areas: Vec<Area>, categories: Vec<Category>, ids: Vec<Id>) -> Result<Index, &'static str> {
+        if has_duplicate(&areas) || has_duplicate(&categories) || has_duplicate(&ids) {
+            return Err("Duplicates exist.")
+        }
+
+        let mut areas = areas.to_owned();
+        let mut categories = categories.to_owned();
+        let mut ids = ids.to_owned();
+
+        areas.sort_unstable();
+        categories.sort_unstable();
+        ids.sort_unstable();
+
+        Ok(Index { areas, categories, ids })
+    }
+
     /// Area `10-19`: The string `a0-a9` derived from `ac.id <title>`.
     pub fn get_areas(&self) -> &Vec<Area> {
         &self.areas
@@ -667,4 +688,11 @@ impl Index {
 
         Ok(&self.areas)
     }
+}
+
+/// Based on https://stackoverflow.com/a/46767732
+fn has_duplicate<T>(iter: T) -> bool where T: IntoIterator, T::Item: Ord {
+    let mut uniq = BTreeSet::new();
+
+    !iter.into_iter().all(move |x| uniq.insert(x))
 }

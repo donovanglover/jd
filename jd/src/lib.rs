@@ -149,7 +149,9 @@ fn get_stuff(root: &str) -> Result<Index, std::io::Error> {
         }
     }
 
-    let index = Index::from_vecs(areas, categories, ids).unwrap();
+    if let Ok(index) = Index::with_vecs(areas, categories, ids) {
+        return Ok(index);
+    }
 
-    Ok(index)
+    Err(std::io::ErrorKind::Other.into())
 }
