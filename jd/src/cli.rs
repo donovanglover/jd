@@ -27,7 +27,6 @@ pub struct Cli {
     pub command: Option<Commands>,
 }
 
-/// CRUD commands...
 #[derive(Subcommand)]
 pub enum Commands {
     /// Add a new area, category, or id.
