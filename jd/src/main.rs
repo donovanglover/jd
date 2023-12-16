@@ -12,7 +12,7 @@ fn main() {
 
         Some(Commands::Remove { name: _ }) => {}
 
-        Some(Commands::Ls { name: _ }) => {
+        Some(Commands::Index { name: _ }) => {
             list_areas();
         }
 
