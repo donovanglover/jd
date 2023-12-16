@@ -69,30 +69,7 @@ use std::cmp::Ordering;
 /// ```
 #[derive(Debug, Default, Eq)]
 pub struct Area {
-    /// Area `10-19`: The string `a0-a9` derived from `a0-a9 <title>`.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// use johnnydecimal::Area;
-    ///
-    /// let area = Area::new("30-39 My Area").expect("Invalid area");
-    ///
-    /// assert!(area.get_area() == "30-39");
-    /// ```
     area: String,
-
-    /// Title `My Title`: The string `<title>` derived from `a0-a9 <title>`
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// use johnnydecimal::Area;
-    ///
-    /// let area = Area::new("30-39 My Area").expect("Invalid area");
-    ///
-    /// assert!(area.get_name() == "My Area");
-    /// ```
     name: String,
 }
 
@@ -120,43 +97,8 @@ pub struct Area {
 /// ```
 #[derive(Debug, Default, Eq)]
 pub struct Category {
-    /// Area `10-19`: The string `a0-a9` derived from `ac <title>`.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// use johnnydecimal::Category;
-    ///
-    /// let category = Category::new("53 My Category").expect("Invalid category");
-    ///
-    /// assert!(category.get_area() == "50-59");
-    /// ```
     area: String,
-
-    /// Category `11`: The string `ac` derived from `ac <title>`.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// use johnnydecimal::Category;
-    ///
-    /// let category = Category::new("53 My Category").expect("Invalid category");
-    ///
-    /// assert!(category.get_category() == "53");
-    /// ```
     category: String,
-
-    /// Title `My Title`: The string `<title>` derived from `ac <title>`.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// use johnnydecimal::Category;
-    ///
-    /// let category = Category::new("53 My Category").expect("Invalid category");
-    ///
-    /// assert!(category.get_name() == "My Category");
-    /// ```
     name: String,
 }
 
@@ -185,56 +127,9 @@ pub struct Category {
 /// ```
 #[derive(Debug, Default, Eq)]
 pub struct Id {
-    /// Area `10-19`: The string `a0-a9` derived from `ac.id <title>`.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// use johnnydecimal::Id;
-    ///
-    /// let id = Id::new("39.12 My Id").expect("Invalid id");
-    ///
-    /// assert!(id.get_area() == "30-39");
-    /// ```
     area: String,
-
-    /// Category `11`: The string `ac` derived from `ac.id <title>`.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// use johnnydecimal::Id;
-    ///
-    /// let id = Id::new("39.12 My Id").expect("Invalid id");
-    ///
-    /// assert!(id.get_category() == "39");
-    /// ```
     category: String,
-
-    /// Id `11.01`: The string `ac.id` derived from `ac.id <title>`.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// use johnnydecimal::Id;
-    ///
-    /// let id = Id::new("39.12 My Id").expect("Invalid id");
-    ///
-    /// assert!(id.get_id() == "39.12");
-    /// ```
     id: String,
-
-    /// Title `My Title`: The string `<title>` derived from `ac.id <title>`.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// use johnnydecimal::Id;
-    ///
-    /// let id = Id::new("39.12 My Id").expect("Invalid id");
-    ///
-    /// assert!(id.get_name() == "My Id");
-    /// ```
     name: String,
 }
 
@@ -266,13 +161,8 @@ pub struct Id {
 /// ```
 #[derive(Debug)]
 pub struct Index {
-    /// A `Vec` of `Area`s.
     areas: Vec<Area>,
-
-    /// A `Vec` of type `Category`
     categories: Vec<Category>,
-
-    /// A `Vec` of `Id`s
     ids: Vec<Id>,
 }
 
@@ -336,11 +226,31 @@ impl Area {
     }
 
     /// Area `10-19`: The string `a0-a9` derived from `a0-a9 <title>`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use johnnydecimal::Area;
+    ///
+    /// let area = Area::new("30-39 My Area").expect("Invalid area");
+    ///
+    /// assert!(area.get_area() == "30-39");
+    /// ```
     pub fn get_area(&self) -> &str {
         &self.area
     }
 
     /// Title `My Title`: The string `<title>` derived from `a0-a9 <title>`
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use johnnydecimal::Area;
+    ///
+    /// let area = Area::new("30-39 My Area").expect("Invalid area");
+    ///
+    /// assert!(area.get_name() == "My Area");
+    /// ```
     pub fn get_name(&self) -> &str {
         &self.name
     }
@@ -419,16 +329,46 @@ impl Category {
     }
 
     /// Area `10-19`: The string `a0-a9` derived from `ac <title>`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use johnnydecimal::Category;
+    ///
+    /// let category = Category::new("53 My Category").expect("Invalid category");
+    ///
+    /// assert!(category.get_area() == "50-59");
+    /// ```
     pub fn get_area(&self) -> &str {
         &self.area
     }
 
     /// Category `11`: The string `ac` derived from `ac <title>`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use johnnydecimal::Category;
+    ///
+    /// let category = Category::new("53 My Category").expect("Invalid category");
+    ///
+    /// assert!(category.get_category() == "53");
+    /// ```
     pub fn get_category(&self) -> &str {
         &self.category
     }
 
     /// Title `My Title`: The string `<title>` derived from `ac <title>`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use johnnydecimal::Category;
+    ///
+    /// let category = Category::new("53 My Category").expect("Invalid category");
+    ///
+    /// assert!(category.get_name() == "My Category");
+    /// ```
     pub fn get_name(&self) -> &str {
         &self.name
     }
@@ -521,21 +461,61 @@ impl Id {
     }
 
     /// Area `10-19`: The string `a0-a9` derived from `ac.id <title>`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use johnnydecimal::Id;
+    ///
+    /// let id = Id::new("39.12 My Id").expect("Invalid id");
+    ///
+    /// assert!(id.get_area() == "30-39");
+    /// ```
     pub fn get_area(&self) -> &str {
         &self.area
     }
 
     /// Category `11`: The string `ac` derived from `ac.id <title>`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use johnnydecimal::Id;
+    ///
+    /// let id = Id::new("39.12 My Id").expect("Invalid id");
+    ///
+    /// assert!(id.get_category() == "39");
+    /// ```
     pub fn get_category(&self) -> &str {
         &self.category
     }
 
     /// Id `11.01`: The string `ac.id` derived from `ac.id <title>`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use johnnydecimal::Id;
+    ///
+    /// let id = Id::new("39.12 My Id").expect("Invalid id");
+    ///
+    /// assert!(id.get_id() == "39.12");
+    /// ```
     pub fn get_id(&self) -> &str {
         &self.id
     }
 
     /// Title `My Title`: The string `<title>` derived from `ac.id <title>`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use johnnydecimal::Id;
+    ///
+    /// let id = Id::new("39.12 My Id").expect("Invalid id");
+    ///
+    /// assert!(id.get_name() == "My Id");
+    /// ```
     pub fn get_name(&self) -> &str {
         &self.name
     }
