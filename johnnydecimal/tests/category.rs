@@ -18,6 +18,15 @@ fn test_category() {
 }
 
 #[test]
+fn test_category_name() {
+    assert!(Category::new("15 Test Test").is_ok(), "Name `Test Test` should pass");
+    assert!(Category::new("15 テスト").is_ok(), "Name `テスト` should pass");
+    assert!(Category::new("15 ../Directory traversal").is_err(), "Name `../Directory traversal` should fail");
+    assert!(Category::new("15 /* Comment */").is_err(), "Name `/* Comment */` should fail");
+    assert!(Category::new("15 Testing // Comment").is_err(), "Name `Testing // Comment` should fail");
+}
+
+#[test]
 fn get_category() {
     let category = Category::new("32 Sales Test").expect("`32 Sales Test` should be a valid category");
 

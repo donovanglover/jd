@@ -22,6 +22,15 @@ fn test_area() {
 }
 
 #[test]
+fn test_area_name() {
+    assert!(Area::new("30-39 Test Test").is_ok(), "Name `Test Test` should pass");
+    assert!(Area::new("30-39 テスト").is_ok(), "Name `テスト` should pass");
+    assert!(Area::new("30-39 ../Directory traversal").is_err(), "Name `../Directory traversal` should fail");
+    assert!(Area::new("30-39 /* Comment */").is_err(), "Name `/* Comment */` should fail");
+    assert!(Area::new("30-39 Testing // Comment").is_err(), "Name `Testing // Comment` should fail");
+}
+
+#[test]
 fn get_area() {
     let area = Area::new("20-29 Finance Test").expect("`20-29 Finance Test` should be a valid area");
 

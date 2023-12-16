@@ -23,6 +23,15 @@ fn test_id() {
 }
 
 #[test]
+fn test_id_name() {
+    assert!(Id::new("15.42 Test Test").is_ok(), "Name `Test Test` should pass");
+    assert!(Id::new("15.42 テスト").is_ok(), "Name `テスト` should pass");
+    assert!(Id::new("15.42 ../Directory traversal").is_err(), "Name `../Directory traversal` should fail");
+    assert!(Id::new("15.42 /* Comment */").is_err(), "Name `/* Comment */` should fail");
+    assert!(Id::new("15.42 Testing // Comment").is_err(), "Name `Testing // Comment` should fail");
+}
+
+#[test]
 fn get_id() {
     let id = Id::new("48.32 Important Trip").expect("`48.32 Important Trip` should be a valid id");
 

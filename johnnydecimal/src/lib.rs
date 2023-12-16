@@ -221,10 +221,14 @@ impl Area {
             return Err("Given area does not have a space separator");
         }
 
-        Ok(Area {
-            area: chars[0..5].iter().collect(),
-            name: chars[6..chars.len()].iter().collect(),
-        })
+        let area = chars[0..5].iter().collect::<String>();
+        let name = chars[6..chars.len()].iter().collect::<String>();
+
+        if sanitise(&name) != name {
+            return Err("Given area does not have a valid title for file names");
+        }
+
+        Ok(Self { area, name })
     }
 
     /// Area `10-19`: The string `a0-a9` derived from `a0-a9 <title>`.
@@ -325,11 +329,15 @@ impl Category {
             return Err("Given category does not have a space separator");
         }
 
-        Ok(Category {
-            category: chars[0..2].iter().collect(),
-            area: [chars[0], '0', '-', chars[0], '9'].iter().collect(),
-            name: chars[3..chars.len()].iter().collect(),
-        })
+        let category = chars[0..2].iter().collect::<String>();
+        let area = [chars[0], '0', '-', chars[0], '9'].iter().collect::<String>();
+        let name = chars[3..chars.len()].iter().collect::<String>();
+
+        if sanitise(&name) != name {
+            return Err("Given category does not have a valid title for file names");
+        }
+
+        Ok(Self { category, area, name })
     }
 
     /// Area `10-19`: The string `a0-a9` derived from `ac <title>`.
@@ -458,12 +466,16 @@ impl Id {
             return Err("Given id does not have a space separator");
         }
 
-        Ok(Id {
-            id: chars[0..5].iter().collect(),
-            category: chars[0..2].iter().collect(),
-            area: [chars[0], '0', '-', chars[0], '9'].iter().collect(),
-            name: chars[6..chars.len()].iter().collect(),
-        })
+        let id = chars[0..5].iter().collect::<String>();
+        let category = chars[0..2].iter().collect::<String>();
+        let area = [chars[0], '0', '-', chars[0], '9'].iter().collect::<String>();
+        let name = chars[6..chars.len()].iter().collect::<String>();
+
+        if sanitise(&name) != name {
+            return Err("Given id does not have a valid title for file names");
+        }
+
+        Ok(Self { id, category, area, name })
     }
 
     /// Area `10-19`: The string `a0-a9` derived from `ac.id <title>`.
