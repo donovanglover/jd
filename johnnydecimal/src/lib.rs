@@ -667,8 +667,8 @@ impl Index {
     ///
     /// Note that checking for duplicates and sorting the vectors (although possibly redundant)
     /// removes the risk of such vectors being unverified and producing an undefined state.
-    pub fn with_vecs(areas: Vec<Area>, categories: Vec<Category>, ids: Vec<Id>) -> Result<Index, &'static str> {
-        if has_duplicate(&areas) || has_duplicate(&categories) || has_duplicate(&ids) {
+    pub fn with_vecs(areas: &Vec<Area>, categories: &Vec<Category>, ids: &Vec<Id>) -> Result<Index, &'static str> {
+        if has_duplicate(areas) || has_duplicate(categories) || has_duplicate(ids) {
             return Err("Duplicates exist.")
         }
 
