@@ -356,7 +356,7 @@ impl Area {
 }
 
 impl PartialEq for Area {
-    fn eq(&self, other: &Area) -> bool {
+    fn eq(&self, other: &Self) -> bool {
         self.area == other.area
     }
 }
@@ -444,7 +444,7 @@ impl Category {
 }
 
 impl PartialEq for Category {
-    fn eq(&self, other: &Category) -> bool {
+    fn eq(&self, other: &Self) -> bool {
         self.category == other.category
     }
 }
@@ -551,7 +551,7 @@ impl Id {
 }
 
 impl PartialEq for Id {
-    fn eq(&self, other: &Id) -> bool {
+    fn eq(&self, other: &Self) -> bool {
         self.id == other.id
     }
 }
