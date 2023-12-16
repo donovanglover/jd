@@ -53,7 +53,7 @@ fn test_index() {
     assert!(Index::new("20 Test\n21 Another").is_err(), "should fail if category_only index");
     assert!(Index::new("21.02 Test\n21.03 Another").is_err(), "should fail if id_only index");
     assert!(Index::new("20-29 Area\n21.55 Id").is_err(), "should fail if area and id only");
-    assert!(Index::new("12 Category\n10-19 Area").is_err(), "should fail if area before category");
+    assert!(Index::new("12 Category\n10-19 Area").is_err(), "should fail if category before area");
     assert!(Index::new("10-19 Area\n11.01 Test\n11 Category").is_err(), "should fail if id before category");
     assert!(Index::new("20-29 One\n20-29 Two").is_err(), "should fail if duplicate area");
     assert!(Index::new("20-29 Area\n21 Category A\n21 Another Category").is_err(), "should fail if duplicate category");
