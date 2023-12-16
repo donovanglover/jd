@@ -105,6 +105,10 @@ fn get_stuff(root: &str) -> Result<Index, std::io::Error> {
         }
 
         if let Ok(area) = Area::new(path.file_name().to_str().ok_or(std::io::ErrorKind::Other)?) {
+            if areas.contains(&area) {
+                return Err(std::io::ErrorKind::Other.into());
+            }
+
             areas.push(area);
         }
 
@@ -118,6 +122,10 @@ fn get_stuff(root: &str) -> Result<Index, std::io::Error> {
             }
 
             if let Ok(category) = Category::new(dir.file_name().to_str().ok_or(std::io::ErrorKind::Other)?) {
+                if categories.contains(&category) {
+                    return Err(std::io::ErrorKind::Other.into());
+                }
+
                 categories.push(category);
             }
 
@@ -131,13 +139,17 @@ fn get_stuff(root: &str) -> Result<Index, std::io::Error> {
                 }
 
                 if let Ok(id) = Id::new(sub_dir.file_name().to_str().ok_or(std::io::ErrorKind::Other)?) {
+                    if ids.contains(&id) {
+                        return Err(std::io::ErrorKind::Other.into());
+                    }
+
                     ids.push(id)
                 }
             }
         }
     }
 
-    let index = Index::new("").unwrap();
+    let index = Index::from_vecs(areas, categories, ids).unwrap();
 
     Ok(index)
 }
