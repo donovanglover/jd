@@ -15,7 +15,7 @@
 //!     assert!(area.get_name() == "Area");
 //! }
 //!
-//! assert!(Category::new("11 Area").is_ok());
+//! assert!(Category::new("11 Category").is_ok());
 //! ```
 //!
 //! # Methodology
