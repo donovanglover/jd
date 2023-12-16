@@ -48,6 +48,7 @@
 
 use std::cmp::Ordering;
 use std::collections::BTreeSet;
+use sanitise_file_name::sanitise;
 
 /// `10-19 Area`
 ///
@@ -257,8 +258,10 @@ impl Area {
     }
 
     /// Change the `Title` of an existing `a0-a9 <title>`.
-    pub fn set_name(mut self, name: &str) -> Result<Self, &'static str> {
-        // TODO: Check if name contains comment
+    pub fn set_name(&mut self, name: &str) -> Result<&Self, &'static str> {
+        if sanitise(name) != name {
+            return Err("Invalid file name");
+        }
 
         self.name = name.to_string();
 

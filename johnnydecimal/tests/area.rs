@@ -48,3 +48,14 @@ fn sort_area() {
     assert!(area_2 > area_1, "`20-29 Example 2` should be greater than `10-19 Example 1`");
     assert!(area_4 < area_3, "`20-29 Example 4` should be less than `30-39 Example 3`");
 }
+
+#[test]
+fn set_area() {
+    let mut area = Area::new("30-39 Test").expect("`30-39 Test` should be a valid area");
+
+    assert!(area.set_name("Test 2").is_ok(), "Name `Test 2` should pass");
+    assert!(area.set_name("テスト").is_ok(), "Name `テスト` should pass");
+    assert!(area.set_name("../Directory traversal").is_err(), "Name `../Directory traversal` should fail");
+    assert!(area.set_name("/* Comment */").is_err(), "Name `/* Comment */` should fail");
+    assert!(area.set_name("Testing // Comment").is_err(), "Name `Testing // Comment` should fail");
+}

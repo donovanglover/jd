@@ -6,3 +6,6 @@ repository.workspace = true
 license.workspace = true
 edition.workspace = true
 publish.workspace = true
+
+[dependencies]
+sanitise-file-name = "1.0.0"
