@@ -378,8 +378,10 @@ impl Category {
     }
 
     /// Change the `Title` of an existing `ac <title>`.
-    pub fn set_name(mut self, name: &str) -> Result<Self, &'static str> {
-        // TODO: Check if name contains comment
+    pub fn set_name(&mut self, name: &str) -> Result<&Self, &'static str> {
+        if sanitise(name) != name {
+            return Err("Invalid file name");
+        }
 
         self.name = name.to_string();
 
@@ -525,8 +527,10 @@ impl Id {
     }
 
     /// Change the `Title` of an existing `ac.id <title>`.
-    pub fn set_name(mut self, name: &str) -> Result<Self, &'static str> {
-        // TODO: Check if name contains comment
+    pub fn set_name(&mut self, name: &str) -> Result<&Self, &'static str> {
+        if sanitise(name) != name {
+            return Err("Invalid file name");
+        }
 
         self.name = name.to_string();
 
