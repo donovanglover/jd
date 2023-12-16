@@ -46,3 +46,14 @@ fn sort_category() {
     assert!(category_2 > category_1, "`12 Example 2` should be greater than `11 Example 1`");
     assert!(category_4 < category_3, "`12 Example 4` should be less than `13 Example 3`");
 }
+
+#[test]
+fn set_category_name() {
+    let mut category = Category::new("14 Test Category").expect("`14 Test Category` should be a valid category");
+
+    assert!(category.set_name("Test 2").is_ok(), "Name `Test 2` should pass");
+    assert!(category.set_name("テスト").is_ok(), "Name `テスト` should pass");
+    assert!(category.set_name("../Directory traversal").is_err(), "Name `../Directory traversal` should fail");
+    assert!(category.set_name("/* Comment */").is_err(), "Name `/* Comment */` should fail");
+    assert!(category.set_name("Testing // Comment").is_err(), "Name `Testing // Comment` should fail");
+}

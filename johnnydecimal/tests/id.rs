@@ -61,3 +61,14 @@ fn sort_id() {
     assert!(id_7 > id_1, "`21.02 Example 7` should be greater than `11.01 Example 1`");
     assert!(id_7 > id_3, "`21.02 Example 7` should be greater than `11.03 Example 3`");
 }
+
+#[test]
+fn set_id_name() {
+    let mut id = Id::new("99.01 Test Id").expect("`99.01 Test Id` should be a valid id");
+
+    assert!(id.set_name("Test 2").is_ok(), "Name `Test 2` should pass");
+    assert!(id.set_name("テスト").is_ok(), "Name `テスト` should pass");
+    assert!(id.set_name("../Directory traversal").is_err(), "Name `../Directory traversal` should fail");
+    assert!(id.set_name("/* Comment */").is_err(), "Name `/* Comment */` should fail");
+    assert!(id.set_name("Testing // Comment").is_err(), "Name `Testing // Comment` should fail");
+}

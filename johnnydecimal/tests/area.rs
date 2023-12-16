@@ -51,7 +51,7 @@ fn sort_area() {
 }
 
 #[test]
-fn set_area() {
+fn set_area_name() {
     let mut area = Area::new("30-39 Test").expect("`30-39 Test` should be a valid area");
 
     assert!(area.set_name("Test 2").is_ok(), "Name `Test 2` should pass");
