@@ -741,6 +741,24 @@ impl Index {
 
         Ok(&self.categories)
     }
+
+    /// Adds a valid `Id` to the vector of ids if there are no duplicates.
+    ///
+    /// If successful, the id list is returned as `Ok`. Otherwise `Err`.
+    pub fn add_id(&mut self, id: Id) -> Result<&Vec<Id>, &'static str> {
+        if self.ids.contains(&id) {
+            return Err("Id already exists.")
+        }
+
+        if !self.categories.iter().any(|c| c.category == id.category) {
+            return Err("The given id has no associated category");
+        }
+
+        self.ids.push(id);
+        self.ids.sort_unstable();
+
+        Ok(&self.ids)
+    }
 }
 
 /// Based on https://stackoverflow.com/a/46767732
