@@ -40,10 +40,9 @@ impl System {
         // todo: read index file if it exists
         match get_stuff(root) {
             Ok(stuff) => {
-                dbg!(stuff.0);
-                dbg!(stuff.1);
-                dbg!(stuff.2);
+                dbg!(stuff);
             }
+
             Err(e) => {
                 dbg!(e);
             }
@@ -91,7 +90,7 @@ impl System {
     // }
 }
 
-fn get_stuff(root: &str) -> Result<(Vec<Area>, Vec<Category>, Vec<Id>), std::io::Error> {
+fn get_stuff(root: &str) -> Result<Index, std::io::Error> {
     let mut areas = vec![];
     let mut categories = vec![];
     let mut ids = vec![];
@@ -137,5 +136,7 @@ fn get_stuff(root: &str) -> Result<(Vec<Area>, Vec<Category>, Vec<Id>), std::io:
         }
     }
 
-    Ok((areas, categories, ids))
+    let index = Index::new("").unwrap();
+
+    Ok(index)
 }
