@@ -14,6 +14,7 @@ fn test_area() {
     assert!(Area::new("100-109 Test Area").is_err(), "should fail if 3 digits");
     assert!(Area::new("10-19").is_err(), "should fail if no name");
     assert!(Area::new("10-19 ").is_err(), "should fail if only space at end");
+    assert!(Area::new("10-19:Test Area").is_err(), "should fail if no space separator");
     assert!(Area::new("33 Invalid Area").is_err(), "should fail if a category was given");
     assert!(Area::new("12.49 Invalid Area").is_err(), "should fail if ac.id was given");
     assert!(Area::new("Just a regular folder").is_err(), "should fail if no identifier");
