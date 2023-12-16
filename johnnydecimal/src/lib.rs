@@ -710,10 +710,14 @@ impl Index {
         &self.ids
     }
 
-    /// Adds an area to the vector of areas if it's a valid area, then:
-    /// - Return the area list as `Ok`
-    /// - Otherwise `Err`
+    /// Adds a valid `Area` to the vector of areas if there are no duplicates.
+    ///
+    /// If successful, the area list is returned as `Ok`. Otherwise `Err`.
     pub fn add_area(&mut self, area: Area) -> Result<&Vec<Area>, &'static str> {
+        if self.areas.contains(&area) {
+            return Err("Area already exists.")
+        }
+
         self.areas.push(area);
         self.areas.sort_unstable();
 

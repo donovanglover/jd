@@ -152,3 +152,20 @@ fn test_with_vecs() {
     assert!(Index::with_vecs(&vec![], &vec![], &ids).is_err(), "should fail if id_only index");
     assert!(Index::with_vecs(&areas, &vec![], &ids).is_err(), "should fail if area and id only");
 }
+
+#[test]
+fn test_add_area() {
+    use johnnydecimal::Area;
+
+    if let Ok(mut index) = Index::new("20-29 Area\n22 Category\n22.03 Id\n22.05 Another") {
+        let result = index.add_area(Area::new("30-39 Test").expect("`30-39 Test` should be a valid area"));
+
+        assert!(result.is_ok(), "should pass when adding unique area");
+
+        let result = index.add_area(Area::new("20-29 Another").expect("`20-29 Another` should be a valid area"));
+
+        assert!(result.is_err(), "should fail when adding duplicate area");
+    } else {
+        panic!("area_with_category_and_id index should pass");
+    }
+}
