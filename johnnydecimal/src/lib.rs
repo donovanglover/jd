@@ -674,4 +674,14 @@ impl Index {
     pub fn get_ids(&self) -> &Vec<Id> {
         &self.ids
     }
+
+    /// Adds an area to the vector of areas if it's a valid area, then:
+    /// - Return the area list as `Ok`
+    /// - Otherwise `Err`
+    pub fn add_area(&mut self, area: Area) -> Result<&Vec<Area>, &'static str> {
+        self.areas.push(area);
+        self.areas.sort_unstable();
+
+        Ok(&self.areas)
+    }
 }

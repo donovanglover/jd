@@ -60,8 +60,9 @@ impl System {
         }
 
         if fs::create_dir(format!("{}/{} {}", self.root, area.get_area(), area.get_name())).is_ok() {
-            // self.index.get_areas().push(area);
-            // self.index.get_areas().sort_unstable();
+            if let Ok(areas) = self.index.add_area(area) {
+                dbg!("Added area");
+            }
         } else {
             return Err("Directory for Area already exists.");
         }
