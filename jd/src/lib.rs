@@ -60,7 +60,7 @@ impl System {
         }
 
         if fs::create_dir(format!("{}/{} {}", self.root, area.get_area(), area.get_name())).is_ok() {
-            if let Ok(areas) = self.index.add_area(area) {
+            if self.index.add_area(area).is_ok() {
                 dbg!("Added area");
             }
         } else {
