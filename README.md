@@ -44,13 +44,17 @@ Usage: jd [OPTIONS] [COMMAND]
 Commands:
   add     Add a new area, category, or id
   remove  Remove an existing area, category, or id
-  ls      List the contents of an area, category, or id
+  index   List the contents of an area, category, or id
+  insert  Insert a new area, category, or id, moving existing ones
+  clean   Checks for empty folders and missing areas/categories/ids (Prune/Clean)
+  serve   Start a new web server
   help    Print this message or the help of the given subcommand(s)
 
 Options:
-  -v, --verbose  Print debugging information
-  -h, --help     Print help (see more with '--help')
-  -V, --version  Print version
+  -d, --dir <DIR>  Directory where areas are stored [default: $HOME]
+  -v, --verbose    Print debugging information
+  -h, --help       Print help (see more with '--help')
+  -V, --version    Print version
 ```
 
 ## Contributing
