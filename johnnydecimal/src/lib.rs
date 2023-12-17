@@ -713,12 +713,12 @@ impl Index {
     /// Adds a valid `Area` to the vector of areas if there are no duplicates.
     ///
     /// If successful, the area list is returned as `Ok`. Otherwise `Err`.
-    pub fn add_area(&mut self, area: Area) -> Result<&Vec<Area>, &'static str> {
-        if self.areas.contains(&area) {
+    pub fn add_area(&mut self, area: &Area) -> Result<&Vec<Area>, &'static str> {
+        if self.areas.contains(area) {
             return Err("Area already exists.");
         }
 
-        self.areas.push(area);
+        self.areas.push(area.clone());
         self.areas.sort_unstable();
 
         Ok(&self.areas)
@@ -727,8 +727,8 @@ impl Index {
     /// Adds a valid `Category` to the vector of ids if there are no duplicates.
     ///
     /// If successful, the category list is returned as `Ok`. Otherwise `Err`.
-    pub fn add_category(&mut self, category: Category) -> Result<&Vec<Category>, &'static str> {
-        if self.categories.contains(&category) {
+    pub fn add_category(&mut self, category: &Category) -> Result<&Vec<Category>, &'static str> {
+        if self.categories.contains(category) {
             return Err("Category already exists.");
         }
 
@@ -736,7 +736,7 @@ impl Index {
             return Err("A given category has no associated area");
         }
 
-        self.categories.push(category);
+        self.categories.push(category.clone());
         self.categories.sort_unstable();
 
         Ok(&self.categories)
@@ -745,8 +745,8 @@ impl Index {
     /// Adds a valid `Id` to the vector of ids if there are no duplicates.
     ///
     /// If successful, the id list is returned as `Ok`. Otherwise `Err`.
-    pub fn add_id(&mut self, id: Id) -> Result<&Vec<Id>, &'static str> {
-        if self.ids.contains(&id) {
+    pub fn add_id(&mut self, id: &Id) -> Result<&Vec<Id>, &'static str> {
+        if self.ids.contains(id) {
             return Err("Id already exists.");
         }
 
@@ -754,7 +754,7 @@ impl Index {
             return Err("The given id has no associated category");
         }
 
-        self.ids.push(id);
+        self.ids.push(id.clone());
         self.ids.sort_unstable();
 
         Ok(&self.ids)

@@ -158,11 +158,11 @@ fn test_add_area() {
     use johnnydecimal::Area;
 
     if let Ok(mut index) = Index::new("20-29 Area\n22 Category\n22.03 Id\n22.05 Another") {
-        let result = index.add_area(Area::new("30-39 Test").expect("`30-39 Test` should be a valid area"));
+        let result = index.add_area(&Area::new("30-39 Test").expect("`30-39 Test` should be a valid area"));
 
         assert!(result.is_ok(), "should pass when adding unique area");
 
-        let result = index.add_area(Area::new("20-29 Another").expect("`20-29 Another` should be a valid area"));
+        let result = index.add_area(&Area::new("20-29 Another").expect("`20-29 Another` should be a valid area"));
 
         assert!(result.is_err(), "should fail when adding duplicate area");
     } else {
@@ -175,15 +175,15 @@ fn test_add_category() {
     use johnnydecimal::Category;
 
     if let Ok(mut index) = Index::new("20-29 Area\n22 Category\n22.03 Id\n22.05 Another") {
-        let result = index.add_category(Category::new("24 Test").expect("`24 Test` should be a valid category"));
+        let result = index.add_category(&Category::new("24 Test").expect("`24 Test` should be a valid category"));
 
         assert!(result.is_ok(), "should pass when adding unique category");
 
-        let result = index.add_category(Category::new("24 Another").expect("`24 Another` should be a valid category"));
+        let result = index.add_category(&Category::new("24 Another").expect("`24 Another` should be a valid category"));
 
         assert!(result.is_err(), "should fail when adding duplicate category");
 
-        let result = index.add_category(Category::new("53 Orphan").expect("`53 Orphan` should be a valid category"));
+        let result = index.add_category(&Category::new("53 Orphan").expect("`53 Orphan` should be a valid category"));
 
         assert!(result.is_err(), "should fail when adding category without associated area");
     } else {
@@ -196,15 +196,15 @@ fn test_add_id() {
     use johnnydecimal::Id;
 
     if let Ok(mut index) = Index::new("20-29 Area\n22 Category\n22.03 Id\n22.05 Another") {
-        let result = index.add_id(Id::new("22.01 My Id").expect("`22.01 My Id` should be a valid id"));
+        let result = index.add_id(&Id::new("22.01 My Id").expect("`22.01 My Id` should be a valid id"));
 
         assert!(result.is_ok(), "should pass when adding unique id");
 
-        let result = index.add_id(Id::new("22.01 Another Id").expect("`22.01 Another Id` should be a valid id"));
+        let result = index.add_id(&Id::new("22.01 Another Id").expect("`22.01 Another Id` should be a valid id"));
 
         assert!(result.is_err(), "should fail when adding duplicate id");
 
-        let result = index.add_id(Id::new("23.09 Orphan Id").expect("`23.09 Orphan Id` should be a valid id"));
+        let result = index.add_id(&Id::new("23.09 Orphan Id").expect("`23.09 Orphan Id` should be a valid id"));
 
         assert!(result.is_err(), "should fail when adding id without associated category");
     } else {
