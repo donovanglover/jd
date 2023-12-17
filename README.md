@@ -2,9 +2,15 @@
 
 CLI, web server, and library for interacting with [Johnny.Decimal](https://johnnydecimal.com/) systems.
 
-## Features
+## Features (for users)
 
 - Automatically rename IDs on area/category changes.
+
+## Features (for developers)
+
+- 100% test coverage
+- No unsafe code
+- 100% documentation coverage
 
 ## Installation
 
