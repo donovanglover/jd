@@ -36,9 +36,9 @@ jobs:
       - uses: actions/checkout@v4
       - run: cargo clippy
   coverage:
-    name: cargo tarpaulin --fail-coverage 80
+    name: cargo tarpaulin --fail-under 80
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - run: cargo install cargo-tarpaulin
-      - run: cargo tarpaulin --fail-coverage 80
+      - run: cargo tarpaulin --fail-under 80
