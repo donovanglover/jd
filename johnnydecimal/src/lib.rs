@@ -764,7 +764,7 @@ impl Index {
     ///
     /// If successful, the area list is returned as `Ok`. Otherwise `Err`.
     pub fn remove_area(&mut self, area: &Area) -> Result<&Vec<Area>, &'static str> {
-        if !self.areas.contains(&area) {
+        if !self.areas.contains(area) {
             return Err("Given area doesn't exist in index.");
         }
 
@@ -782,7 +782,7 @@ impl Index {
     ///
     /// If successful, the category list is returned as `Ok`. Otherwise `Err`.
     pub fn remove_category(&mut self, category: &Category) -> Result<&Vec<Category>, &'static str> {
-        if !self.categories.contains(&category) {
+        if !self.categories.contains(category) {
             return Err("Given area doesn't exist in index.");
         }
 
@@ -799,7 +799,7 @@ impl Index {
     ///
     /// If successful, the id list is returned as `Ok`. Otherwise `Err`.
     pub fn remove_id(&mut self, id: &Id) -> Result<&Vec<Id>, &'static str> {
-        if !self.ids.contains(&id) {
+        if !self.ids.contains(id) {
             return Err("Given id doesn't exist in index.");
         }
 
