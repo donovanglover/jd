@@ -211,3 +211,22 @@ fn test_add_id() {
         panic!("area_with_category_and_id index should pass");
     }
 }
+
+#[test]
+fn test_remove_area() {
+    use johnnydecimal::Area;
+
+    if let Ok(mut index) = Index::new("20-29 Area\n22 Category\n22.03 Id\n22.05 Another") {
+        let area_1 = Area::new("10-19 Test").expect("`10-19 Test` should be a valid area");
+        let area_2 = Area::new("20-29 Test").expect("`20-29 Test` should be a valid area");
+
+        assert!(index.get_areas().contains(&area_2), "`20-29 Test` should be in areas");
+
+        assert!(index.remove_area(&area_1).is_err(), "`10-19 Test` should NOT be a valid area to remove");
+        assert!(index.remove_area(&area_2).is_ok(), "`20-29 Test` should be a valid area to remove");
+
+        assert!(!index.get_areas().contains(&area_2), "`20-29 Test` should NOT be in areas");
+    } else {
+        panic!("area_with_category_and_id index should pass");
+    }
+}

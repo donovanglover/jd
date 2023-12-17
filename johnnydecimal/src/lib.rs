@@ -759,6 +759,24 @@ impl Index {
 
         Ok(&self.ids)
     }
+
+    /// Removes a given `Area` from the vector of areas.
+    ///
+    /// If successful, the area list is returned as `Ok`. Otherwise `Err`.
+    pub fn remove_area(&mut self, area: &Area) -> Result<&Vec<Area>, &'static str> {
+        if !self.areas.contains(&area) {
+            return Err("Given area doesn't exist in index.");
+        }
+
+        self.areas.retain(|a| a != area);
+
+        let area = area.get_area();
+
+        self.categories.retain(|category| category.get_area() != area);
+        self.ids.retain(|id| id.get_area() != area);
+
+        Ok(&self.areas)
+    }
 }
 
 /// Based on https://stackoverflow.com/a/46767732
