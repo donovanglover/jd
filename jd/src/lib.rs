@@ -102,6 +102,38 @@ impl System {
             Err("The given category *was* in the index, but *wasn't* able to be moved to trash.")
         }
     }
+
+    /// Adds a new `Id` to the `System`'s `Index`.
+    ///
+    /// If the id already exists in the cached index, the file won't be created.
+    pub fn add_id(&mut self, id: &Id) -> Result<&Vec<Id>, &'static str> {
+        if self.index.get_ids().contains(id) {
+            return Err("Id already exists in index.");
+        }
+
+        let path = self.index.derive_path_for_id(id)?;
+
+        if fs::create_dir(self.root.clone() + &path).is_ok() {
+            self.index.add_id(id)
+        } else {
+            Err("A directory for the given id already exists, but wasn't in index.")
+        }
+    }
+
+    /// Removes an existing `Id` from the `System`'s `Index`.
+    pub fn remove_id(&mut self, id: &Id) -> Result<&Vec<Id>, &'static str> {
+        if !self.index.get_ids().contains(id) {
+            todo!("Handle possibility that filesystem could have category but index doesn't")
+        }
+
+        let path = self.index.derive_path_for_id(id)?;
+
+        if trash::delete(self.root.clone() + &path).is_ok() {
+            self.index.remove_id(id)
+        } else {
+            Err("The given id *was* in the index, but *wasn't* able to be moved to trash.")
+        }
+    }
 }
 
 fn get_index_from_fs(root: &str) -> Result<Index, std::io::Error> {
