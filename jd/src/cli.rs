@@ -30,7 +30,7 @@ pub struct Cli {
 #[derive(Subcommand)]
 pub enum Commands {
     /// Add a new area, category, or id.
-    Add { name: String },
+    Add { name: Vec<String> },
 
     /// Remove an existing area, category, or id.
     Remove { name: String },
