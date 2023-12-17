@@ -252,3 +252,22 @@ fn test_remove_category() {
         panic!("area_with_category_and_id index should pass");
     }
 }
+
+#[test]
+fn test_remove_id() {
+    use johnnydecimal::Id;
+
+    if let Ok(mut index) = Index::new("20-29 Area\n22 Category\n22.03 Id\n22.05 Another\n40-49 Area 2\n43 Category 2") {
+        let id_1 = Id::new("22.01 Test").expect("`22.01 Test` should be a valid id");
+        let id_2 = Id::new("22.03 Test").expect("`22.03 Test` should be a valid id");
+
+        assert!(index.get_ids().contains(&id_2), "`22.03 Test` should be in ids");
+
+        assert!(index.remove_id(&id_1).is_err(), "`22.01 Test` should NOT be a valid id to remove");
+        assert!(index.remove_id(&id_2).is_ok(), "`22.03 Test` should be a valid id to remove");
+
+        assert!(!index.get_ids().contains(&id_2), "ids should not contain `22.03`");
+    } else {
+        panic!("area_with_category_and_id index should pass");
+    }
+}

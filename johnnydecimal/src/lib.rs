@@ -794,6 +794,19 @@ impl Index {
 
         Ok(&self.categories)
     }
+
+    /// Removes a given `Id` from the vector of ids.
+    ///
+    /// If successful, the id list is returned as `Ok`. Otherwise `Err`.
+    pub fn remove_id(&mut self, id: &Id) -> Result<&Vec<Id>, &'static str> {
+        if !self.ids.contains(&id) {
+            return Err("Given id doesn't exist in index.");
+        }
+
+        self.ids.retain(|i| i != id);
+
+        Ok(&self.ids)
+    }
 }
 
 /// Based on https://stackoverflow.com/a/46767732
