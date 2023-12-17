@@ -43,25 +43,23 @@ impl System {
         }
     }
 
-    // pub fn remove_area(area: Area) {
-    //
-    // }
-    //
-    // pub fn add_category(category: Category) {
-    //
-    // }
-    //
-    // pub fn remove_category(category: Category) {
-    //
-    // }
-    //
-    // pub fn add_id(id: Id) {
-    //
-    // }
-    //
-    // pub fn remove_id(id: Id) {
-    //
-    // }
+    /// Removes an existing `Area` from the `System`'s `Index`.
+    ///
+    /// If the area already exists in the cached index, the file won't be created.
+    ///
+    /// Note that areas get sent to the user's trash, although it may be useful to provide a
+    /// warning beforehand or an option to quickly undo in the UI.
+    pub fn remove_area(&mut self, area: &Area) -> Result<&Vec<Area>, &'static str> {
+        if !self.index.get_areas().contains(&area) {
+            todo!("Handle possibility that filesystem could have area but index doesn't")
+        }
+
+        if trash::delete(format!("{}/{} {}", self.root, area.get_area(), area.get_name())).is_ok() {
+            return self.index.remove_area(&area);
+        } else {
+            return Err("The given area *was* in the index, but *wasn't* able to be moved to trash.");
+        }
+    }
 }
 
 fn get_stuff(root: &str) -> Result<Index, std::io::Error> {
