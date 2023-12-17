@@ -67,6 +67,41 @@ impl System {
             Err("The given area *was* in the index, but *wasn't* able to be moved to trash.")
         }
     }
+
+    /// Adds a new `Category` to the `System`'s `Index`.
+    ///
+    /// If the category already exists in the cached index, the file won't be created.
+    pub fn add_category(&mut self, category: &Category) -> Result<&Vec<Category>, &'static str> {
+        if self.index.get_categories().contains(category) {
+            return Err("Category already exists in index.");
+        }
+
+        let path = self.index.derive_path_for_category(category)?;
+
+        if fs::create_dir(self.root.clone() + &path).is_ok() {
+            self.index.add_category(category)
+        } else {
+            Err("A directory for the given category already exists, but wasn't in index.")
+        }
+    }
+
+    /// Removes an existing `Area` from the `System`'s `Index`.
+    ///
+    /// TODO: Note that categories and their contents get sent to the user's trash,
+    /// so affected ids should be removed from the `Index` as well.
+    pub fn remove_category(&mut self, category: &Category) -> Result<&Vec<Category>, &'static str> {
+        if !self.index.get_categories().contains(category) {
+            todo!("Handle possibility that filesystem could have category but index doesn't")
+        }
+
+        let path = self.index.derive_path_for_category(category)?;
+
+        if trash::delete(self.root.clone() + &path).is_ok() {
+            self.index.remove_category(category)
+        } else {
+            Err("The given category *was* in the index, but *wasn't* able to be moved to trash.")
+        }
+    }
 }
 
 fn get_index_from_fs(root: &str) -> Result<Index, std::io::Error> {
