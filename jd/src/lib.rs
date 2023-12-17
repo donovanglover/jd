@@ -8,10 +8,15 @@ pub struct System {
 }
 
 impl System {
+    /// Creates a new `System` from a given `root`.
+    ///
+    /// A `System` is an `Index` instantiated from a given `root` on a filesystem. Put simply, it's
+    /// the glue between the theoretical concept of an `Index` and its implementation on the
+    /// filesystem.
     pub fn new(root: &str) -> Result<Self, &'static str> {
         if let Ok(string) = fs::read_to_string(format!("{root}/00.00 Index.txt")) {
             if let Ok(index) = Index::new(&string) {
-                if let Ok(index_fs) = get_stuff(root) {
+                if let Ok(index_fs) = get_index_from_fs(root) {
                     if index != index_fs {
                         todo!("Handle filesystem and index file being different");
                     }
@@ -21,8 +26,8 @@ impl System {
             }
         }
 
-        if let Ok(index) = get_stuff(root) {
-            return Ok(Self { root: root.to_string(), index })
+        if let Ok(index) = get_index_from_fs(root) {
+            return Ok(Self { root: root.to_string(), index });
         }
 
         Err("Couldn't get index from file or directory contents")
@@ -32,14 +37,14 @@ impl System {
     ///
     /// If the area already exists in the cached index, the file won't be created.
     pub fn add_area(&mut self, area: &Area) -> Result<&Vec<Area>, &'static str> {
-        if self.index.get_areas().contains(&area) {
+        if self.index.get_areas().contains(area) {
             return Err("Area already exists in index.");
         }
 
         if fs::create_dir(format!("{}/{} {}", self.root, area.get_area(), area.get_name())).is_ok() {
-            return self.index.add_area(&area);
+            self.index.add_area(area)
         } else {
-            return Err("A directory for the given already exists, but wasn't in index.");
+            Err("A directory for the given already exists, but wasn't in index.")
         }
     }
 
@@ -50,19 +55,19 @@ impl System {
     /// Note that areas get sent to the user's trash, although it may be useful to provide a
     /// warning beforehand or an option to quickly undo in the UI.
     pub fn remove_area(&mut self, area: &Area) -> Result<&Vec<Area>, &'static str> {
-        if !self.index.get_areas().contains(&area) {
+        if !self.index.get_areas().contains(area) {
             todo!("Handle possibility that filesystem could have area but index doesn't")
         }
 
         if trash::delete(format!("{}/{} {}", self.root, area.get_area(), area.get_name())).is_ok() {
-            return self.index.remove_area(&area);
+            self.index.remove_area(area)
         } else {
-            return Err("The given area *was* in the index, but *wasn't* able to be moved to trash.");
+            Err("The given area *was* in the index, but *wasn't* able to be moved to trash.")
         }
     }
 }
 
-fn get_stuff(root: &str) -> Result<Index, std::io::Error> {
+fn get_index_from_fs(root: &str) -> Result<Index, std::io::Error> {
     let mut areas = vec![];
     let mut categories = vec![];
     let mut ids = vec![];
