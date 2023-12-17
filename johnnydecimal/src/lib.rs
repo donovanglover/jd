@@ -704,6 +704,10 @@ impl Index {
     ///
     /// Should always `Ok` assuming validation works as intended.
     pub fn get_area_from_category(&self, category: &Category) -> Result<&Area, &'static str> {
+        if !self.categories.contains(category) {
+            return Err("The given category does not exist in the index.")
+        }
+
         for area in &self.areas {
             if area.area == category.area {
                 return Ok(area);

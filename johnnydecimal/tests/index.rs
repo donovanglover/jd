@@ -293,4 +293,8 @@ fn test_get_area_from_category() {
     let area_from_category = index.get_area_from_category(&category).expect("should get area from category");
 
     assert!(area_from_category == &area, "area from category should be correct");
+
+    let invalid_category = Category::new("24 Category").expect("`24 Category` should be a valid category");
+
+    assert!(index.get_area_from_category(&invalid_category).is_err(), "should fail if category not in index");
 }
