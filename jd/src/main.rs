@@ -61,6 +61,8 @@ fn main() {
 
                 return;
             }
+
+            println!("Given string doesn't look like an area, category, or id.")
         }
 
         Some(Commands::Rm { name }) => {
@@ -107,6 +109,8 @@ fn main() {
 
                 return;
             }
+
+            println!("Given string doesn't look like an area, category, or id.")
         }
 
         Some(Commands::Index {}) => {}
