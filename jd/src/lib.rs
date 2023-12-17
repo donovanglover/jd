@@ -11,26 +11,21 @@ impl System {
     pub fn new(root: &str) -> Result<Self, &'static str> {
         if let Ok(string) = fs::read_to_string(format!("{root}/00.00 Index.txt")) {
             if let Ok(index) = Index::new(&string) {
-                // TODO: Validate that index is valid with filesystem?
-                // Depends on whether System::new() is used once or multiple times
+                if let Ok(index_fs) = get_stuff(root) {
+                    if index != index_fs {
+                        todo!("Handle filesystem and index file being different");
+                    }
+                }
+
                 return Ok(Self { root: root.to_string(), index });
             }
         }
 
-        match get_stuff(root) {
-            Ok(stuff) => {
-                dbg!(stuff);
-            }
-
-            Err(e) => {
-                dbg!(e);
-            }
+        if let Ok(index) = get_stuff(root) {
+            return Ok(Self { root: root.to_string(), index })
         }
 
-        Ok(Self {
-            root: root.to_string(),
-            index: Index::new("").unwrap(),
-        })
+        Err("Couldn't get index from file or directory contents")
     }
 
     /// Adds a new `Area` to the system's `Index`.
