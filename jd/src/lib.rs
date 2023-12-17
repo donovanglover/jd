@@ -3,6 +3,7 @@
 use johnnydecimal::{Area, Category, Id, Index};
 use std::fs;
 
+/// A `System` consists of a `root` and an `index`.
 #[derive(Debug)]
 pub struct System {
     root: String,
