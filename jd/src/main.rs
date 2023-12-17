@@ -114,7 +114,7 @@ fn main() {
         }
 
         Some(Commands::Index {}) => {
-            system.print_index();
+            println!("{}", system.get_index());
         }
 
         Some(Commands::Clean {}) => {}

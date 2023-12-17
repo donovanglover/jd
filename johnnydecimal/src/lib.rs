@@ -860,3 +860,30 @@ impl PartialEq for Index {
         self.areas == other.areas && self.categories == other.categories && self.ids == other.ids
     }
 }
+
+impl fmt::Display for Index {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let mut result = String::new();
+
+        for area in &self.areas {
+            result.push_str(&area.to_string());
+            result.push('\n');
+
+            let categories = self.categories.iter().filter(|e| e.area == area.area);
+
+            for category in categories {
+                result.push_str(&category.to_string());
+                result.push('\n');
+
+                let ids = self.ids.iter().filter(|e| e.category == category.category);
+
+                for id in ids {
+                    result.push_str(&id.to_string());
+                    result.push('\n');
+                }
+            }
+        }
+
+        write!(f, "{}", result.trim_end_matches('\n'))
+    }
+}
