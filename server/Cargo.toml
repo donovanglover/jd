@@ -10,3 +10,6 @@ publish.workspace = true
 [dependencies]
 jd = { path = "../jd" }
 rocket = "0.5.0"
+
+[lints]
+workspace = true

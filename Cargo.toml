@@ -14,3 +14,7 @@ members = [
   "johnnydecimal",
   "server",
 ]
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+missing_docs = "deny"

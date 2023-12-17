@@ -9,3 +9,6 @@ publish.workspace = true
 
 [dependencies]
 sanitise-file-name = "1.0.0"
+
+[lints]
+workspace = true

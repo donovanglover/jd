@@ -11,3 +11,6 @@ publish.workspace = true
 johnnydecimal = { path = "../johnnydecimal" }
 clap = { version = "4.4.8", features = ["derive"] }
 trash = "3.1.2"
+
+[lints]
+workspace = true

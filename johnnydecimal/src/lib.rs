@@ -1,4 +1,3 @@
-#![warn(missing_docs)]
 #![doc = include_str!("../README.md")]
 
 use sanitise_file_name::sanitise;
