@@ -10,7 +10,7 @@ For simplicity, these struct fields are stored and compared as `String`s.
 use johnnydecimal::{Area, Category, Id};
 
 if let Ok(area) = Area::new("10-19 Area") {
-assert!(area.get_name() == "Area");
+    assert_eq!(area.get_name(), "Area");
 }
 
 assert!(Category::new("11 Category").is_ok());
@@ -34,7 +34,7 @@ directly.
 
 ```toml
 [dependencies]
-jd = { git = "https://github.com/donovanglover/jd.git" }
+johnnydecimal = { git = "https://github.com/donovanglover/jd.git" }
 ```
 
 # Performance
