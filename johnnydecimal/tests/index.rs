@@ -334,7 +334,7 @@ fn test_get_category_from_id() {
 }
 
 #[test]
-fn test_get_path_from_area() {
+fn test_derive_path_for_area() {
     use johnnydecimal::Area;
 
     let index = Index::new("20-29 Area\n22 Category\n22.01 Id").expect("index should be a valid index");
@@ -345,7 +345,7 @@ fn test_get_path_from_area() {
 }
 
 #[test]
-fn test_get_path_from_category() {
+fn test_derive_path_for_category() {
     use johnnydecimal::Category;
 
     let index = Index::new("20-29 Area\n22 Category\n22.01 Id").expect("index should be a valid index");
@@ -356,7 +356,7 @@ fn test_get_path_from_category() {
 }
 
 #[test]
-fn test_get_path_from_id() {
+fn test_derive_path_for_id() {
     use johnnydecimal::Id;
 
     let index = Index::new("20-29 Area\n22 Category\n22.01 Id").expect("index should be a valid index");
