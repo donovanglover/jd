@@ -41,8 +41,8 @@ fn compare_category() {
     let category_2 = Category::new("11 Second").expect("`11 Second` should be a valid category");
     let category_3 = Category::new("12 First").expect("12 First` should be a valid category");
 
-    assert!(category_1 == category_2, "`11 First` should equal the same category as `11 Second`");
-    assert!(category_1 != category_3, "`11 First` should NOT equal the same category as `12 First`");
+    assert_eq!(category_1, category_2, "`11 First` should equal the same category as `11 Second`");
+    assert_ne!(category_1, category_3, "`11 First` should NOT equal the same category as `12 First`");
 }
 
 #[test]

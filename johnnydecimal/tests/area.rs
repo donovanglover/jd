@@ -44,8 +44,8 @@ fn compare_area() {
     let area_2 = Area::new("10-19 Second").expect("`10-19 Second` should be a valid area");
     let area_3 = Area::new("20-29 First").expect("20-29 First` should be a valid area");
 
-    assert!(area_1 == area_2, "`10-19 First` should equal the same area as `10-19 Second`");
-    assert!(area_1 != area_3, "`10-19 First` should NOT equal the same area as `20-29 First`");
+    assert_eq!(area_1, area_2, "`10-19 First` should equal the same area as `10-19 Second`");
+    assert_ne!(area_1, area_3, "`10-19 First` should NOT equal the same area as `20-29 First`");
 }
 
 #[test]

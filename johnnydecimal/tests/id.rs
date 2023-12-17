@@ -47,8 +47,8 @@ fn compare_id() {
     let id_2 = Id::new("11.01 Second").expect("`11.01 Second` should be a valid id");
     let id_3 = Id::new("11.02 First").expect("11.02 First` should be a valid id");
 
-    assert!(id_1 == id_2, "`11.01 First` should equal the same id as `11.01 Second`");
-    assert!(id_1 != id_3, "`11.01 First` should NOT equal the same id as `11.02 First`");
+    assert_eq!(id_1, id_2, "`11.01 First` should equal the same id as `11.01 Second`");
+    assert_ne!(id_1, id_3, "`11.01 First` should NOT equal the same id as `11.02 First`");
 }
 
 #[test]

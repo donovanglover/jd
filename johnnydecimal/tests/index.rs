@@ -64,10 +64,10 @@ fn test_index() {
 #[test]
 fn sort_index() {
     if let Ok(index_str_reverse) = Index::new("20-29 1 Test\n10-19 2 Another") {
-        assert!(index_str_reverse.get_areas()[0].get_area() == "10-19", "should sort 10-19 before 20-29");
-        assert!(index_str_reverse.get_areas()[1].get_area() == "20-29", "should sort 20-29 after 10-19");
-        assert!(index_str_reverse.get_areas()[0].get_name() == "2 Another", "should not sort by name");
-        assert!(index_str_reverse.get_areas()[1].get_name() == "1 Test", "should not sort by name");
+        assert_eq!(index_str_reverse.get_areas()[0].get_area(), "10-19", "should sort 10-19 before 20-29");
+        assert_eq!(index_str_reverse.get_areas()[1].get_area(), "20-29", "should sort 20-29 after 10-19");
+        assert_eq!(index_str_reverse.get_areas()[0].get_name(), "2 Another", "should not sort by name");
+        assert_eq!(index_str_reverse.get_areas()[1].get_name(), "1 Test", "should not sort by name");
     } else {
         panic!("index_str_reverse should pass");
     }
@@ -88,18 +88,18 @@ fn sort_index() {
     ];
 
     if let Ok(index_str_mix) = Index::new(&lines.join("\n")) {
-        assert!(index_str_mix.get_areas()[0].get_area() == "10-19", "should have 10-19 first");
-        assert!(index_str_mix.get_areas()[1].get_name() == "Area B", "should have Area B second");
-        assert!(index_str_mix.get_areas()[2].get_area() == "30-39", "should have 30-39 third");
-        assert!(index_str_mix.get_areas()[3].get_name() == "Area C", "should have Area C fourth");
-        assert!(index_str_mix.get_categories()[0].get_area() == "20-29", "should have a category with area 20-29 first");
-        assert!(index_str_mix.get_categories()[1].get_category() == "25", "should have category 25 second");
-        assert!(index_str_mix.get_categories()[2].get_name() == "Category A", "should have Category A third");
-        assert!(index_str_mix.get_categories()[3].get_category() == "37", "should have category 37 fourth");
-        assert!(index_str_mix.get_ids()[0].get_area() == "20-29", "should have an id with area 20-29 first");
-        assert!(index_str_mix.get_ids()[1].get_category() == "25", "should have an id with category 25 second");
-        assert!(index_str_mix.get_ids()[2].get_id() == "34.05", "should have id 34.05 third");
-        assert!(index_str_mix.get_ids()[3].get_name() == "Id B", "should have Id B fourth");
+        assert_eq!(index_str_mix.get_areas()[0].get_area(), "10-19", "should have 10-19 first");
+        assert_eq!(index_str_mix.get_areas()[1].get_name(), "Area B", "should have Area B second");
+        assert_eq!(index_str_mix.get_areas()[2].get_area(), "30-39", "should have 30-39 third");
+        assert_eq!(index_str_mix.get_areas()[3].get_name(), "Area C", "should have Area C fourth");
+        assert_eq!(index_str_mix.get_categories()[0].get_area(), "20-29", "should have a category with area 20-29 first");
+        assert_eq!(index_str_mix.get_categories()[1].get_category(), "25", "should have category 25 second");
+        assert_eq!(index_str_mix.get_categories()[2].get_name(), "Category A", "should have Category A third");
+        assert_eq!(index_str_mix.get_categories()[3].get_category(), "37", "should have category 37 fourth");
+        assert_eq!(index_str_mix.get_ids()[0].get_area(), "20-29", "should have an id with area 20-29 first");
+        assert_eq!(index_str_mix.get_ids()[1].get_category(), "25", "should have an id with category 25 second");
+        assert_eq!(index_str_mix.get_ids()[2].get_id(), "34.05", "should have id 34.05 third");
+        assert_eq!(index_str_mix.get_ids()[3].get_name(), "Id B", "should have Id B fourth");
     } else {
         panic!("index_str_mix should pass");
     }
@@ -226,7 +226,7 @@ fn test_remove_area() {
         assert!(index.remove_area(&area_2).is_ok(), "`20-29 Test` should be a valid area to remove");
 
         assert!(!index.get_areas().contains(&area_2), "`20-29 Test` should NOT be in areas");
-        assert!(index.get_categories().iter().count() == 1, "categories should have 1 remaining");
+        assert_eq!(index.get_categories().iter().count(), 1, "categories should have 1 remaining");
         assert!(index.get_ids().is_empty(), "ids should be empty");
     } else {
         panic!("area_with_category_and_id index should pass");
@@ -278,8 +278,8 @@ fn compare_index() {
     let index_2 = Index::new("20-29 Area\n22 Category").expect("index_2 should be a valid index");
     let index_3 = Index::new("20-29 Area\n23 Category").expect("index_3 should be a valid index");
 
-    assert!(index_1 == index_2, "index_1 should equal the same as index_2");
-    assert!(index_1 != index_3, "index_1 should NOT equal the same as index_3");
+    assert_eq!(index_1, index_2, "index_1 should equal the same as index_2");
+    assert_ne!(index_1, index_3, "index_1 should NOT equal the same as index_3");
 }
 
 #[test]
@@ -292,7 +292,7 @@ fn test_get_area_from_category() {
 
     let area_from_category = index.get_area_from_category(&category).expect("should get area from category");
 
-    assert!(area_from_category == &area, "area from category should be correct");
+    assert_eq!(area_from_category, &area, "area from category should be correct");
 
     let invalid_category = Category::new("24 Category").expect("`24 Category` should be a valid category");
 
@@ -309,7 +309,7 @@ fn test_get_area_from_id() {
 
     let area_from_id = index.get_area_from_id(&id).expect("should get area from id");
 
-    assert!(area_from_id == &area, "area from id should be correct");
+    assert_eq!(area_from_id, &area, "area from id should be correct");
 
     let invalid_id = Id::new("22.04 Id").expect("`22.04 Id` should be a valid id");
 
