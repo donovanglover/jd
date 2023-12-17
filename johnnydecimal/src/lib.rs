@@ -777,6 +777,23 @@ impl Index {
 
         Ok(&self.areas)
     }
+
+    /// Removes a given `Category` from the vector of categories.
+    ///
+    /// If successful, the category list is returned as `Ok`. Otherwise `Err`.
+    pub fn remove_category(&mut self, category: &Category) -> Result<&Vec<Category>, &'static str> {
+        if !self.categories.contains(&category) {
+            return Err("Given area doesn't exist in index.");
+        }
+
+        self.categories.retain(|c| c != category);
+
+        let category = category.get_category();
+
+        self.ids.retain(|id| id.get_category() != category);
+
+        Ok(&self.categories)
+    }
 }
 
 /// Based on https://stackoverflow.com/a/46767732
