@@ -35,3 +35,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: cargo clippy
+  coverage:
+    name: cargo tarpaulin --fail-coverage 80
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: cargo install tarpaulin
+      - run: cargo tarpaulin --fail-coverage 80
