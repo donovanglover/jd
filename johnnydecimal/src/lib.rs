@@ -819,3 +819,9 @@ where
 
     !iter.into_iter().all(move |x| uniq.insert(x))
 }
+
+impl PartialEq for Index {
+    fn eq(&self, other: &Self) -> bool {
+        self.areas == other.areas && self.categories == other.categories && self.ids == other.ids
+    }
+}

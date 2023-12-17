@@ -271,3 +271,13 @@ fn test_remove_id() {
         panic!("area_with_category_and_id index should pass");
     }
 }
+
+#[test]
+fn compare_index() {
+    let index_1 = Index::new("20-29 Area\n22 Category").expect("index_1 should be a valid index");
+    let index_2 = Index::new("20-29 Area\n22 Category").expect("index_2 should be a valid index");
+    let index_3 = Index::new("20-29 Area\n23 Category").expect("index_3 should be a valid index");
+
+    assert!(index_1 == index_2, "index_1 should equal the same as index_2");
+    assert!(index_1 != index_3, "index_1 should NOT equal the same as index_3");
+}
