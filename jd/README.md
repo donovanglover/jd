@@ -7,7 +7,7 @@ It consists of a public library that implements the `System` struct.
 ```rust
 use jd::System;
 
-assert!(System::new("./test_systems/empty").is_ok());
+assert!(System::new("../test_systems/simple").is_ok());
 ```
 
 # Usage
