@@ -717,6 +717,23 @@ impl Index {
         Err("A given category did not have a parent area in the index, which should never happen.")
     }
 
+    /// Returns a `Result` of the `Area` of a given `Id`.
+    ///
+    /// Should always `Ok` assuming validation works as intended.
+    pub fn get_area_from_id(&self, id: &Id) -> Result<&Area, &'static str> {
+        if !self.ids.contains(id) {
+            return Err("The given id does not exist in the index.")
+        }
+
+        for area in &self.areas {
+            if area.area == id.area {
+                return Ok(area);
+            }
+        }
+
+        Err("A given id did not have a parent area in the index, which should never happen.")
+    }
+
     /// Category `11`: The string `ac` derived from `ac.id <title>`.
     pub fn get_categories(&self) -> &Vec<Category> {
         &self.categories
