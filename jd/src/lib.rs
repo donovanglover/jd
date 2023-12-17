@@ -33,20 +33,19 @@ impl System {
         })
     }
 
-    pub fn add_area(&mut self, area: Area) -> Result<(), &'static str> {
+    /// Adds a new `Area` to the system's `Index`.
+    ///
+    /// If the area already exists in the cached index, the file won't be created.
+    pub fn add_area(&mut self, area: &Area) -> Result<&Vec<Area>, &'static str> {
         if self.index.get_areas().contains(&area) {
             return Err("Area already exists in index.");
         }
 
         if fs::create_dir(format!("{}/{} {}", self.root, area.get_area(), area.get_name())).is_ok() {
-            if self.index.add_area(area).is_ok() {
-                dbg!("Added area");
-            }
+            return self.index.add_area(&area);
         } else {
-            return Err("Directory for Area already exists.");
+            return Err("A directory for the given already exists, but wasn't in index.");
         }
-
-        Ok(())
     }
 
     // pub fn remove_area(area: Area) {
