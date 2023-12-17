@@ -57,7 +57,9 @@ impl System {
             todo!("Handle possibility that filesystem could have area but index doesn't")
         }
 
-        if trash::delete(format!("{}/{} {}", self.root, area.get_area(), area.get_name())).is_ok() {
+        let path = self.index.get_path_from_area(area)?;
+
+        if trash::delete(self.root.clone() + &path).is_ok() {
             self.index.remove_area(area)
         } else {
             Err("The given area *was* in the index, but *wasn't* able to be moved to trash.")
