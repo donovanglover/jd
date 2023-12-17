@@ -315,3 +315,20 @@ fn test_get_area_from_id() {
 
     assert!(index.get_area_from_id(&invalid_id).is_err(), "should fail if id not in index");
 }
+
+#[test]
+fn test_get_category_from_id() {
+    use johnnydecimal::{Category, Id};
+
+    let index = Index::new("20-29 Area\n22 Category\n22.01 Id").expect("index should be a valid index");
+    let category = Category::new("22 Category").expect("`22 Category` should be a valid category");
+    let id = Id::new("22.01 Id").expect("`22.01 Id` should be a valid id");
+
+    let category_from_id = index.get_category_from_id(&id).expect("should get category from id");
+
+    assert!(category_from_id == &category, "category from id should be correct");
+
+    let invalid_id = Id::new("22.04 Id").expect("`22.04 Id` should be a valid id");
+
+    assert!(index.get_category_from_id(&invalid_id).is_err(), "should fail if id not in index");
+}
