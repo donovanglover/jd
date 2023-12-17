@@ -656,8 +656,6 @@ impl Index {
     }
 
     /// Returns a `Result` of the `Area` of a given `Category`.
-    ///
-    /// Should always `Ok` assuming validation works as intended.
     pub fn get_area_from_category(&self, category: &Category) -> Result<&Area, &'static str> {
         if !self.categories.contains(category) {
             return Err("The given category does not exist in the index.");
@@ -673,8 +671,6 @@ impl Index {
     }
 
     /// Returns a `Result` of the `Area` of a given `Id`.
-    ///
-    /// Should always `Ok` assuming validation works as intended.
     pub fn get_area_from_id(&self, id: &Id) -> Result<&Area, &'static str> {
         if !self.ids.contains(id) {
             return Err("The given id does not exist in the index.");
@@ -733,8 +729,6 @@ impl Index {
     }
 
     /// Returns a `Result` of the `Category` of a given `Id`.
-    ///
-    /// Should always `Ok` assuming validation works as intended.
     pub fn get_category_from_id(&self, id: &Id) -> Result<&Category, &'static str> {
         if !self.ids.contains(id) {
             return Err("The given id does not exist in the index.");
