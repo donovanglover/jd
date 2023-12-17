@@ -679,40 +679,22 @@ impl Index {
 
     /// Returns a `Result` with a `String` of the path for an `Area`.
     pub fn get_path_from_area(&self, area: &Area) -> Result<String, &'static str> {
-        for current_area in &self.areas {
-            if current_area.area == area.area {
-                return Ok(format!("/{} {}", area.area, area.name));
-            }
-        }
-
-        Err("The given area does not exist in the index.")
+        Ok(format!("/{} {}", area.area, area.name))
     }
 
     /// Returns a `Result` with a `String` of the path for a `Category`.
     pub fn get_path_from_category(&self, category: &Category) -> Result<String, &'static str> {
-        for current_category in &self.categories {
-            if current_category.category == category.category {
-                let area = self.get_area_from_category(category)?;
+        let area = self.get_area_from_category(category)?;
 
-                return Ok(format!("/{} {}/{} {}", area.area, area.name, category.category, category.name));
-            }
-        }
-
-        Err("The given category does not exist in the index.")
+        Ok(format!("/{} {}/{} {}", area.area, area.name, category.category, category.name))
     }
 
     /// Returns a `Result` with a `String` of the path for an `Id`.
     pub fn get_path_from_id(&self, id: &Id) -> Result<String, &'static str> {
-        for current_id in &self.ids {
-            if current_id.id == id.id {
-                let area = self.get_area_from_id(id)?;
-                let category = self.get_category_from_id(id)?;
+        let area = self.get_area_from_id(id)?;
+        let category = self.get_category_from_id(id)?;
 
-                return Ok(format!("/{} {}/{} {}/{} {}", area.area, area.name, category.category, category.name, id.id, id.name));
-            }
-        }
-
-        Err("The given id does not exist in the index.")
+        Ok(format!("/{} {}/{} {}/{} {}", area.area, area.name, category.category, category.name, id.id, id.name))
     }
 
     /// Category `11`: The string `ac` derived from `ac.id <title>`.
