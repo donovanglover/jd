@@ -3,6 +3,7 @@
 use sanitise_file_name::sanitise;
 use std::cmp::Ordering;
 use std::collections::BTreeSet;
+use std::fmt;
 
 /// `10-19 Area`
 ///
@@ -245,6 +246,12 @@ impl PartialOrd for Area {
     }
 }
 
+impl fmt::Display for Area {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{} {}", self.area, self.name)
+    }
+}
+
 impl Category {
     /// Creates a new `Category` from a given `&str`, returning a `Result`.
     ///
@@ -366,6 +373,12 @@ impl Ord for Category {
 impl PartialOrd for Category {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
         Some(self.cmp(other))
+    }
+}
+
+impl fmt::Display for Category {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{} {}", self.category, self.name)
     }
 }
 
@@ -519,6 +532,12 @@ impl Ord for Id {
 impl PartialOrd for Id {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
         Some(self.cmp(other))
+    }
+}
+
+impl fmt::Display for Id {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{} {}", self.id, self.name)
     }
 }
 
@@ -681,7 +700,7 @@ impl Index {
     /// Note that `Area` does not need to be in `Index`, hence this
     /// function returns a *derived* path *for* an area.
     pub fn derive_path_for_area(&self, area: &Area) -> Result<String, &'static str> {
-        Ok(format!("/{} {}", area.area, area.name))
+        Ok(format!("/{}", area))
     }
 
     /// Returns a `Result` with a `String` of the path for a `Category`.
@@ -691,7 +710,7 @@ impl Index {
     pub fn derive_path_for_category(&self, category: &Category) -> Result<String, &'static str> {
         let area = self.get_area_from_category(category)?;
 
-        Ok(format!("/{} {}/{} {}", area.area, area.name, category.category, category.name))
+        Ok(format!("/{}/{}", area, category))
     }
 
     /// Returns a `Result` with a `String` of the path for an `Id`.
@@ -702,7 +721,7 @@ impl Index {
         let area = self.get_area_from_id(id)?;
         let category = self.get_category_from_id(id)?;
 
-        Ok(format!("/{} {}/{} {}/{} {}", area.area, area.name, category.category, category.name, id.id, id.name))
+        Ok(format!("/{}/{}/{}", area, category, id))
     }
 
     /// Category `11`: The string `ac` derived from `ac.id <title>`.
