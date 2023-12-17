@@ -663,7 +663,7 @@ impl Index {
             }
         }
 
-        Err("A given category did not have a parent area in the index, which should never happen.")
+        Err("The given category does not have a parent area in the index.")
     }
 
     /// Returns a `Result` of the `Area` of a given `Id`.
@@ -674,7 +674,7 @@ impl Index {
             }
         }
 
-        Err("A given id did not have a parent area in the index, which should never happen.")
+        Err("The given id does not have a parent area in the index.")
     }
 
     /// Returns a `Result` with a `String` of the path for an `Area`.
