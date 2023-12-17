@@ -309,7 +309,7 @@ fn test_get_area_from_id() {
 
     let area_from_id = index.get_area_from_id(&id).expect("should get area from id");
 
-    assert!(area_from_id == &area, "area from category should be correct");
+    assert!(area_from_id == &area, "area from id should be correct");
 
     let invalid_id = Id::new("22.04 Id").expect("`22.04 Id` should be a valid id");
 

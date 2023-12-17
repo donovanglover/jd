@@ -33,7 +33,7 @@ impl System {
         Err("Couldn't get index from file or directory contents")
     }
 
-    /// Adds a new `Area` to the system's `Index`.
+    /// Adds a new `Area` to the `System`'s `Index`.
     ///
     /// If the area already exists in the cached index, the file won't be created.
     pub fn add_area(&mut self, area: &Area) -> Result<&Vec<Area>, &'static str> {
@@ -44,13 +44,11 @@ impl System {
         if fs::create_dir(format!("{}/{} {}", self.root, area.get_area(), area.get_name())).is_ok() {
             self.index.add_area(area)
         } else {
-            Err("A directory for the given already exists, but wasn't in index.")
+            Err("A directory for the given area already exists, but wasn't in index.")
         }
     }
 
     /// Removes an existing `Area` from the `System`'s `Index`.
-    ///
-    /// If the area already exists in the cached index, the file won't be created.
     ///
     /// Note that areas get sent to the user's trash, although it may be useful to provide a
     /// warning beforehand or an option to quickly undo in the UI.
