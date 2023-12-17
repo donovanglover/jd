@@ -61,7 +61,51 @@ fn main() {
             }
         }
 
-        Some(Commands::Remove { name: _ }) => {}
+        Some(Commands::Rm { name }) => {
+            let maybe_area_category_or_id = name.join(" ");
+
+            if let Ok(id) = Id::new(&maybe_area_category_or_id) {
+                match system.remove_id(&id) {
+                    Ok(ids) => {
+                        dbg!(ids);
+                    }
+
+                    Err(message) => {
+                        println!("{}", message)
+                    }
+                }
+
+                return;
+            }
+
+            if let Ok(category) = Category::new(&maybe_area_category_or_id) {
+                match system.remove_category(&category) {
+                    Ok(categories) => {
+                        dbg!(categories);
+                    }
+
+                    Err(message) => {
+                        println!("{}", message)
+                    }
+                }
+
+                return;
+            }
+
+            if let Ok(area) = Area::new(&maybe_area_category_or_id) {
+                match system.remove_area(&area) {
+                    Ok(areas) => {
+                        dbg!(areas);
+                    }
+
+                    Err(message) => {
+                        println!("{}", message)
+                    }
+                }
+
+                return;
+            }
+        }
 
         Some(Commands::Index { name: _ }) => {}
 

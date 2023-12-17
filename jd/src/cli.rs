@@ -29,11 +29,11 @@ pub struct Cli {
 
 #[derive(Subcommand)]
 pub enum Commands {
-    /// Add a new area, category, or id.
+    /// Add a new area, category, or id to the filesystem.
     Add { name: Vec<String> },
 
-    /// Remove an existing area, category, or id.
-    Remove { name: String },
+    /// Remove an existing area, category, or id from the filesystem.
+    Rm { name: Vec<String> },
 
     /// List the contents of an area, category, or id.
     Index { name: String },

@@ -69,8 +69,8 @@ Contributions from experienced Rustaceans are welcome.
 
 ## Todo
 
-- [x] jd add: Add a new ID to an area/category
-- [ ] jd rm/remove: Remove an ID and change all existing numbers?
+- [x] jd add: Adds a new area/category/id to the index
+- [x] jd rm: Removes an existing area/category/id from the index
 - [ ] jd mv/move: Move an area/category and rename all child IDs
 - [ ] jd ls: list area/category
 - [ ] Fish completions for jd directories
