@@ -46,9 +46,9 @@
 //!
 //! [Johnny.Decimal Index Specification]: https://github.com/johnnydecimal/jdcm.al__index-spec
 
+use sanitise_file_name::sanitise;
 use std::cmp::Ordering;
 use std::collections::BTreeSet;
-use sanitise_file_name::sanitise;
 
 /// `10-19 Area`
 ///
@@ -669,7 +669,7 @@ impl Index {
     /// removes the risk of such vectors being unverified and producing an undefined state.
     pub fn with_vecs(areas: &Vec<Area>, categories: &Vec<Category>, ids: &Vec<Id>) -> Result<Index, &'static str> {
         if has_duplicate(areas) || has_duplicate(categories) || has_duplicate(ids) {
-            return Err("Duplicates exist.")
+            return Err("Duplicates exist.");
         }
 
         let mut areas = areas.to_owned();
@@ -715,7 +715,7 @@ impl Index {
     /// If successful, the area list is returned as `Ok`. Otherwise `Err`.
     pub fn add_area(&mut self, area: Area) -> Result<&Vec<Area>, &'static str> {
         if self.areas.contains(&area) {
-            return Err("Area already exists.")
+            return Err("Area already exists.");
         }
 
         self.areas.push(area);
@@ -729,7 +729,7 @@ impl Index {
     /// If successful, the category list is returned as `Ok`. Otherwise `Err`.
     pub fn add_category(&mut self, category: Category) -> Result<&Vec<Category>, &'static str> {
         if self.categories.contains(&category) {
-            return Err("Category already exists.")
+            return Err("Category already exists.");
         }
 
         if !self.areas.iter().any(|a| a.area == category.area) {
@@ -747,7 +747,7 @@ impl Index {
     /// If successful, the id list is returned as `Ok`. Otherwise `Err`.
     pub fn add_id(&mut self, id: Id) -> Result<&Vec<Id>, &'static str> {
         if self.ids.contains(&id) {
-            return Err("Id already exists.")
+            return Err("Id already exists.");
         }
 
         if !self.categories.iter().any(|c| c.category == id.category) {
@@ -810,7 +810,11 @@ impl Index {
 }
 
 /// Based on https://stackoverflow.com/a/46767732
-fn has_duplicate<T>(iter: T) -> bool where T: IntoIterator, T::Item: Ord {
+fn has_duplicate<T>(iter: T) -> bool
+where
+    T: IntoIterator,
+    T::Item: Ord,
+{
     let mut uniq = BTreeSet::new();
 
     !iter.into_iter().all(move |x| uniq.insert(x))

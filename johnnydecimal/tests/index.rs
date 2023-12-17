@@ -129,21 +129,21 @@ fn test_with_vecs() {
 
     let duplicate_areas = vec![
         Area::new("10-19 Area").expect("`10-19 Area` should be valid"),
-        Area::new("10-19 Duplicate Area").expect("`10-19 Duplicate Area` should be valid")
+        Area::new("10-19 Duplicate Area").expect("`10-19 Duplicate Area` should be valid"),
     ];
 
     assert!(Index::with_vecs(&duplicate_areas, &categories, &ids).is_err(), "duplicate areas should fail");
 
     let duplicate_categories = vec![
         Category::new("14 Category").expect("`14 Category` should be valid"),
-        Category::new("14 Another Category").expect("`14 Another Category` should be valid")
+        Category::new("14 Another Category").expect("`14 Another Category` should be valid"),
     ];
 
     assert!(Index::with_vecs(&areas, &duplicate_categories, &ids).is_err(), "duplicate categories should fail");
 
     let duplicate_ids = vec![
         Id::new("14.01 Id").expect("`14.01 Id` should be valid"),
-        Id::new("14.01 Another Id").expect("`14.01 Another Id` should be valid")
+        Id::new("14.01 Another Id").expect("`14.01 Another Id` should be valid"),
     ];
 
     assert!(Index::with_vecs(&areas, &categories, &duplicate_ids).is_err(), "duplicate ids should fail");

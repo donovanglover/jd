@@ -17,7 +17,7 @@ fn main() {
             // server::init();
         }
 
-        None => {},
+        None => {}
 
         _ => todo!(),
     }

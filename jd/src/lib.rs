@@ -9,14 +9,11 @@ pub struct System {
 
 impl System {
     pub fn new(root: &str) -> Result<Self, &'static str> {
-        if let Ok(string) = std::fs::read_to_string(format!("{root}/00.00 Index.txt")) {
+        if let Ok(string) = fs::read_to_string(format!("{root}/00.00 Index.txt")) {
             if let Ok(index) = Index::new(&string) {
                 // TODO: Validate that index is valid with filesystem?
                 // Depends on whether System::new() is used once or multiple times
-                return Ok(Self {
-                    root: root.to_string(),
-                    index,
-                })
+                return Ok(Self { root: root.to_string(), index });
             }
         }
 
