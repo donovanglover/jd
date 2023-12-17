@@ -1,6 +1,5 @@
 use clap::Parser;
 use cli::{Cli, Commands};
-use jd::list_areas;
 
 mod cli;
 
@@ -12,15 +11,13 @@ fn main() {
 
         Some(Commands::Remove { name: _ }) => {}
 
-        Some(Commands::Index { name: _ }) => {
-            list_areas();
-        }
+        Some(Commands::Index { name: _ }) => {}
 
         Some(Commands::Serve {}) => {
             // server::init();
         }
 
-        None => list_areas(),
+        None => {},
 
         _ => todo!(),
     }
