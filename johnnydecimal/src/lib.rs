@@ -704,17 +704,13 @@ impl Index {
 
     /// Returns a `Result` of the `Category` of a given `Id`.
     pub fn get_category_from_id(&self, id: &Id) -> Result<&Category, &'static str> {
-        if !self.ids.contains(id) {
-            return Err("The given id does not exist in the index.");
-        }
-
         for category in &self.categories {
             if category.category == id.category {
                 return Ok(category);
             }
         }
 
-        Err("A given id did not have a parent category in the index, which should never happen.")
+        Err("The given id does not have a parent category in the index.")
     }
 
     /// Id `11.01`: The string `ac.id` derived from `ac.id <title>`.

@@ -326,11 +326,11 @@ fn test_get_category_from_id() {
 
     let category_from_id = index.get_category_from_id(&id).expect("should get category from id");
 
-    assert!(category_from_id == &category, "category from id should be correct");
+    assert_eq!(category_from_id, &category, "category from id should be correct");
 
     let invalid_id = Id::new("22.04 Id").expect("`22.04 Id` should be a valid id");
 
-    assert!(index.get_category_from_id(&invalid_id).is_err(), "should fail if id not in index");
+    assert_eq!(index.get_category_from_id(&invalid_id), Ok(&category), "should pass if id not in index");
 }
 
 #[test]
