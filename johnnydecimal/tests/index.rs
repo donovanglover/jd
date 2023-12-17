@@ -332,3 +332,36 @@ fn test_get_category_from_id() {
 
     assert!(index.get_category_from_id(&invalid_id).is_err(), "should fail if id not in index");
 }
+
+#[test]
+fn test_get_path_from_area() {
+    use johnnydecimal::Area;
+
+    let index = Index::new("20-29 Area\n22 Category\n22.01 Id").expect("index should be a valid index");
+    let area = Area::new("20-29 Area").expect("`20-29 Area` should be a valid area");
+    let path = index.get_path_from_area(&area).expect("should parse area to path");
+
+    assert_eq!(path, "/20-29 Area", "should have valid path with absolute path")
+}
+
+#[test]
+fn test_get_path_from_category() {
+    use johnnydecimal::Category;
+
+    let index = Index::new("20-29 Area\n22 Category\n22.01 Id").expect("index should be a valid index");
+    let category = Category::new("22 Category").expect("`22 Category` should be a valid category");
+    let path = index.get_path_from_category(&category).expect("should parse category to path");
+
+    assert_eq!(path, "/20-29 Area/22 Category", "should have valid path with absolute path")
+}
+
+#[test]
+fn test_get_path_from_id() {
+    use johnnydecimal::Id;
+
+    let index = Index::new("20-29 Area\n22 Category\n22.01 Id").expect("index should be a valid index");
+    let id = Id::new("22.01 Id").expect("`22.01 Id` should be a valid id");
+    let path = index.get_path_from_id(&id).expect("should parse id to path");
+
+    assert_eq!(path, "/20-29 Area/22 Category/22.01 Id", "should have valid path with absolute path")
+}
