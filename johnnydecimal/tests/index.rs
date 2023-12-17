@@ -281,3 +281,16 @@ fn compare_index() {
     assert!(index_1 == index_2, "index_1 should equal the same as index_2");
     assert!(index_1 != index_3, "index_1 should NOT equal the same as index_3");
 }
+
+#[test]
+fn test_get_area_from_category() {
+    use johnnydecimal::{Area, Category};
+
+    let index = Index::new("20-29 Area\n22 Category").expect("index should be a valid index");
+    let area = Area::new("20-29 Area").expect("`20-29 Area` should be a valid area");
+    let category = Category::new("22 Category").expect("`22 Category` should be a valid category");
+
+    let area_from_category = index.get_area_from_category(&category).expect("should get area from category");
+
+    assert!(area_from_category == &area, "area from category should be correct");
+}

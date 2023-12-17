@@ -700,6 +700,19 @@ impl Index {
         &self.areas
     }
 
+    /// Returns a `Result` of the `Area` of a given `Category`.
+    ///
+    /// Should always `Ok` assuming validation works as intended.
+    pub fn get_area_from_category(&self, category: &Category) -> Result<&Area, &'static str> {
+        for area in &self.areas {
+            if area.area == category.area {
+                return Ok(area);
+            }
+        }
+
+        Err("A given category did not have a parent area in the index, which should never happen.")
+    }
+
     /// Category `11`: The string `ac` derived from `ac.id <title>`.
     pub fn get_categories(&self) -> &Vec<Category> {
         &self.categories
