@@ -137,6 +137,28 @@ impl System {
             Err("The given id *was* in the index, but *wasn't* able to be moved to trash.")
         }
     }
+
+    /// Pretty print the index of a system
+    ///
+    /// Note: Time complexity for this is horribly inefficient but micro-optimizations shouldn't
+    /// matter here since we are guaranteed to have around 10000 ids max.
+    pub fn print_index(&self) {
+        for area in self.index.get_areas() {
+            println!("{area}");
+
+            let categories = self.index.get_categories().iter().filter(|e| e.get_area() == area.get_area());
+
+            for category in categories {
+                println!("{category}");
+
+                let ids = self.index.get_ids().iter().filter(|e| e.get_category() == category.get_category());
+
+                for id in ids {
+                    println!("{id}");
+                }
+            }
+        }
+    }
 }
 
 fn get_index_from_fs(root: &str) -> Result<Index, std::io::Error> {

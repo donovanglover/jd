@@ -10,7 +10,7 @@ mod cli;
 fn main() {
     let cli = Cli::parse();
 
-    let Ok(mut system) = System::new("./test_systems/empty") else {
+    let Ok(mut system) = System::new("./test_systems/simple") else {
         println!("Invalid system");
 
         return;
@@ -113,7 +113,10 @@ fn main() {
             println!("Given string doesn't look like an area, category, or id.")
         }
 
-        Some(Commands::Index {}) => {}
+        Some(Commands::Index {}) => {
+            system.print_index();
+        }
+
         Some(Commands::Clean {}) => {}
         Some(Commands::Serve {}) => {}
         None => {}

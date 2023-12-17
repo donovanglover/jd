@@ -72,7 +72,7 @@ Contributions from experienced Rustaceans are welcome.
 - [x] jd add: Adds a new area/category/id to the index
 - [x] jd rm: Removes an existing area/category/id from the index
 - [ ] jd mv/move: Move an area/category and rename all child IDs
-- [ ] jd ls: list area/category
+- [x] jd index: pretty print index
 - [ ] Fish completions for jd directories
 - [ ] server for index notes / browse johnny decimal system remotely
 - [ ] validate johnny decimal systems to ensure that regular files aren't stored outside of ids
