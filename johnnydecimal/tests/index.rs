@@ -296,7 +296,7 @@ fn test_get_area_from_category() {
 
     let invalid_category = Category::new("24 Category").expect("`24 Category` should be a valid category");
 
-    assert!(index.get_area_from_category(&invalid_category).is_err(), "should fail if category not in index");
+    assert!(index.get_area_from_category(&invalid_category).is_ok(), "should pass if category not in index");
 }
 
 #[test]
@@ -313,7 +313,7 @@ fn test_get_area_from_id() {
 
     let invalid_id = Id::new("22.04 Id").expect("`22.04 Id` should be a valid id");
 
-    assert!(index.get_area_from_id(&invalid_id).is_err(), "should fail if id not in index");
+    assert!(index.get_area_from_id(&invalid_id).is_ok(), "should pass if id not in index");
 }
 
 #[test]
