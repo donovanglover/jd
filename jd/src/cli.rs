@@ -16,8 +16,8 @@ fn styles() -> Styles {
 #[command(author, version, about, long_about = LONG_ABOUT, styles = styles())]
 pub struct Cli {
     /// Directory where areas are stored.
-    #[arg(short, long, default_value = "$HOME")]
-    pub dir: PathBuf,
+    #[arg(short, long)]
+    pub dir: Option<PathBuf>,
 
     /// Print debugging information
     #[arg(short, long, default_value_t = false)]
@@ -35,13 +35,18 @@ pub enum Commands {
     /// Remove an existing area, category, or id from the filesystem.
     Rm { name: Vec<String> },
 
-    /// List the contents of an area, category, or id.
-    Index { name: String },
+    /// List the contents of the index
+    Index {},
 
     /// Insert a new area, category, or id, moving existing ones.
-    Insert { name: String },
+    ///
+    /// NOTE: This is non-trivial to implement since it cascades.
+    // Insert { name: String },
 
     /// Checks for empty folders and missing areas/categories/ids (Prune/Clean)
+    ///
+    /// NOTE: Could simplify this to a "check" function that validates the index with
+    /// the filesystem (performance)
     Clean {},
 
     /// Start a new web server.

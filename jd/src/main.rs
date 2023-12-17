@@ -107,14 +107,9 @@ fn main() {
             }
         }
 
-        Some(Commands::Index { name: _ }) => {}
-
-        Some(Commands::Serve {}) => {
-            // server::init();
-        }
-
+        Some(Commands::Index {}) => {}
+        Some(Commands::Clean {}) => {}
+        Some(Commands::Serve {}) => {}
         None => {}
-
-        _ => todo!(),
     }
 }
