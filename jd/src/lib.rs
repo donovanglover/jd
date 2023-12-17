@@ -1,3 +1,5 @@
+#![doc = include_str!("../README.md")]
+
 use johnnydecimal::{Area, Category, Id, Index};
 use std::fs;
 
