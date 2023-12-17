@@ -41,7 +41,9 @@ impl System {
             return Err("Area already exists in index.");
         }
 
-        if fs::create_dir(format!("{}/{} {}", self.root, area.get_area(), area.get_name())).is_ok() {
+        let path = self.index.derive_path_for_area(area)?;
+
+        if fs::create_dir(self.root.clone() + &path).is_ok() {
             self.index.add_area(area)
         } else {
             Err("A directory for the given area already exists, but wasn't in index.")
@@ -57,7 +59,7 @@ impl System {
             todo!("Handle possibility that filesystem could have area but index doesn't")
         }
 
-        let path = self.index.get_path_from_area(area)?;
+        let path = self.index.derive_path_for_area(area)?;
 
         if trash::delete(self.root.clone() + &path).is_ok() {
             self.index.remove_area(area)
