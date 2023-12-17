@@ -339,7 +339,7 @@ fn test_get_path_from_area() {
 
     let index = Index::new("20-29 Area\n22 Category\n22.01 Id").expect("index should be a valid index");
     let area = Area::new("20-29 Area").expect("`20-29 Area` should be a valid area");
-    let path = index.get_path_from_area(&area).expect("should parse area to path");
+    let path = index.derive_path_for_area(&area).expect("should parse area to path");
 
     assert_eq!(path, "/20-29 Area", "should have valid path with absolute path")
 }
@@ -350,7 +350,7 @@ fn test_get_path_from_category() {
 
     let index = Index::new("20-29 Area\n22 Category\n22.01 Id").expect("index should be a valid index");
     let category = Category::new("22 Category").expect("`22 Category` should be a valid category");
-    let path = index.get_path_from_category(&category).expect("should parse category to path");
+    let path = index.derive_path_for_category(&category).expect("should parse category to path");
 
     assert_eq!(path, "/20-29 Area/22 Category", "should have valid path with absolute path")
 }
@@ -361,7 +361,7 @@ fn test_get_path_from_id() {
 
     let index = Index::new("20-29 Area\n22 Category\n22.01 Id").expect("index should be a valid index");
     let id = Id::new("22.01 Id").expect("`22.01 Id` should be a valid id");
-    let path = index.get_path_from_id(&id).expect("should parse id to path");
+    let path = index.derive_path_for_id(&id).expect("should parse id to path");
 
     assert_eq!(path, "/20-29 Area/22 Category/22.01 Id", "should have valid path with absolute path")
 }

@@ -678,19 +678,28 @@ impl Index {
     }
 
     /// Returns a `Result` with a `String` of the path for an `Area`.
-    pub fn get_path_from_area(&self, area: &Area) -> Result<String, &'static str> {
+    ///
+    /// Note that `Area` does not need to be in `Index`, hence this
+    /// function returns a *derived* path *for* an area.
+    pub fn derive_path_for_area(&self, area: &Area) -> Result<String, &'static str> {
         Ok(format!("/{} {}", area.area, area.name))
     }
 
     /// Returns a `Result` with a `String` of the path for a `Category`.
-    pub fn get_path_from_category(&self, category: &Category) -> Result<String, &'static str> {
+    ///
+    /// Note that `Category` does not need to be in `Index`, hence this
+    /// function returns a *derived* path *for* a category.
+    pub fn derive_path_for_category(&self, category: &Category) -> Result<String, &'static str> {
         let area = self.get_area_from_category(category)?;
 
         Ok(format!("/{} {}/{} {}", area.area, area.name, category.category, category.name))
     }
 
     /// Returns a `Result` with a `String` of the path for an `Id`.
-    pub fn get_path_from_id(&self, id: &Id) -> Result<String, &'static str> {
+    ///
+    /// Note that `Id` does not need to be in `Index`, hence this
+    /// function returns a *derived* path *for* an id.
+    pub fn derive_path_for_id(&self, id: &Id) -> Result<String, &'static str> {
         let area = self.get_area_from_id(id)?;
         let category = self.get_category_from_id(id)?;
 
