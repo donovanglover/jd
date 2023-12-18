@@ -21,7 +21,7 @@ impl System {
             if let Ok(index) = Index::new(&string) {
                 if let Ok(index_fs) = get_index_from_fs(root) {
                     if index != index_fs {
-                        todo!("Handle filesystem and index file being different");
+                        return Err("Filesystem and index file are different");
                     }
                 }
 
