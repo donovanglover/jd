@@ -55,8 +55,9 @@ impl System {
 
     /// Removes an existing `Area` from the `System`'s `Index`.
     ///
-    /// Note that areas get sent to the user's trash, although it may be useful to provide a
-    /// warning beforehand or an option to quickly undo in the UI.
+    /// This operation moves a user's given `Area` to the user's Trash directory.
+    ///
+    /// Also removes child categories and grandchild ids from the `Index`.
     pub fn remove_area(&mut self, area: &Area) -> Result<&Vec<Area>, &'static str> {
         if !self.index.get_areas().contains(area) {
             todo!("Handle possibility that filesystem could have area but index doesn't")
@@ -65,6 +66,22 @@ impl System {
         let path = self.index.derive_path_for_area(area)?;
 
         if trash::delete(self.root.clone() + &path).is_ok() {
+            let categories = self.index.derive_categories_of_area(area);
+
+            for category in categories {
+                let ids = self.index.derive_ids_of_category(&category);
+
+                for id in ids {
+                    if self.index.remove_id(&id).is_err() {
+                        return Err("Error removing id from index");
+                    }
+                }
+
+                if self.index.remove_category(&category).is_err() {
+                    return Err("Error removing category from index");
+                }
+            }
+
             self.index.remove_area(area)
         } else {
             Err("The given area *was* in the index, but *wasn't* able to be moved to trash.")
@@ -88,10 +105,11 @@ impl System {
         }
     }
 
-    /// Removes an existing `Area` from the `System`'s `Index`.
+    /// Removes an existing `Category` from the `System`'s `Index`.
     ///
-    /// TODO: Note that categories and their contents get sent to the user's trash,
-    /// so affected ids should be removed from the `Index` as well.
+    /// This operation moves a user's given `Category` to the user's Trash directory.
+    ///
+    /// Also removes child ids from the `Index`.
     pub fn remove_category(&mut self, category: &Category) -> Result<&Vec<Category>, &'static str> {
         if !self.index.get_categories().contains(category) {
             todo!("Handle possibility that filesystem could have category but index doesn't")
@@ -100,6 +118,14 @@ impl System {
         let path = self.index.derive_path_for_category(category)?;
 
         if trash::delete(self.root.clone() + &path).is_ok() {
+            let ids = self.index.derive_ids_of_category(category);
+
+            for id in ids {
+                if self.index.remove_id(&id).is_err() {
+                    return Err("Error removing id from index");
+                }
+            }
+
             self.index.remove_category(category)
         } else {
             Err("The given category *was* in the index, but *wasn't* able to be moved to trash.")
