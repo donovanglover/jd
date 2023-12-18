@@ -5,12 +5,20 @@ CLI, web server, and library for interacting with [Johnny.Decimal](https://johnn
 ## Features (for users)
 
 - Automatically rename IDs on area/category changes.
+- Non-destructive.
+  - Your files are never deleted, only trashed.
+  - Your files are never overwritten. New folders are only created if they don't exist already.
 
 ## Features (for developers)
 
 - 100% test coverage
 - No unsafe code
 - 100% documentation coverage
+
+## Stack
+
+- Frontend: React
+- Backend: Rust
 
 ## Installation
 
@@ -76,3 +84,4 @@ Contributions from experienced Rustaceans are welcome.
 - [ ] Fish completions for jd directories
 - [ ] server for index notes / browse johnny decimal system remotely
 - [ ] validate johnny decimal systems to ensure that regular files aren't stored outside of ids
+- [ ] program a way to guarantee the positioning of comments?
