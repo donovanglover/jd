@@ -297,6 +297,10 @@ fn test_get_area_from_category() {
     let invalid_category = Category::new("24 Category").expect("`24 Category` should be a valid category");
 
     assert!(index.get_area_from_category(&invalid_category).is_ok(), "should pass if category not in index");
+
+    let category_without_area = Category::new("32 Category").expect("`32 Category` should be a valid category");
+
+    assert!(index.get_area_from_category(&category_without_area).is_err(), "should fail if area doesn't exist");
 }
 
 #[test]
@@ -314,6 +318,10 @@ fn test_get_area_from_id() {
     let invalid_id = Id::new("22.04 Id").expect("`22.04 Id` should be a valid id");
 
     assert!(index.get_area_from_id(&invalid_id).is_ok(), "should pass if id not in index");
+
+    let id_without_area = Id::new("32.01 Test").expect("`32.01 Test` should be a valid id");
+
+    assert!(index.get_area_from_id(&id_without_area).is_err(), "should fail if area doesn't exist");
 }
 
 #[test]
@@ -331,6 +339,10 @@ fn test_get_category_from_id() {
     let invalid_id = Id::new("22.04 Id").expect("`22.04 Id` should be a valid id");
 
     assert_eq!(index.get_category_from_id(&invalid_id), Ok(&category), "should pass if id not in index");
+
+    let id_without_category = Id::new("32.01 Test").expect("`32.01 Test` should be a valid id");
+
+    assert!(index.get_category_from_id(&id_without_category).is_err(), "should fail if category doesn't exist");
 }
 
 #[test]
@@ -364,4 +376,37 @@ fn test_derive_path_for_id() {
     let path = index.derive_path_for_id(&id).expect("should parse id to path");
 
     assert_eq!(path, "/20-29 Area/22 Category/22.01 Id", "should have valid path with absolute path")
+}
+
+#[test]
+fn test_derive_ids_of_category() {
+    use johnnydecimal::{Category, Id};
+
+    let index = Index::new("20-29 Area\n22 Category\n22.01 Id").expect("index should be a valid index");
+    let category = Category::new("22 Category").expect("`22 Category` should be a valid category");
+    let id = Id::new("22.01 Id").expect("`22.01 Id` should be a valid id");
+
+    let ids = index.derive_ids_of_category(&category);
+
+    assert_eq!(ids, vec![id], "should return a vector of category ids in the index")
+}
+
+#[test]
+fn test_derive_categories_of_area() {
+    use johnnydecimal::{Area, Category};
+
+    let index = Index::new("20-29 Area\n22 Category\n22.01 Id").expect("index should be a valid index");
+    let area = Area::new("20-29 Area").expect("`20-29 Area` should be a valid area");
+    let category = Category::new("22 Category").expect("`22 Category` should be a valid category");
+
+    let categories = index.derive_categories_of_area(&area);
+
+    assert_eq!(categories, vec![category], "should return a vector of area categories in the index")
+}
+
+#[test]
+fn test_display_index() {
+    let index = Index::new("20-29 Area\n22 Category\n22.01 Id").expect("index should be a valid index");
+
+    assert_eq!(index.to_string(), "20-29 Area\n22 Category\n22.01 Id", "should return an index string in order")
 }
