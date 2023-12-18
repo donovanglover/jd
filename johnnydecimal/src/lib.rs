@@ -842,6 +842,28 @@ impl Index {
 
         Ok(&self.ids)
     }
+
+    /// Returns the ids of a given category
+    pub fn derive_ids_of_category(&self, category: &Category) -> Vec<Id> {
+        let mut vec: Vec<Id> = vec![];
+
+        for id in self.ids.iter().filter(|e| e.category == category.category) {
+            vec.push(id.clone())
+        }
+
+        vec.clone()
+    }
+
+    /// Returns the categories of a given area
+    pub fn derive_categories_of_area(&self, area: &Area) -> Vec<Category> {
+        let mut vec: Vec<Category> = vec![];
+
+        for category in self.categories.iter().filter(|e| e.area == area.area) {
+            vec.push(category.clone());
+        }
+
+        vec.clone()
+    }
 }
 
 /// Based on https://stackoverflow.com/a/46767732
@@ -869,13 +891,13 @@ impl fmt::Display for Index {
             result.push_str(&area.to_string());
             result.push('\n');
 
-            let categories = self.categories.iter().filter(|e| e.area == area.area);
+            let categories = self.derive_categories_of_area(area);
 
             for category in categories {
                 result.push_str(&category.to_string());
                 result.push('\n');
 
-                let ids = self.ids.iter().filter(|e| e.category == category.category);
+                let ids = self.derive_ids_of_category(&category);
 
                 for id in ids {
                     result.push_str(&id.to_string());
