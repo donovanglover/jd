@@ -10,7 +10,7 @@ mod cli;
 fn main() {
     let cli = Cli::parse();
 
-    let Ok(mut system) = System::new("./test_systems/simple") else {
+    let Ok(mut system) = System::new("./tests/simple") else {
         println!("Invalid system");
 
         return;

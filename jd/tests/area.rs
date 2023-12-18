@@ -3,7 +3,7 @@ use johnnydecimal::{Area, Category, Id};
 
 #[test]
 fn area_add() {
-    let mut system = System::new("../test_systems/empty").expect("Test system should be valid");
+    let mut system = System::new("../tests/empty").expect("Test system should be valid");
 
     let area = Area::new("40-49 Area 4").expect("`40-49 Area 4` should be valid");
     let category = Category::new("43 New Category").expect("`43 New Category` should be valid");
