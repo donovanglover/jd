@@ -144,56 +144,87 @@ impl System {
     }
 }
 
-fn get_index_from_fs(root: &str) -> Result<Index, std::io::Error> {
+fn get_index_from_fs(root: &str) -> Result<Index, &'static str> {
     let mut areas = vec![];
     let mut categories = vec![];
     let mut ids = vec![];
-    let directory = fs::read_dir(root)?;
+
+    let Ok(directory) = fs::read_dir(root) else {
+        return Err("Couldn't read root directory");
+    };
 
     for path in directory {
-        let path = path?;
+        let Ok(path) = path else {
+            return Err("Couldn't path in path");
+        };
 
         if !path.path().is_dir() {
             continue;
         }
 
-        if let Ok(area) = Area::new(path.file_name().to_str().ok_or(std::io::ErrorKind::Other)?) {
+        let maybe_area = path.file_name();
+
+        let Some(maybe_area) = maybe_area.to_str() else {
+            return Err("Couldn't convert path to str");
+        };
+
+        if let Ok(area) = Area::new(maybe_area) {
             if areas.contains(&area) {
-                return Err(std::io::ErrorKind::Other.into());
+                return Err("Given area is already in index");
             }
 
             areas.push(area);
         }
 
-        let subdirs = fs::read_dir(path.path())?;
+        let Ok(subdirs) = fs::read_dir(path.path()) else {
+            return Err("Couldn't read subdirs");
+        };
 
         for dir in subdirs {
-            let dir = dir?;
+            let Ok(dir) = dir else {
+                return Err("Couldn't dir subdir");
+            };
 
             if !dir.path().is_dir() {
                 continue;
             }
 
-            if let Ok(category) = Category::new(dir.file_name().to_str().ok_or(std::io::ErrorKind::Other)?) {
+            let maybe_category = dir.file_name();
+
+            let Some(maybe_category) = maybe_category.to_str() else {
+                return Err("Couldn't convert path to str");
+            };
+
+            if let Ok(category) = Category::new(maybe_category) {
                 if categories.contains(&category) {
-                    return Err(std::io::ErrorKind::Other.into());
+                    return Err("Given category is already in index");
                 }
 
                 categories.push(category);
             }
 
-            let sub_dirs = fs::read_dir(dir.path())?;
+            let Ok(sub_dirs) = fs::read_dir(dir.path()) else {
+                return Err("Couldn't read_dir of child");
+            };
 
             for sub_dir in sub_dirs {
-                let sub_dir = sub_dir?;
+                let Ok(sub_dir) = sub_dir else {
+                    return Err("Couldn't dir sub_dir");
+                };
 
                 if !sub_dir.path().is_dir() {
                     continue;
                 }
 
-                if let Ok(id) = Id::new(sub_dir.file_name().to_str().ok_or(std::io::ErrorKind::Other)?) {
+                let maybe_id = sub_dir.file_name();
+
+                let Some(maybe_id) = maybe_id.to_str() else {
+                    return Err("Couldn't convert path to str");
+                };
+
+                if let Ok(id) = Id::new(maybe_id) {
                     if ids.contains(&id) {
-                        return Err(std::io::ErrorKind::Other.into());
+                        return Err("Given id is already in index");
                     }
 
                     ids.push(id)
@@ -206,5 +237,5 @@ fn get_index_from_fs(root: &str) -> Result<Index, std::io::Error> {
         return Ok(index);
     }
 
-    Err(std::io::ErrorKind::Other.into())
+    Err("An index couldn't be created")
 }
