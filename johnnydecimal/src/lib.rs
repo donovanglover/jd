@@ -564,7 +564,7 @@ impl Index {
     /// # Panics
     ///
     /// Key/value pairs and comments have not been implemented.
-    pub fn new(str: &str) -> Result<Index, &str> {
+    pub fn new(str: &str) -> Result<Self, &str> {
         let mut areas: Vec<Area> = vec![];
         let mut categories: Vec<Category> = vec![];
         let mut ids: Vec<Id> = vec![];
@@ -633,14 +633,14 @@ impl Index {
         categories.sort_unstable();
         ids.sort_unstable();
 
-        Ok(Index { areas, categories, ids })
+        Ok(Self { areas, categories, ids })
     }
 
     /// Create an Index from vectors
     ///
     /// Note that checking for duplicates and sorting the vectors (although possibly redundant)
     /// removes the risk of such vectors being unverified and producing an undefined state.
-    pub fn with_vecs(areas: &Vec<Area>, categories: &Vec<Category>, ids: &Vec<Id>) -> Result<Index, &'static str> {
+    pub fn with_vecs(areas: &Vec<Area>, categories: &Vec<Category>, ids: &Vec<Id>) -> Result<Self, &'static str> {
         if has_duplicate(areas) || has_duplicate(categories) || has_duplicate(ids) {
             return Err("Duplicates exist.");
         }
@@ -665,7 +665,7 @@ impl Index {
             }
         }
 
-        Ok(Index { areas, categories, ids })
+        Ok(Self { areas, categories, ids })
     }
 
     /// Area `10-19`: The string `a0-a9` derived from `ac.id <title>`.
