@@ -1,6 +1,6 @@
 # jd
 
-CLI, web server, and library for interacting with [Johnny.Decimal](https://johnnydecimal.com/) systems.
+CLI and library for interacting with [Johnny.Decimal](https://johnnydecimal.com/) systems.
 
 ## Features (for users)
 
@@ -8,17 +8,14 @@ CLI, web server, and library for interacting with [Johnny.Decimal](https://johnn
 - Non-destructive.
   - Your files are never deleted, only trashed.
   - Your files are never overwritten. New folders are only created if they don't exist already.
+- Use your favorite note editor.
+  - TODO: Support for building indexes from a custom ruleset? Make no assumptions and let user manually create rules? Have a set of predefined rules?
 
 ## Features (for developers)
 
 - 100% test coverage
 - No unsafe code
 - 100% documentation coverage
-
-## Stack
-
-- Frontend: React
-- Backend: Rust
 
 ## Installation
 
@@ -73,7 +70,8 @@ Options:
 
 ## Contributing
 
-Contributions from experienced Rustaceans are welcome.
+- If you are trying to use the library and think it can be better, please report an issue.
+- Please also make an issue if you are using the CLI and want a new feature to manage your Johnny.Decimal numbers.
 
 ## Todo
 
