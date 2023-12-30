@@ -1,6 +1,6 @@
 # jd
 
-CLI and library for interacting with [Johnny.Decimal](https://johnnydecimal.com/) systems.
+CLI and Rust library for interacting with [Johnny.Decimal](https://johnnydecimal.com/) systems.
 
 ## Features (for users)
 
@@ -83,3 +83,5 @@ Options:
 - [ ] server for index notes / browse johnny decimal system remotely
 - [ ] validate johnny decimal systems to ensure that regular files aren't stored outside of ids
 - [ ] program a way to guarantee the positioning of comments?
+- [ ] support for dmenu?
+- [ ] jd serve <id> to serve a note or directory for a specific id?
