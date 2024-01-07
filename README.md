@@ -11,12 +11,6 @@ CLI and Rust library for interacting with [Johnny.Decimal](https://johnnydecimal
 - Use your favorite note editor.
   - TODO: Support for building indexes from a custom ruleset? Make no assumptions and let user manually create rules? Have a set of predefined rules?
 
-## Features (for developers)
-
-- 100% test coverage
-- No unsafe code
-- 100% documentation coverage
-
 ## Installation
 
 `jd` has official support for NixOS.

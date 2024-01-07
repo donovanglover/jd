@@ -4,6 +4,12 @@ There are 3 main structs: `Area`, `Category`, and `Id`.
 
 For simplicity, these struct fields are stored and compared as `String`s.
 
+## Features
+
+- 100% test coverage
+- No unsafe code
+- 100% documentation coverage
+
 # Example
 
 ```rust
