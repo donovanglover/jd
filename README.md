@@ -1,8 +1,8 @@
 # jd
 
-CLI and Rust library for interacting with [Johnny.Decimal](https://johnnydecimal.com/) systems.
+CLI and library for interacting with [Johnny.Decimal](https://johnnydecimal.com/) systems.
 
-## Features (for users)
+## Features
 
 - Automatically rename IDs on area/category changes.
 - Non-destructive.
@@ -13,11 +13,7 @@ CLI and Rust library for interacting with [Johnny.Decimal](https://johnnydecimal
 
 ## Installation
 
-`jd` has official support for NixOS.
-
 ### [NixOS](https://nixos.wiki/wiki/Overview_of_the_NixOS_Linux_distribution) (Recommended)
-
-> TODO: `jd` has not reached 0.1.0 yet.
 
 Add [`jd`](https://search.nixos.org/packages?channel=unstable&query=jd) to your `systemPackages` and rebuild.
 
@@ -64,8 +60,7 @@ Options:
 
 ## Contributing
 
-- If you are trying to use the library and think it can be better, please report an issue.
-- Please also make an issue if you are using the CLI and want a new feature to manage your Johnny.Decimal numbers.
+Contributions are welcome. Make new issues if you have feature requests for the library or CLI.
 
 ## Todo
 
