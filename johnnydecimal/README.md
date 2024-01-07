@@ -45,7 +45,7 @@ johnnydecimal = { git = "https://github.com/donovanglover/jd.git" }
 
 # Performance
 
-This crate uses no external dependencies. All functionality is achieved with Rust's standard
+This crate uses minimal dependencies. Most functionality is achieved with Rust's standard
 library, making it extremely fast to compile and use in other projects.
 
 [Johnny.Decimal Index Specification]: https://github.com/johnnydecimal/jdcm.al__index-spec
